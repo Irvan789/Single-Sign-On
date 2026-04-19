@@ -42,6 +42,10 @@ class SocialProvider extends Controller
             $socialite = Socialite::driver($provider)->user();
 
             if ($this->user) {
+                if ($this->user->passwordless) {
+                    throw new Exception('Please create password first before you can manage linking social accounts.');
+                }
+
                 $userSocialAccount = Social::where([
                     'user_id' => $this->user->id,
                     'provider' => $provider,
