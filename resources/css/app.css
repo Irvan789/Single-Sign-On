@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@plugin "@iconify/tailwind4";
+
+@source "../views";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+
+@theme {
+  --font-sans: "Reddit Sans", sans-serif;
+  --breakpoint-xs: 32rem;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+button,
+button:not(disabled) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+div#livewire-error {
+  top: 0;
+  left: 0;
+}
+
+.os-theme-dark.os-scrollbar,
+.os-theme-light.os-scrollbar {
+  --os-size: 4px;
+  --os-padding-perpendicular: 0px;
+  --os-handle-border-radius: 8px;
+  --os-handle-bg: #3d3530;
+  --os-handle-bg-hover: #3d3530;
+  --os-handle-bg-active: #3d3530;
+}
+
+::-webkit-scrollbar {
+  height: 6px;
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3d3530;
+}
