@@ -6,6 +6,7 @@
 
 @theme {
   --font-sans: "Reddit Sans", sans-serif;
+  --font-mono: "Reddit mono", 'Consolas';
   --breakpoint-xs: 32rem;
 }
 

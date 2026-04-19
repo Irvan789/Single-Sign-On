@@ -17,7 +17,7 @@
         </div>
 
         <div class="flex flex-col gap-4 sm:col-span-2">
-          <div class="grid gap-2 font-['Consolas'] text-base/5 font-medium sm:grid-cols-2">
+          <div class="grid gap-2 font-mono text-base/5 font-medium sm:grid-cols-2">
             @if (filled($recoveryCodes))
               @foreach ($recoveryCodes as $code)
                 <span>

@@ -15,6 +15,6 @@
 <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
 <link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=reddit-sans:400,500,600,700,800,900" rel="stylesheet" />
+<link href="https://fonts.bunny.net/css?family=reddit-mono:200,300,400,500,600,700,800,900|reddit-sans:200,300,400,500,600,700,800,900" rel="stylesheet" />
 
 @vite(['resources/css/app.css', 'resources/ts/app.ts'])
