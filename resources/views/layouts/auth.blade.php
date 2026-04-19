@@ -11,7 +11,7 @@
   style="background-image: url('{{ asset('assets/images/background/perlica.webp') }}')"
 >
   <div class="overlay-scrollbars h-full w-full">
-    <div class="flex min-h-full w-full p-2">
+    <div class="flex min-h-full w-full py-4">
       <x-toastify />
 
       <div class="md:max-w-116 m-auto grid w-full max-w-md grid-rows-[max-content_auto_max-content]">
@@ -27,7 +27,7 @@
 
           <a
             @if (!Route::is('login')) href="{{ route('login') }}" @endif
-            class="block w-fit cursor-pointer text-xl/5 font-bold text-[#3d3530]"
+            class="text-xl/5.5 block w-fit cursor-pointer font-bold text-[#3d3530]"
             wire:navigate
           >
             {{ config('app.name') }}
@@ -36,7 +36,7 @@
           {{ $slot }}
         </div>
 
-        <span class="mt-3 text-center text-xs/tight font-semibold text-[#3d353080]">
+        <span class="mt-4 text-center text-xs/3 font-semibold text-[#3d353080]">
           irvan789.dev ⋅ Artworks By:
           <a
             href="https://x.com/Yatuno_LLC"

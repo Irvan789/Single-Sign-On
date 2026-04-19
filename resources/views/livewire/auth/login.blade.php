@@ -46,7 +46,7 @@
       @if (Route::has('password.request'))
         <a
           href="{{ route('password.request') }}"
-          class="text-[0.9375rem]/4 text-[#3d3530] hover:underline"
+          class="text-[0.9375rem]/4 text-[#8b7355] hover:underline"
           wire:navigate
         >
           Forgot Password?
