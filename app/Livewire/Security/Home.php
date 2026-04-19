@@ -65,9 +65,7 @@ class Home extends Component
     {
         try {
             $validated = $this->validate([
-                'current_password' => $this->user->passwordless
-                    ? array_merge($this->currentPasswordRules(), ['optional'])
-                    : $this->currentPasswordRules(),
+                'current_password' => $this->user->passwordless ? ['optional'] : $this->currentPasswordRules(),
                 'password' => $this->passwordRules()
             ]);
         } catch (ValidationException $error) {
