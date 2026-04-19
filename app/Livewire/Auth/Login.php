@@ -36,7 +36,7 @@ class Login extends Component
         if (Session::has('status') || Session::has('error')) {
             $this->dispatch('toastify', [
                 'type' => Session::has('error') ? 'error' : 'success',
-                'message' => Session::get('status') ?? Session::get('error')
+                'message' => Session::get('error') ?? Session::get('status')
             ]);
         }
 

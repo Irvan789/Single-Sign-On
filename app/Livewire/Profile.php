@@ -8,6 +8,7 @@ use App\Livewire\Actions\Logout;
 use App\Models\Social;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -68,6 +69,13 @@ class Profile extends Component
 
     public function render()
     {
+        if (Session::has('status') || Session::has('error')) {
+            $this->dispatch('toastify', [
+                'type' => Session::has('error') ? 'error' : 'success',
+                'message' => Session::get('error') ?? Session::get('status')
+            ]);
+        }
+
         return view('livewire.profile')->layout('layouts::app', [
             'title' => 'My Profile',
             'user' => $this->user

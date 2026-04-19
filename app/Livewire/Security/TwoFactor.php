@@ -147,7 +147,10 @@ class TwoFactor extends Component
             try {
                 $this->recoveryCodes = json_decode(decrypt($this->user->two_factor_recovery_codes), true);
             } catch (Exception) {
-                $this->addError('error', 'Failed to load recovery codes.');
+                $this->dispatch('toastify', [
+                    'type' => 'error',
+                    'message' => 'Failed to load recovery codes.'
+                ]);
 
                 $this->recoveryCodes = [];
             }
