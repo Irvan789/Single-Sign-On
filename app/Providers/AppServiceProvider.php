@@ -7,6 +7,7 @@ use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Passport\Passport;
@@ -20,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        if (config('app.env') == 'production') {
+            URL::forceScheme('https');
+        }
+
         $this->configureDefaults();
 
         $this->configurePassport();
