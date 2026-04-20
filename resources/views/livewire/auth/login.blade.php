@@ -104,9 +104,13 @@
           body: formData
         })
 
-        Livewire.navigate(res.two_factor ?
-          "{{ route('two-factor.challenge') }}" :
-          "{{ route('home') }}"
+        Livewire.navigate(
+          (
+            res.two_factor ?
+            "{{ route('two-factor.challenge') }}" :
+            "{{ session()->has('url.intended') ? session()->get('url.intended') : route('home') }}"
+          )
+          .replaceAll('amp;', '')
         )
       } catch (error) {
         await $wire.resetStatus()

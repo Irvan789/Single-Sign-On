@@ -9,6 +9,7 @@ use App\Http\Requests\FortifySendPasswordResetLinkRequest;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
@@ -34,6 +35,8 @@ class FortifyServiceProvider extends ServiceProvider
             new class implements LogoutResponse {
                 public function toResponse($request)
                 {
+                    Session::put('url.intended', $request->input('authorize_url'));
+
                     return redirect(route('login'));
                 }
             }

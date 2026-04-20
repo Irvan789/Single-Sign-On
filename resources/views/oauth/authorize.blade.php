@@ -114,6 +114,12 @@
       >
         @csrf
 
+        <input
+          type="hidden"
+          name="authorize_url"
+          value="{{ request()->fullUrl() }}"
+        />
+
         <button
           type="submit"
           class="cursor-pointer text-[#8b7355] hover:underline"

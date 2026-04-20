@@ -91,7 +91,10 @@
           body: formData
         })
 
-        Livewire.navigate("{{ route('home') }}")
+        Livewire.navigate(
+          ("{{ session()->has('url.intended') ? session()->get('url.intended') : route('home') }}")
+          .replaceAll('amp;', '')
+        )
       } catch (error) {
         await $wire.resetCode()
 
