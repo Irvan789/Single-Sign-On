@@ -59,7 +59,7 @@
     type="button"
     class="mx-auto w-fit text-[0.9375rem]/4 font-medium text-[#8b7355] hover:underline"
     x-on:click="switchInputCode()"
-    x-text="showRecoveryInput ? 'Have your phone?, Using your authentication code' : 'Can\'t access your phone?, Using your recovery code'"
+    x-text="showRecoveryInput ? 'Using your authentication code' : 'Try using your recovery code'"
   >
   </button>
 

@@ -7,22 +7,22 @@
 </head>
 
 <body
-  class="bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-size-[64px] md:bg-size-[72px] overflow-hidden bg-[#fffaf0] bg-fixed bg-no-repeat selection:bg-[#3d3530] selection:text-[#f0ede8]"
+  class="bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-size-[4rem] xs:bg-size-[4.5rem] overflow-hidden bg-[#fffaf0] bg-fixed bg-no-repeat selection:bg-[#3d3530] selection:text-[#f0ede8]"
   style="background-image: url('{{ asset('assets/images/background/perlica.webp') }}')"
 >
   <div class="overlay-scrollbars h-full w-full">
     <div class="flex min-h-full w-full py-4">
       <x-toastify />
 
-      <div class="md:max-w-116 m-auto grid w-full max-w-md grid-rows-[max-content_auto_max-content]">
-        <div class="rounded-xs relative border border-[#c8b96e59] bg-[#ffffffca] p-4 md:p-7">
-          <div class="absolute left-4 top-4 hidden h-2.5 w-2.5 border-[#c8b96e80] border-[1px_0_0_1px] md:block">
+      <div class="xs:max-w-116 m-auto grid w-full max-w-md grid-rows-[max-content_auto_max-content]">
+        <div class="rounded-xs xs:p-7 relative border border-[#c8b96e59] bg-[#ffffffca] p-4">
+          <div class="xs:block absolute left-4 top-4 hidden h-2.5 w-2.5 border-[#c8b96e80] border-[1px_0_0_1px]">
           </div>
-          <div class="absolute right-4 top-4 hidden h-2.5 w-2.5 border-[#c8b96e80] border-[1px_1px_0_0] md:block">
+          <div class="xs:block absolute right-4 top-4 hidden h-2.5 w-2.5 border-[#c8b96e80] border-[1px_1px_0_0]">
           </div>
-          <div class="absolute bottom-4 left-4 hidden h-2.5 w-2.5 border-[#c8b96e80] border-[0_0_1px_1px] md:block">
+          <div class="xs:block absolute bottom-4 left-4 hidden h-2.5 w-2.5 border-[#c8b96e80] border-[0_0_1px_1px]">
           </div>
-          <div class="absolute bottom-4 right-4 hidden h-2.5 w-2.5 border-[#c8b96e80] border-[0_1px_1px_0] md:block">
+          <div class="xs:block absolute bottom-4 right-4 hidden h-2.5 w-2.5 border-[#c8b96e80] border-[0_1px_1px_0]">
           </div>
 
           <a

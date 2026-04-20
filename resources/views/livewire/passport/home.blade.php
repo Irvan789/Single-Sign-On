@@ -17,7 +17,7 @@
               {{ $client->name }}
             </div>
 
-            <span class="text-xs/3 font-medium">
+            <span class="text-xs/4 font-medium">
               Created At: {{ \Carbon\Carbon::parse($client->created_at)->format('d M Y') }}
             </span>
           </div>

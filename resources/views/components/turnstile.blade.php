@@ -9,7 +9,7 @@
     data-size="flexible"
     data-callback="turnstileOnSuccess"
     data-response-field-name="captcha"
-    {{ $attributes->twMerge('turnstile h-[65px]') }}
+    {{ $attributes->twMerge('turnstile h-16.25') }}
   >
   </div>
 
@@ -21,8 +21,6 @@
 
         await $wire.$set("{{ $model }}", token, false)
       }
-
-      
     </script>
   @endscript
 @endif
