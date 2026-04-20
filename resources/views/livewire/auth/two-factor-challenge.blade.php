@@ -47,14 +47,6 @@
       wire:model="code"
     />
 
-    <button
-      type="button"
-      class="mr-auto text-[0.9375rem]/4 font-medium text-[#3d3530] hover:underline"
-      x-on:click="switchInputCode()"
-      x-text="showRecoveryInput ? 'Using Your Authentication Code' : 'Using Your Recovery Code'"
-    >
-    </button>
-
     <x-button
       type="submit"
       x-bind:disabled="showRecoveryInput ? $wire.recovery_code.length < 21 : $wire.code.length < 6"
@@ -62,6 +54,14 @@
       Continue
     </x-button>
   </x-form>
+
+  <button
+    type="button"
+    class="mx-auto w-fit text-[0.9375rem]/4 font-medium text-[#8b7355] hover:underline"
+    x-on:click="switchInputCode()"
+    x-text="showRecoveryInput ? 'Have your phone?, Using your authentication code' : 'Can\'t access your phone?, Using your recovery code'"
+  >
+  </button>
 
   <x-separator />
 
