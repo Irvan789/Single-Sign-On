@@ -42,8 +42,8 @@
           </div>
 
           <button
-            x-on:click="showSidebar = false"
             class="inset-e-0.5 absolute inline-flex size-7 lg:hidden"
+            x-on:click="showSidebar = false"
           >
             <span class="icon-[akar-icons--x-small] size-7"></span>
           </button>
@@ -132,8 +132,8 @@
           </a>
 
           <button
-            x-on:click.stop="showSidebar = !showSidebar"
             class="rounded-xs inline-flex transition-colors duration-300 hover:text-[#c8b96e]"
+            x-on:click.stop="showSidebar = !showSidebar"
           >
             <span class="icon-[akar-icons--text-align-justified] size-6"></span>
           </button>
@@ -165,4 +165,3 @@
 </body>
 
 </html>
-

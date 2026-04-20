@@ -5,7 +5,7 @@
     </x-auth-header>
 
     <img
-      src="{{ $user->avatar }}?size=256&d=mp"
+      src="{{ $user->avatar }}?size=256&r=g&d=mp"
       class="absolute right-4 top-4 size-6 rounded-full md:right-7 md:top-7"
     />
 
@@ -15,6 +15,7 @@
           <div class="mb-0.5">
             This application will be able to:
           </div>
+
           <ul>
             @foreach ($scopes as $scope)
               <li class="-ms-1 flex items-center text-sm/5">
@@ -130,4 +131,3 @@
     </div>
   </div>
 </x-layouts::auth>
-

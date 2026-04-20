@@ -52,4 +52,3 @@
 
   {{ $clients->links() }}
 </x-contents>
-

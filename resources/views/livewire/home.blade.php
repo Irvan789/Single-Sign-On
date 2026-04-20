@@ -26,4 +26,3 @@
     </div>
   </div>
 </x-contents>
-

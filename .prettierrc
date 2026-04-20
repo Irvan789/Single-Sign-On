@@ -3,8 +3,8 @@
     "@shufo/prettier-plugin-blade",
     "@prettier/plugin-php"
   ],
-  "singleQuote": false,
   "semi": false,
+  "singleQuote": false,
   "tabWidth": 2,
   "trailingComma": "none",
   "overrides": [
@@ -27,10 +27,10 @@
         "*.blade.php"
       ],
       "options": {
-        "printWidth": 120,
         "parser": "php",
-        "tabWidth": 4,
+        "printWidth": 120,
         "singleQuote": true,
+        "tabWidth": 4,
         "trailingCommaPHP": false
       }
     }
