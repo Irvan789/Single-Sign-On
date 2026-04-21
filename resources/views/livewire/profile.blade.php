@@ -5,7 +5,7 @@
         Profile Information
       </div>
 
-      <div class="mt-1 text-[0.9375rem]/5">
+      <div class="mt-1 text-[0.9375rem]/4.5">
         Update your personal information like name, username, and email.
       </div>
     </div>
@@ -82,7 +82,7 @@
         Social Accounts
       </div>
 
-      <div class="mt-1 text-[0.9375rem]/5">
+      <div class="mt-1 text-[0.9375rem]/4.5">
         Manage your linking social accounts
       </div>
     </div>
@@ -138,7 +138,7 @@
         Delete Account
       </div>
 
-      <div class="mt-1 text-[0.9375rem]/5 text-[#b85450]">
+      <div class="mt-1 text-[0.9375rem]/4.5 text-[#b85450]">
         Warning: All your data will be deleted immediately.
       </div>
     </div>

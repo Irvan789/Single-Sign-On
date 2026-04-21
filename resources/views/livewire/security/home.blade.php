@@ -5,7 +5,7 @@
         {{ $user->passwordless ? 'Create' : 'Change' }} Password
       </div>
 
-      <div class="mt-1 text-[0.9375rem]/5">
+      <div class="mt-1 text-[0.9375rem]/4.5">
         {{ $user->passwordless
             ? 'Before you can login using email and password, You must create a password first.'
             : 'Update your password associated with your account.' }}
@@ -54,7 +54,7 @@
           Two-Factor Authentication
         </div>
 
-        <div class="mt-1 text-[0.9375rem]/5">
+        <div class="mt-1 text-[0.9375rem]/4.5">
           Enable or Disable Two-Factor Authentication
         </div>
       </div>

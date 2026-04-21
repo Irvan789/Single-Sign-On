@@ -36,7 +36,7 @@
           {{ $slot }}
         </div>
 
-        <span class="mt-4 text-center text-xs/3 font-semibold text-[#3d353080]">
+        <span class="mt-3.5 text-center text-xs/3 font-semibold text-[#3d353080]">
           irvan789.dev ⋅ Artworks By:
           <a
             href="https://x.com/Yatuno_LLC"

@@ -11,7 +11,7 @@
             Recovery Codes
           </div>
 
-          <div class="mt-1 text-[0.9375rem]/5 sm:mt-2">
+          <div class="mt-1 text-[0.9375rem]/4.5 sm:mt-2">
             Keep your recovery codes safely for unauthorization access
           </div>
         </div>
@@ -45,7 +45,7 @@
             Disable Two-Factor Authentication
           </div>
 
-          <div class="mt-1 text-[0.9375rem]/5 text-[#b85450]">
+          <div class="mt-1 text-[0.9375rem]/4.5 text-[#b85450]">
             When you disable two-factor authentication, you will be never prompted again for entering authentication
             code.
           </div>
@@ -78,7 +78,7 @@
         @else
           {!! $qrCodeSvg !!}
 
-          <div class="text-[0.9375rem]/5">
+          <div class="text-[0.9375rem]/4.5">
             Unable to scan?, enter this code:
 
             <span class="font-bold">

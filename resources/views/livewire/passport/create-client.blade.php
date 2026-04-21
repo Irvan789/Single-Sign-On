@@ -5,7 +5,7 @@
         Create Passport Client
       </div>
 
-      <div class="mt-1 text-[0.9375rem]/5">
+      <div class="mt-1 text-[0.9375rem]/4.5">
         Create a new OAuth client
       </div>
     </div>

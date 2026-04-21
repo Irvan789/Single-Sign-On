@@ -1,5 +1,5 @@
 <label
-  class="relative flex w-full flex-col gap-1.5 text-[0.9375rem]/5 font-medium text-[#3d3530]"
+  class="text-[0.9375rem]/4.5 relative flex w-full flex-col gap-1.5 font-medium text-[#3d3530]"
   x-data="{ showPassword: false }"
   {{ $attributes->only(['x-show']) }}
 >
@@ -22,7 +22,7 @@
 
     <button
       type="button"
-      class="top-6.5 inset-e-0 p-2.25 absolute flex shrink-0 cursor-pointer"
+      class="inset-e-0 p-2.25 absolute top-6 flex shrink-0 cursor-pointer"
       x-on:click="showPassword = !showPassword"
     >
       <span
