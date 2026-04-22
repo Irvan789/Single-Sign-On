@@ -6,7 +6,7 @@
 
 @theme {
   --font-sans: "Reddit Sans", sans-serif;
-  --font-mono: "Reddit mono", 'Consolas';
+  --font-mono: "Reddit mono", "Consolas", monospace;
   --breakpoint-xs: 32rem;
 }
 
@@ -28,6 +28,10 @@ button:disabled {
 div#livewire-error {
   top: 0;
   left: 0;
+}
+
+[x-cloak] {
+  display: none !important;
 }
 
 .os-theme-dark.os-scrollbar,

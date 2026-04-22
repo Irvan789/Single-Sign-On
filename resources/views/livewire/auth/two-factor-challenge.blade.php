@@ -13,22 +13,17 @@
       }
   }"
 >
-  <x-auth-header
-    title="Two-Factor Authentication"
-    x-show="showRecoveryInput"
-  >
-    Enter one of your recovery code to continue.
-  </x-auth-header>
-
-  <x-auth-header
-    title="Two-Factor Authentication"
-    x-show="!showRecoveryInput"
-  >
-    Enter the authentication code from your authenticator application.
+  <x-auth-header title="Two-Factor Authentication">
+    <span
+      x-text="showRecoveryInput
+      ? 'Enter one of your recovery code to continue.' 
+      : 'Enter the authentication code from your authenticator application.'"
+    ></span>
   </x-auth-header>
 
   <x-form wire:submit="$js.twoFactor($event)">
     @csrf
+
     <x-input-text
       label="Recovery Code"
       type="text"
