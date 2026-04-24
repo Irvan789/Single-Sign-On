@@ -13,16 +13,16 @@
       @foreach ($clients as $client)
         <div class="rounded-xs inline-flex items-center justify-between gap-2 border border-[#c8b96e4d] px-3 py-2.5">
           <div class="flex flex-col">
-            <div class="leading-4.5 font-semibold">
+            <div class="text-base/5 font-bold">
               {{ $client->name }}
             </div>
 
             <span class="text-xs/4 font-medium">
-              Created At: {{ \Carbon\Carbon::parse($client->created_at)->format('d M Y') }}
+              {{ \Carbon\Carbon::parse($client->created_at)->format('d F Y') }}
             </span>
           </div>
 
-          <div class="grid grid-cols-2 gap-1">
+          <div class="xs:grid-cols-2 grid grid-cols-1 gap-1">
             <x-button
               variant="warning"
               class="px-3 py-2 text-xs/3"
