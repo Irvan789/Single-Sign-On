@@ -5,8 +5,8 @@
     </x-auth-header>
 
     <img
-      src="{{ $user->avatar }}?size=256&r=g&d=mp"
-      class="absolute right-4 top-4 size-6 rounded-full md:right-7 md:top-7"
+      src="{{ $user->avatar }}?size=128&r=g&d=mp"
+      class="size-5.5 xs:right-7 xs:top-7 absolute right-4 top-4 rounded-full"
     />
 
     <div class="mt-4 flex flex-col gap-3.5">
