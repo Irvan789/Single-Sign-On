@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth;
 
+use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -15,8 +16,12 @@ class TwoFactorChallenge extends Component
     #[Validate('required|string|size:21', onUpdate: false)]
     public string $recovery_code = '';
 
-    public function boot()
+    public function boot(TwoFactorLoginRequest $request)
     {
+        if (!$request->hasChallengedUser()) {
+            return redirect()->route('login');
+        }
+
         $this->withValidator(function ($validator) {
             $validator->after(function ($validator) {
                 if ($validator->errors()->count() > 0) {
