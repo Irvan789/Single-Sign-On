@@ -109,9 +109,9 @@
       Not {{ $user->username }}?
 
       <form
-        class="contents"
         method="POST"
         action="{{ route('logout') }}"
+        class="contents"
       >
         @csrf
 
