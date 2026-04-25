@@ -10,7 +10,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  Deploy-Production:
+  on-success:
+    name: Deploy Production
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
@@ -26,3 +27,9 @@ jobs:
 
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'
