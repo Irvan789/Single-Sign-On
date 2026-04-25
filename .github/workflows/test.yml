@@ -16,8 +16,8 @@ jobs:
       DB_HOST: localhost
       DB_PORT: 5432
       DB_DATABASE: laravel_test
-      DB_PASSWORD: postgres
       DB_USERNAME: postgres
+      DB_PASSWORD: postgres
 
     services:
       postgres:
@@ -37,9 +37,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
-      - name: Start postgresql service
-        run: sudo systemctl start postgresql.service
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
