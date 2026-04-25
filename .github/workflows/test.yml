@@ -1,0 +1,78 @@
+name: Testing
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "README.md"
+
+jobs:
+  Testing:
+    name: Testing Laravel Application
+    runs-on: ubuntu-latest
+    env:
+      DB_CONNECTION: pgsql
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_DATABASE: laravel_test
+      DB_PASSWORD: postgres
+      DB_USERNAME: postgres
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: laravel_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+
+    strategy:
+      matrix:
+        php-version: ["8.4", "8.5"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Start postgresql service
+        run: sudo systemctl start postgresql.service
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer:v2
+          coverage: xdebug
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version: "lts"
+
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Install Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Copy Environment File
+        run: cp .env.example .env
+
+      - name: Clear Config
+        run: php artisan config:clear
+
+      - name: Generate Application Key
+        run: php artisan key:generate
+
+      - name: Run Migration
+        run: php artisan migrate -v
+
+      - name: Build Assets
+        run: npm run build
+
+      - name: Test with Pest
+        run: php artisan test

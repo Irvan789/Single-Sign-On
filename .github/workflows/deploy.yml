@@ -3,19 +3,18 @@ env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
+  workflow_run:
+    workflows: [Testing]
+    types:
+      - completed
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - "README.md"
 
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
