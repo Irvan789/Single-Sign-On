@@ -17,4 +17,6 @@
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=reddit-mono:200,300,400,500,600,700,800,900|reddit-sans:200,300,400,500,600,700,800,900" rel="stylesheet" />
 
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "85da2a9cc8544dd2880bab70c2ce2221"}'></script>
+
 @vite(['resources/css/app.css', 'resources/ts/app.ts'])
