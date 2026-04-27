@@ -69,7 +69,7 @@
 
   <x-separator />
 
-  <div class="flex flex-col gap-2">
+  <div class="mb-0.5 flex flex-col gap-2">
     <x-social-link :href="route('socials.google')">
       <img
         src="{{ asset('assets/icon/google.svg') }}"
