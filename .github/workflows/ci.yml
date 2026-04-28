@@ -82,8 +82,9 @@ jobs:
 
   Deploy-Application:
     name: Deploy Application
+    needs: Testing-Application
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
