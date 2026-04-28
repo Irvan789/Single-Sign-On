@@ -16,12 +16,12 @@
     class="mx-auto flex h-full max-h-full min-w-full flex-row overflow-hidden text-[#3d3530] selection:bg-[#3d3530] selection:text-[#f0ede8]"
   >
     <div
-      class="z-1 fixed -right-60 top-0 flex h-full w-full max-w-60 flex-col justify-between gap-4 border-l border-[#c8b96e] bg-[#3d3530] px-3 py-4 text-[#f0ede8] transition-all duration-300 lg:relative lg:left-0 lg:right-auto lg:max-h-full lg:border-l-0 lg:border-r"
+      class="z-1 fixed -right-60 top-0 flex h-full w-full max-w-60 flex-col justify-between gap-4 border-l border-[#c8b96e] bg-[#3d3530] px-2.5 py-4 text-[#f0ede8] transition-all duration-300 lg:relative lg:left-0 lg:right-auto lg:max-h-full lg:border-l-0 lg:border-r"
       :class="[showSidebar ? 'right-0!' : '']"
       x-on:click.outside="showSidebar = false"
     >
       <div class="flex h-full max-h-[calc(100%-2rem)] flex-col gap-4">
-        <div class="relative flex flex-row items-center justify-between gap-4 px-2">
+        <div class="relative flex flex-row items-center justify-between gap-4 px-1.5">
           <a
             href="/"
             class="hidden text-xl/6 font-bold lg:block"
@@ -42,7 +42,7 @@
           </div>
 
           <button
-            class="inset-e-0.5 absolute inline-flex size-7 lg:hidden"
+            class="inset-e-1 absolute inline-flex size-7 lg:hidden"
             x-on:click="showSidebar = false"
           >
             <span class="icon-[akar-icons--x-small] size-7"></span>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="-mt-0.5 flex flex-col gap-1">
-          <div class="mb-2 flex items-center gap-2.5">
+          <div class="mb-1 flex items-center gap-2.5">
             <div class="h-px flex-1 bg-[#c8b96e4d]"></div>
             <div class="h-1.25 w-1.25 rotate-45 bg-[#c8b96e]"></div>
           </div>
@@ -83,7 +83,7 @@
           </a>
 
           @if ($user->role != 'user')
-            <div class="my-2 flex items-center gap-2.5">
+            <div class="my-1 flex items-center gap-2.5">
               <div class="h-px flex-1 bg-[#c8b96e4d]"></div>
               <div class="h-1.25 w-1.25 rotate-45 bg-[#c8b96e]"></div>
             </div>

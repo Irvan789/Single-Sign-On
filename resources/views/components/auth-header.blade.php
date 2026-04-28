@@ -1,8 +1,8 @@
 <div
-  class="mt-3 flex flex-col text-[#3d3530]"
+  class="mt-3 flex flex-col gap-px text-[#3d3530]"
   {{ $attributes->except(['class', 'title']) }}
 >
-  <div class="text-lg/snug font-bold">
+  <div class="text-lg/5.5 font-bold">
     {{ $title }}
   </div>
 

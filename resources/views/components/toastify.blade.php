@@ -29,7 +29,7 @@
       x-transition:leave="transition ease-in duration-300"
       x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
-      class="rounded-xs wrap-anywhere shadow-sm/10 pointer-events-auto relative ml-auto inline-flex w-full max-w-xs items-center gap-2 bg-[#fffaf0] px-2.5 py-2 shadow-[#5e6e75]"
+      class="rounded-xs wrap-anywhere shadow-sm/10 pointer-events-auto relative ml-auto inline-flex w-full max-w-xs items-center gap-1.5 bg-[#fffaf0] px-2.5 py-2 shadow-[#5e6e75]"
       :class="{
           'text-[#4e7a5a]': toast.type == 'success',
           'text-[#8b3a38]': toast.type == 'error'
