@@ -1,4 +1,14 @@
-name: Testing
+name: Testing Application & Deploy To Vercel
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  DB_CONNECTION: pgsql
+  DB_HOST: localhost
+  DB_PORT: 5432
+  DB_DATABASE: laravel
+  DB_USERNAME: postgres
+  DB_PASSWORD: postgres
 
 on:
   push:
@@ -9,15 +19,8 @@ on:
 
 jobs:
   Testing:
-    name: Testing Laravel Application
+    name: Testing Application
     runs-on: ubuntu-latest
-    env:
-      DB_CONNECTION: pgsql
-      DB_HOST: localhost
-      DB_PORT: 5432
-      DB_DATABASE: laravel
-      DB_USERNAME: postgres
-      DB_PASSWORD: postgres
 
     services:
       postgres:
@@ -76,3 +79,15 @@ jobs:
 
       - name: Test with Pest
         run: php artisan test --ci --parallel
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ env.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }}
