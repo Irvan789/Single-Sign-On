@@ -1,4 +1,4 @@
-name: Testing Application & Deploy To Vercel
+name: Testing & Deploy Application
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -18,7 +18,7 @@ on:
       - "README.md"
 
 jobs:
-  Testing:
+  Testing-Application:
     name: Testing Application
     runs-on: ubuntu-latest
 
@@ -80,6 +80,11 @@ jobs:
       - name: Test with Pest
         run: php artisan test --ci --parallel
 
+  Deploy-Application:
+    name: Deploy Application
+    runs-on: ubuntu-latest
+    
+    steps:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
