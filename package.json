@@ -15,7 +15,6 @@
         "overlayscrollbars": "^2.15.1",
         "playwright": "^1.59.1",
         "tailwindcss": "^4.2.2",
-        "vite": "^8.0.8",
         "zod": "^4.3.6"
     },
     "optionalDependencies": {
@@ -36,6 +35,7 @@
         "prettier": "^3.8.3",
         "prettier-plugin-tailwindcss": "^0.7.2",
         "ts-loader": "^9.5.7",
-        "typescript": "^6.0.2"
+        "typescript": "^6.0.2",
+        "vite": "^8.0.10"
     }
 }
