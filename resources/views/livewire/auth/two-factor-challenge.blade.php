@@ -45,6 +45,7 @@
     <x-button
       type="submit"
       x-bind:disabled="showRecoveryInput ? $wire.recovery_code.length < 21 : $wire.code.length < 6"
+      data-wire="twoFactor"
     >
       Continue
     </x-button>

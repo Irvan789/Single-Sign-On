@@ -24,6 +24,7 @@
 
     <x-button
       type="submit"
+      data-action="forgot"
       disabled
     >
       Send Password Reset Link

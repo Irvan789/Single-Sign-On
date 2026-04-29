@@ -53,6 +53,7 @@
 
     <x-button
       type="submit"
+      data-action="register"
       disabled
     >
       Create Account

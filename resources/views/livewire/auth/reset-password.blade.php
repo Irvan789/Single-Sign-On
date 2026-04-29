@@ -34,7 +34,10 @@
     >
     </x-input-text>
 
-    <x-button type="submit">
+    <x-button
+      type="submit"
+      data-action="reset"
+    >
       Reset Password
     </x-button>
   </x-form>
@@ -44,6 +47,7 @@
   <script lang="js">
     $js.reset = async (event) => {
       const formData = new FormData(event.currentTarget)
+      const button = event.submitter
 
       try {
         const res = await ofetch("{{ route('password.update') }}", {

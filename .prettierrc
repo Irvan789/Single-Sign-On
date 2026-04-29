@@ -28,7 +28,7 @@
       ],
       "options": {
         "parser": "php",
-        "printWidth": 120,
+        "printWidth": 100,
         "singleQuote": true,
         "tabWidth": 4,
         "trailingCommaPHP": false

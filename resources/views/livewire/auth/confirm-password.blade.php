@@ -14,7 +14,10 @@
     >
     </x-input-text>
 
-    <x-button type="submit">
+    <x-button
+      type="submit"
+      data-action="confirm"
+    >
       Confirm
     </x-button>
   </x-form>
@@ -58,3 +61,4 @@
     }
   </script>
 @endscript
+

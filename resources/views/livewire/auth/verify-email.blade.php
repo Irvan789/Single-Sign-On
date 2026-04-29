@@ -6,7 +6,10 @@
   <x-form wire:submit="$js.verify($event)">
     @csrf
 
-    <x-button type="submit">
+    <x-button
+      type="submit"
+      data-wire="verify"
+    >
       Send Verification Email
     </x-button>
   </x-form>

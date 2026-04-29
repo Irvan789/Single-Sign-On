@@ -61,6 +61,7 @@
 
     <x-button
       type="submit"
+      data-action="login"
       disabled
     >
       Login
