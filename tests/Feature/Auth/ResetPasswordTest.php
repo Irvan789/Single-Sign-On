@@ -48,7 +48,6 @@ describe('Reset Password Tests', function () {
             );
 
             $page
-                ->resize(1280, 720)
                 ->wait(2)
                 ->type('password', 'password')
                 ->type('password_confirmation', 'password')

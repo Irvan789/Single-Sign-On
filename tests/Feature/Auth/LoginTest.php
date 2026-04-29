@@ -31,7 +31,7 @@ describe('Login Tests', function () {
         $page->assertUrlIs(route('login'));
     });
 
-    test('User can authenticate using the login screen', function () {
+    test('User can authenticate using the login page', function () {
         $user = User::factory()->create();
 
         $page = visit(route('login'));

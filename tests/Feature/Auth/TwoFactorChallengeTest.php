@@ -26,7 +26,6 @@ describe('Two Factor Challenge Tests', function () {
         $page = visit(route('login'));
 
         $page
-            ->resize(1280, 720)
             ->type('email', $user->email)
             ->type('password', 'password')
             ->check('remember')
