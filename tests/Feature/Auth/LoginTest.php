@@ -7,7 +7,6 @@ describe('Login Tests', function () {
         $page = visit(route('login'));
 
         $page
-            ->wait(2)
             ->assertPresent('email')
             ->assertPresent('password')
             ->assertPresent('remember')
@@ -26,7 +25,7 @@ describe('Login Tests', function () {
             ->type('password', 'wrong-password')
             ->check('remember')
             ->wait(4)
-            ->pressAndWaitFor('button[data-action="login"]', 2);
+            ->press('button[data-action="login"]');
 
         $page->assertUrlIs(route('login'));
     });
@@ -40,7 +39,7 @@ describe('Login Tests', function () {
             ->type('password', 'password')
             ->check('remember')
             ->wait(4)
-            ->pressAndWaitFor('button[data-action="login"]', 2);
+            ->press('button[data-action="login"]');
 
         $page->assertUrlIs(route('home'));
     });

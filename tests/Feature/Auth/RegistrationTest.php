@@ -11,7 +11,6 @@ describe('Registration Tests', function () {
         $page = visit(route('register'));
 
         $page
-            ->wait(2)
             ->assertPresent('name')
             ->assertPresent('username')
             ->assertPresent('email')
@@ -33,7 +32,7 @@ describe('Registration Tests', function () {
             ->type('password', 'password')
             ->type('password_confirmation', 'password')
             ->wait(4)
-            ->pressAndWaitFor('button[data-action="register"]', 2);
+            ->press('button[data-action="register"]');
 
         $page->assertUrlIs(route('home'));
     });

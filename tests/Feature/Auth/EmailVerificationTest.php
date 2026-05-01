@@ -20,8 +20,6 @@ describe('Email Verification Tests', function () {
 
         $page = visit(route('verification.notice'));
 
-        $page->wait(2);
-
         $page->assertUrlIs(route('verification.notice'));
     });
 

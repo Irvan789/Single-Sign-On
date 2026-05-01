@@ -21,7 +21,6 @@ describe('Reset Password Tests', function () {
         );
 
         $page
-            ->wait(2)
             ->assertPresent('password')
             ->assertPresent('password_confirmation')
             ->assertPresent('button[data-action="reset"]');
@@ -48,10 +47,9 @@ describe('Reset Password Tests', function () {
             );
 
             $page
-                ->wait(2)
                 ->type('password', 'password')
                 ->type('password_confirmation', 'password')
-                ->pressAndWaitFor('button[data-action="reset"]', 2);
+                ->press('button[data-action="reset"]');
 
             $page->assertUrlIs(
                 route('password.reset', [
@@ -84,17 +82,16 @@ describe('Reset Password Tests', function () {
             );
 
             $page
-                ->wait(2)
                 ->type('password', 'new-password')
                 ->type('password_confirmation', 'new-password')
-                ->pressAndWaitFor('button[data-action="reset"]', 2);
+                ->press('button[data-action="reset"]');
 
             $page
                 ->type('email', $user->email)
                 ->type('password', 'new-password')
                 ->check('remember')
                 ->wait(4)
-                ->pressAndWaitFor('button[data-action="login"]', 2);
+                ->press('button[data-action="login"]');
 
             $page->assertUrlIs(route('home'));
 

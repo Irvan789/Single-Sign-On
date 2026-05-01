@@ -11,8 +11,6 @@ describe('Two Factor Challenge Tests', function () {
     test('Two factor challenge redirects to login when not authenticated', function () {
         $page = visit(route('two-factor.challenge'));
 
-        $page->wait(2);
-
         $page->assertUrlIs(route('login'));
     });
 
@@ -30,7 +28,7 @@ describe('Two Factor Challenge Tests', function () {
             ->type('password', 'password')
             ->check('remember')
             ->wait(4)
-            ->pressAndWaitFor('button[data-action="login"]', 2);
+            ->press('button[data-action="login"]');
 
         $page->assertUrlIs(route('two-factor.challenge'));
     });

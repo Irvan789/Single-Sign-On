@@ -11,7 +11,7 @@ describe('Password Confirmation Tests', function () {
         actingAs($user);
 
         $page = visit(route('password.confirm'));
-        $page->wait(2)
+        $page
             ->assertPresent('password')
             ->assertPresent('button[data-action="confirm"]');
 
@@ -25,9 +25,8 @@ describe('Password Confirmation Tests', function () {
 
         $page = visit(route('password.confirm'));
         $page
-            ->wait(2)
             ->type('password', 'wrong-password')
-            ->pressAndWaitFor('button[data-action="confirm"]', 2);
+            ->press('button[data-action="confirm"]');
 
         $page->assertUrlIs(route('password.confirm'));
     });
@@ -39,9 +38,8 @@ describe('Password Confirmation Tests', function () {
 
         $page = visit(route('password.confirm'));
         $page
-            ->wait(2)
             ->type('password', 'password')
-            ->pressAndWaitFor('button[data-action="confirm"]', 2);
+            ->press('button[data-action="confirm"]');
 
         $page->assertUrlIs(route('home'));
     });

@@ -12,7 +12,6 @@ describe('Forgot Password Tests', function () {
         $page = visit(route('password.request'));
 
         $page
-            ->wait(2)
             ->assertPresent('email')
             ->assertPresent('captcha')
             ->assertPresent('button[data-action="forgot"]');
@@ -26,7 +25,7 @@ describe('Forgot Password Tests', function () {
         $page
             ->type('email', 'wrong-email@mail.com')
             ->wait(4)
-            ->pressAndWaitFor('button[data-action="forgot"]', 2);
+            ->press('button[data-action="forgot"]');
 
         $page->assertUrlIs(route('password.request'));
     });
@@ -38,7 +37,7 @@ describe('Forgot Password Tests', function () {
         $page
             ->type('email', $user->email)
             ->wait(4)
-            ->pressAndWaitFor('button[data-action="forgot"]', 2);
+            ->press('button[data-action="forgot"]');
 
         $page->assertUrlIs(route('login'));
     });
