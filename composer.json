@@ -11,20 +11,20 @@
     "require": {
         "php": "^8.4",
         "gehrisandro/tailwind-merge-laravel": "^1.4",
-        "laravel/fortify": "^1.36",
-        "laravel/framework": "^13.6",
-        "laravel/passport": "^13.0",
-        "laravel/socialite": "^5.26",
+        "laravel/fortify": "^1.37",
+        "laravel/framework": "^13.7",
+        "laravel/passport": "^13.7",
+        "laravel/socialite": "^5.27",
         "laravel/tinker": "^3.0",
-        "livewire/livewire": "^4.2"
+        "livewire/livewire": "^4.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",
         "laravel/pail": "^1.2",
-        "laravel/sail": "^1.56",
+        "laravel/sail": "^1.58",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9",
-        "pestphp/pest": "^4.4",
+        "pestphp/pest": "^4.7",
         "pestphp/pest-plugin-browser": "dev-fix/multipart-form-parser",
         "pestphp/pest-plugin-laravel": "^4.1"
     },
