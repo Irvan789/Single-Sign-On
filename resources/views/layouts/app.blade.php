@@ -42,10 +42,10 @@
           </div>
 
           <button
-            class="inset-e-1 absolute inline-flex size-7 lg:hidden"
+            class="inset-e-1.5 absolute inline-flex lg:hidden"
             x-on:click="showSidebar = false"
           >
-            <span class="icon-[akar-icons--x-small] size-7"></span>
+            <span class="icon-[tabler--x] size-6"></span>
           </button>
         </div>
 
@@ -135,7 +135,7 @@
             class="rounded-xs inline-flex transition-colors duration-300 hover:text-[#c8b96e]"
             x-on:click.stop="showSidebar = !showSidebar"
           >
-            <span class="icon-[akar-icons--text-align-justified] size-6"></span>
+            <span class="icon-[tabler--menu-2] size-6"></span>
           </button>
         </div>
 
