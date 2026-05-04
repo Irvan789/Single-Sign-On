@@ -7,7 +7,7 @@
 </head>
 
 <body
-  class="bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-size-[4rem] xs:bg-size-[4.5rem] overflow-hidden bg-[#fffaf0] bg-fixed bg-no-repeat selection:bg-[#3d3530] selection:text-white"
+  class="bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-size-[4rem] overflow-hidden bg-[#fffaf0] bg-fixed bg-no-repeat antialiased selection:bg-[#3d3530] selection:text-white"
   style="background-image: url('{{ asset('assets/images/background/perlica.webp') }}')"
 >
   <div class="overlay-scrollbars h-full w-full">

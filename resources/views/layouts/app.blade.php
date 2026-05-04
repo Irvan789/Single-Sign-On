@@ -6,7 +6,7 @@
 </head>
 
 <body
-  class="bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-size-[4rem] lg:bg-size-[4.5rem] bg-[#fffaf0] bg-fixed bg-no-repeat"
+  class="bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-size-[4rem] bg-[#fffaf0] bg-fixed bg-no-repeat antialiased"
   style="background-image: url('{{ asset('assets/images/background/perlica.webp') }}')"
   x-data="{ showSidebar: false }"
 >
