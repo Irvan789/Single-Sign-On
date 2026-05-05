@@ -24,14 +24,14 @@ class SocialProvider extends Controller
 
     public function google(Request $request): RedirectResponse
     {
-        $this->session($request, 'google');
+        $this->createSession($request, 'google');
 
         return Socialite::driver('google')->redirect();
     }
 
     public function github(Request $request): RedirectResponse
     {
-        $this->session($request, 'github');
+        $this->createSession($request, 'github');
 
         return Socialite::driver('github')->redirect();
     }
@@ -46,56 +46,43 @@ class SocialProvider extends Controller
                     throw new Exception('Please create password first before you can manage linking social accounts.');
                 }
 
-                $userSocialAccount = Social::where([
-                    'user_id' => $this->user->id,
-                    'provider' => $provider,
-                    'provider_id' => (string) $socialite->id
-                ]);
+                $socialAccontsById = Social::getUserBySocialAccountsId($provider, $socialite->id);
 
-                if ($userSocialAccount->first()) {
-                    $userSocialAccount->delete();
+                if ($socialAccontsById->first()) {
+                    $socialAccontsById->delete();
 
                     Session::regenerate();
 
-                    return $this->redirect();
+                    return $this->redirectBack();
                 }
 
-                $findSocialAccountByEmail = Social::where([
-                    'provider' => $provider,
-                    'email' => $socialite->email
-                ])->first();
+                $socialAccountByEmail = Social::getUserBySocialAccoutsEmail($provider, $socialite->email)->first();
 
-                if ($findSocialAccountByEmail) {
+                if ($socialAccountByEmail) {
                     throw new Exception('Error while processing your request');
                 }
 
-                $findSocialAccountByUserId = Social::where([
-                    'provider' => $provider,
-                    'user_id' => $this->user->id
-                ])->first();
+                $socialAccontsByUserId = Social::getUserBySocialUserId($provider, $this->user->id)->first();
 
-                if ($findSocialAccountByUserId) {
+                if ($socialAccontsByUserId) {
                     throw new Exception('Error while processing your request');
                 }
 
-                $userData = [
+                $socialData = [
                     'user_id' => $this->user->id,
                     'provider' => $provider,
                     'name' => $socialite->name,
                     'email' => $socialite->email
                 ];
 
-                $this->store((string) $socialite->id, $userData);
+                $this->updateOrCreateSocialAccount($socialData, id: $socialite->id);
 
                 Session::regenerate();
 
-                return $this->redirect();
+                return $this->redirectBack();
             }
 
-            $loginUsingSocialAccount = Social::where([
-                'provider' => $provider,
-                'provider_id' => (string) $socialite->id
-            ])->first();
+            $loginUsingSocialAccount = Social::getUserBySocialAccountsId($provider, $socialite->id)->first();
 
             if ($loginUsingSocialAccount) {
                 $user = User::where('id', $loginUsingSocialAccount->user_id)->first();
@@ -104,24 +91,20 @@ class SocialProvider extends Controller
 
                 Session::regenerate();
 
-                return $this->redirect();
+                return $this->redirectBack();
             }
 
-            $userExist = User::where('email', $socialite->email)->first();
+            $findUserByEmail = User::where('email', $socialite->email)->first();
 
-            if (!$userExist) {
-                $user = User::updateOrCreate(
-                    [
-                        'email' => $socialite->email
-                    ],
-                    [
-                        'name' => $socialite->name,
-                        'username' => 'u' . Carbon::now()->setMicrosecond(0)->timestamp,
-                        'avatar' =>
-                            'https://gravatar.com/avatar/' . hash('sha256', strtolower(trim($socialite->email))),
-                        'passwordless' => true
-                    ]
-                );
+            if (!$findUserByEmail) {
+                $userData = [
+                    'name' => $socialite->name,
+                    'username' => 'u' . Carbon::now()->setMicrosecond(0)->timestamp,
+                    'avatar' => 'https://gravatar.com/avatar/' . hash('sha256', strtolower(trim($socialite->email))),
+                    'passwordless' => true
+                ];
+
+                $user = $this->updateOrCreateUserByEmail($userData, $socialite->email);
 
                 $user
                     ->forceFill([
@@ -129,20 +112,20 @@ class SocialProvider extends Controller
                     ])
                     ->save();
 
-                $data = [
+                $socialData = [
                     'provider' => $provider,
                     'user_id' => $user->id,
                     'name' => $socialite->name,
                     'email' => $socialite->email
                 ];
 
-                $this->store((string) $socialite->id, $data);
+                $this->updateOrCreateSocialAccount($socialData, id: $socialite->id);
 
                 Auth::loginUsingId($user->id, true);
 
                 Session::regenerate();
 
-                return $this->redirect();
+                return $this->redirectBack();
             }
 
             throw new Exception('Your ' . $provider . " account isn't connected to your profile yet");
@@ -153,26 +136,41 @@ class SocialProvider extends Controller
         }
     }
 
-    private function store(string $id, array $data): void
+    private function updateOrCreateSocialAccount(array $data, ?string $id = null, ?string $email = null): mixed
     {
-        Social::updateOrCreate(
+        if (!$id && !$email) {
+            throw new Exception('Invalid request data');
+        }
+
+        return Social::updateOrCreate(
+            $id
+                ? [
+                    'provider_id' => $id
+                ]
+                : [
+                    'email' => $email
+                ],
+            $data
+        );
+    }
+
+    private function updateOrCreateUserByEmail(array $data, string $email): User
+    {
+        return User::updateOrCreate(
             [
-                'provider_id' => $id
+                'email' => $email
             ],
             $data
         );
     }
 
-    private function session(Request $request): void
+    private function createSession(Request $request): void
     {
-        if ($request->header('referer') == route('profile')) {
-            Session::put('url.socialite', route('profile'));
-        } else {
-            Session::put('url.socialite', route('home'));
-        }
+        $isFromProfile = $request->header('referer') == route('profile');
+        Session::put('url.socialite', route($isFromProfile ? 'profile' : 'home'));
     }
 
-    private function redirect(): RedirectResponse
+    private function redirectBack(): RedirectResponse
     {
         $intended = Session::get('url.intended');
 
