@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -40,8 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail, OAuthenticatable
             ->implode('');
     }
 
-    public function socials(): HasOne
+    public function socialAccounts(): HasMany
     {
-        return $this->hasOne(Social::class, 'user_id', 'id');
+        return $this->hasMany(Social::class, 'user_id', 'id');
     }
 }

@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Livewire\Actions\Logout;
-use App\Models\Social;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +15,7 @@ class Profile extends Component
 {
     use ProfileValidationRules, PasswordValidationRules;
 
-    public $user;
+    public mixed $user;
 
     public string $name = '';
 
@@ -55,15 +54,9 @@ class Profile extends Component
 
             $this->email = $this->user->email;
 
-            $this->socials_google = Social::where([
-                'user_id' => $this->user->id,
-                'provider' => 'google'
-            ])->first();
+            $this->socials_google = $this->user->socialAccounts()->where('provider', 'google')->first();
 
-            $this->socials_github = Social::where([
-                'user_id' => $this->user->id,
-                'provider' => 'github'
-            ])->first();
+            $this->socials_github = $this->user->socialAccounts()->where('provider', 'google')->first();
         }
     }
 
@@ -90,15 +83,13 @@ class Profile extends Component
 
     public function resendVerificationNotification(): void
     {
-        $user = Auth::user();
-
-        if ($user->hasVerifiedEmail()) {
+        if ($this->user->hasVerifiedEmail()) {
             $this->redirectIntended(default: route('profile', absolute: false));
 
             return;
         }
 
-        $user->sendEmailVerificationNotification();
+        $this->user->sendEmailVerificationNotification();
 
         $this->dispatch('toastify', [
             'type' => 'success',
@@ -108,17 +99,15 @@ class Profile extends Component
 
     public function updateProfileInformation(): void
     {
-        $user = Auth::user();
+        $validated = $this->validate($this->profileRules($this->user->id));
 
-        $validated = $this->validate($this->profileRules($user->id));
+        $this->user->fill($validated);
 
-        $user->fill($validated);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
+        if ($this->user->isDirty('email')) {
+            $this->user->email_verified_at = null;
         }
 
-        $user->save();
+        $this->user->save();
 
         $this->dispatch('toastify', [
             'type' => 'success',
@@ -132,11 +121,11 @@ class Profile extends Component
             'password' => $this->currentPasswordRules()
         ]);
 
-        $this->user->oauthApps()->where('owner_id', $this->user->id)->delete();
+        $this->user->oauthApps()->delete();
 
-        $this->user->socials()->where('user_id', $this->user->id)->delete();
+        $this->user->socialAccounts()->delete();
 
-        tap(Auth::user(), $logout(...))->delete();
+        tap(Auth::user(), $logout(...))->delete($this->user->id);
 
         $this->redirect(route('login'), navigate: true);
     }
