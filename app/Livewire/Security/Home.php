@@ -68,22 +68,22 @@ class Home extends Component
                 'current_password' => $this->user->passwordless ? ['optional'] : $this->currentPasswordRules(),
                 'password' => $this->passwordRules()
             ]);
+
+            $this->user->update([
+                'password' => $validated['password'],
+                'passwordless' => false
+            ]);
+
+            $this->reset('current_password', 'password', 'password_confirmation');
+
+            $this->dispatch('toastify', [
+                'type' => 'success',
+                'message' => 'Password Updated Successfully!'
+            ]);
         } catch (ValidationException $error) {
             $this->reset('current_password', 'password', 'password_confirmation');
 
             throw $error;
         }
-
-        $this->user->update([
-            'password' => $validated['password'],
-            'passwordless' => false
-        ]);
-
-        $this->reset('current_password', 'password', 'password_confirmation');
-
-        $this->dispatch('toastify', [
-            'type' => 'success',
-            'message' => 'Password Updated Successfully!'
-        ]);
     }
 }

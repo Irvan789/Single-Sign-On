@@ -8,6 +8,7 @@ use App\Livewire\Actions\Logout;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -117,16 +118,24 @@ class Profile extends Component
 
     public function deleteUser(Logout $logout): void
     {
-        $this->validate([
-            'password' => $this->currentPasswordRules()
-        ]);
+        try {
+            $this->validate([
+                'password' => $this->currentPasswordRules()
+            ]);
 
-        $this->user->oauthApps()->delete();
+            $this->reset('password');
 
-        $this->user->socialAccounts()->delete();
+            $this->user->oauthApps()->delete();
 
-        tap(Auth::user(), $logout(...))->delete($this->user->id);
+            $this->user->socialAccounts()->delete();
 
-        $this->redirect(route('login'), navigate: true);
+            tap(Auth::user(), $logout(...))->delete();
+
+            $this->redirect(route('login'), navigate: true);
+        } catch (ValidationException $error) {
+            $this->reset('password');
+
+            throw $error;
+        }
     }
 }
