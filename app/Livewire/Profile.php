@@ -56,7 +56,7 @@ class Profile extends Component
 
             $this->socials_google = $this->user->socialAccounts()->where('provider', 'google')->first();
 
-            $this->socials_github = $this->user->socialAccounts()->where('provider', 'google')->first();
+            $this->socials_github = $this->user->socialAccounts()->where('provider', 'github')->first();
         }
     }
 
