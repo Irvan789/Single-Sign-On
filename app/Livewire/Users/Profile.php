@@ -57,21 +57,23 @@ class Profile extends Component
     {
         $this->user = User::getUserWithSocialAccount($id)->first();
 
-        if ($this->user) {
-            if ($this->user->id == Auth::user()->id) {
-                return $this->redirectRoute('profile', navigate: true);
-            }
-
-            $this->name = $this->user->name;
-
-            $this->username = $this->user->username;
-
-            $this->email = $this->user->email;
-
-            $this->socials_google = $this->user->socialAccounts()->where('provider', 'google')->first();
-
-            $this->socials_github = $this->user->socialAccounts()->where('provider', 'github')->first();
+        if (!$this->user) {
+            abort(404);
         }
+
+        if ($this->user->id == Auth::user()->id) {
+            return $this->redirectRoute('profile', navigate: true);
+        }
+
+        $this->name = $this->user->name;
+
+        $this->username = $this->user->username;
+
+        $this->email = $this->user->email;
+
+        $this->socials_google = $this->user->socialAccounts()->where('provider', 'google')->first();
+
+        $this->socials_github = $this->user->socialAccounts()->where('provider', 'github')->first();
 
         $this->canManageTwoFactor = Features::canManageTwoFactorAuthentication();
 
