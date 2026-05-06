@@ -12,7 +12,7 @@
 
     <x-anchor-button
       href="{{ route('passport.create.client') }}"
-      class="xs:max-w-30 w-full"
+      class="xs:max-w-30 w-full text-xs/3"
       wire:navigate
     >
 

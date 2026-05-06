@@ -67,7 +67,7 @@
 
       <x-button
         type="submit"
-        class="xs:max-w-34 ml-auto w-full"
+        class="xs:max-w-30 ml-auto w-full text-xs/3"
       >
         Update Profile
       </x-button>
@@ -156,7 +156,7 @@
 
       <x-button
         type="submit"
-        class="xs:max-w-34 ml-auto w-full"
+        class="xs:max-w-30 ml-auto w-full text-xs/3"
       >
         Delete Account
       </x-button>

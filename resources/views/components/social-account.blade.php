@@ -12,7 +12,7 @@
   @if (isset($url))
     <a
       href="{{ $url }}"
-      class="rounded-xs w-full max-w-24 bg-[#3d3530e6] px-3 py-2 text-center text-sm/4 capitalize text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530]"
+      class="rounded-xs w-full max-w-16 bg-[#3d3530e6] px-3 py-2 text-center text-xs/3 capitalize text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530]"
       {{ $attributes }}
     >
       {{ $slot }}
@@ -20,7 +20,7 @@
   @else
     <button
       type="button"
-      class="rounded-xs w-full max-w-24 bg-[#3d3530e6] px-3 py-2 text-center text-sm/4 capitalize text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530] disabled:bg-[#3d3530cc] disabled:hover:bg-[#3d3530cc]"
+      class="rounded-xs w-full max-w-16 bg-[#3d3530e6] px-3 py-2 text-center text-xs/3 capitalize text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530] disabled:bg-[#3d3530cc] disabled:hover:bg-[#3d3530cc]"
       @if ($email == '-') disabled @endif
       {{ $attributes }}
     >

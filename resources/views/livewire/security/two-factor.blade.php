@@ -28,7 +28,7 @@
           </div>
 
           <x-button
-            class="xs:max-w-34 ml-auto w-full"
+            class="xs:max-w-30 ml-auto w-full text-xs/3"
             wire:click="regenerateRecoveryCodes"
             wire:loading.attr="disabled"
           >
@@ -52,7 +52,7 @@
         </div>
 
         <x-button
-            class="xs:max-w-34 ml-auto w-full"
+          class="xs:max-w-30 ml-auto w-full text-xs/3"
           wire:click="disableTwoFactor"
           wire:loading.attr="disabled"
         >
@@ -105,7 +105,7 @@
 
         <x-button
           type="submit"
-          class="text-xs/3.5 xs:max-w-20 w-full"
+          class="xs:max-w-20 w-full text-sm/4"
           x-bind:disabled="$wire.code.length < 6"
         >
           Verify

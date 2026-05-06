@@ -40,44 +40,50 @@
 
       <x-button
         type="submit"
-        class="xs:max-w-34 ml-auto w-full"
+        class="xs:max-w-30 ml-auto w-full text-xs/3"
       >
         Update Profile
       </x-button>
     </x-form>
   </div>
 
-  <x-separator />
+  @if ($socials_google || $socials_github)
+    <x-separator />
 
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
-        Social Accounts
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div class="block">
+        <div class="text-lg/4.5 font-bold">
+          Social Accounts
+        </div>
+
+        <div class="text-[0.9375rem]/4.5 mt-1">
+          Manage user linking social accounts
+        </div>
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1">
-        Manage user linking social accounts
+      <div class="flex flex-col gap-4 sm:col-span-2">
+        @if ($socials_google)
+          <x-social-account
+            name="Google"
+            email="{{ $socials_google->email }}"
+            wire:click="unlinkSocialAccount('google')"
+          >
+            Unlink
+          </x-social-account>
+        @endif
+
+        @if ($socials_github)
+          <x-social-account
+            name="GitHub"
+            email="{{ $socials_github->email }}"
+            wire:click="unlinkSocialAccount('github')"
+          >
+            Unlink
+          </x-social-account>
+        @endif
       </div>
     </div>
-
-    <div class="flex flex-col gap-4 sm:col-span-2">
-      <x-social-account
-        name="Google"
-        email="{{ $socials_google ? $socials_google->email : '-' }}"
-        wire:click="unlinkSocialAccount('google')"
-      >
-        {{ $socials_google ? 'Unlink' : 'Not Linked' }}
-      </x-social-account>
-
-      <x-social-account
-        name="GitHub"
-        email="{{ $socials_github ? $socials_github->email : '-' }}"
-        wire:click="unlinkSocialAccount('github')"
-      >
-        {{ $socials_github ? 'Unlink' : 'Not Linked' }}
-      </x-social-account>
-    </div>
-  </div>
+  @endif
 
   @if ($canManageTwoFactor)
     @if ($twoFactorEnabled)
@@ -97,7 +103,7 @@
         </div>
 
         <x-button
-          class="xs:max-w-34 ml-auto w-full"
+          class="xs:max-w-30 ml-auto w-full text-xs/3"
           wire:click="disableTwoFactor"
           wire:loading.attr="disabled"
         >
@@ -121,7 +127,7 @@
     </div>
 
     <x-button
-      class="xs:max-w-34 ml-auto w-full"
+      class="xs:max-w-30 ml-auto w-full text-xs/3"
       wire:click="deleteAccount"
       wire:confirm="Are you sure to delete your account? This action can't be undone!"
       wire:loading.attr="disabled"

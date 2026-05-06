@@ -38,7 +38,7 @@
 
       <x-button
         type="submit"
-        class="xs:max-w-34 ml-auto w-full"
+        class="xs:max-w-30 ml-auto w-full text-xs/3"
       >
         {{ $user->passwordless ? 'Create' : 'Change' }} Password
       </x-button>
@@ -61,7 +61,7 @@
 
       <x-anchor-button
         href="{{ route('security.2fa') }}"
-        class="xs:max-w-34 ml-auto w-full"
+        class="xs:max-w-30 ml-auto w-full text-xs/3"
         wire:navigate
       >
         Manage 2FA
