@@ -16,7 +16,7 @@
     class="mx-auto flex h-full max-h-full min-w-full flex-row overflow-hidden text-[#3d3530] selection:bg-[#3d3530] selection:text-[#f0ede8]"
   >
     <div
-      class="z-1 fixed -right-60 top-0 flex h-full w-full max-w-60 flex-col justify-between gap-4 border-l border-[#c8b96e] bg-[#3d3530] px-2.5 py-4 text-[#f0ede8] transition-all duration-300 lg:relative lg:left-0 lg:right-auto lg:max-h-full lg:border-l-0 lg:border-r"
+      class="z-1 fixed -right-60 top-0 flex h-full w-full max-w-60 flex-col justify-between gap-4 border-l border-[#c8b96e] bg-[#3d3530] px-2.5 pb-2.5 pt-4 text-[#f0ede8] transition-all duration-300 lg:relative lg:left-0 lg:right-auto lg:max-h-full lg:border-l-0 lg:border-r"
       :class="[showSidebar ? 'right-0!' : '']"
       x-on:click.outside="showSidebar = false"
     >
