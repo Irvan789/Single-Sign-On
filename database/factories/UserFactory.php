@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -17,11 +16,11 @@ class UserFactory extends Factory
 
     public function definition(): array
     {
-        $email = fake()->email();
+        $email = fake()->unique()->email();
 
         return [
             'name' => fake()->name(),
-            'username' => 'u' . Carbon::now()->setMillisecond(0)->timestamp,
+            'username' => fake()->unique()->word(),
             'avatar' => 'https://www.gravatar.com/avatar/' . hash('sha256', strtolower(trim($email))),
             'email' => $email,
             'email_verified_at' => now(),
