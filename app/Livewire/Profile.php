@@ -116,7 +116,7 @@ class Profile extends Component
         ]);
     }
 
-    public function deleteUser(Logout $logout): void
+    public function deleteAccount(Logout $logout): void
     {
         try {
             $this->validate([

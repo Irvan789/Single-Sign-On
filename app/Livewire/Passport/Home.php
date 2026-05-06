@@ -5,7 +5,6 @@ namespace App\Livewire\Passport;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 use Laravel\Passport\Token;
 use Livewire\Component;
@@ -20,8 +19,6 @@ class Home extends Component
 
     public function mount(): void
     {
-        Gate::allowIf(fn(User $user) => $user->role != 'user');
-
         $this->user = Auth::user();
     }
 

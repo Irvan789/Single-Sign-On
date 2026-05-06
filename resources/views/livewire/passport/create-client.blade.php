@@ -41,7 +41,7 @@
               x-on:change="$wire.callback[i] = $event.target.value"
             >
               <x-button
-                class="rounded-xs absolute right-0 top-px px-1.5 py-1 text-[0.625rem] leading-3"
+                class="rounded-xs absolute right-0 top-px px-1.75 py-1 text-[0.625rem] leading-3"
                 x-on:click="index.push(Date.now())"
               >
                 Add Callback
@@ -97,7 +97,7 @@
 
       <x-button
         type="submit"
-        class="xs:max-w-30 ml-auto w-full text-xs/3"
+        class="xs:max-w-34 ml-auto w-full"
       >
         Create Client
       </x-button>

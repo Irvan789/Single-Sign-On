@@ -11,7 +11,7 @@
             Recovery Codes
           </div>
 
-          <div class="mt-1 text-[0.9375rem]/4.5 sm:mt-2">
+          <div class="text-[0.9375rem]/4.5 mt-1 sm:mt-2">
             Keep your recovery codes safely for unauthorization access
           </div>
         </div>
@@ -28,7 +28,7 @@
           </div>
 
           <x-button
-            class="xs:max-w-30 ml-auto w-full text-xs/3"
+            class="xs:max-w-34 ml-auto w-full"
             wire:click="regenerateRecoveryCodes"
             wire:loading.attr="disabled"
           >
@@ -45,14 +45,14 @@
             Disable Two-Factor Authentication
           </div>
 
-          <div class="mt-1 text-[0.9375rem]/4.5 text-[#b85450]">
+          <div class="text-[0.9375rem]/4.5 mt-1 text-[#b85450]">
             When you disable two-factor authentication, you will be never prompted again for entering authentication
             code.
           </div>
         </div>
 
         <x-button
-          class="xs:max-w-30 ml-auto w-full text-xs/3"
+            class="xs:max-w-34 ml-auto w-full"
           wire:click="disableTwoFactor"
           wire:loading.attr="disabled"
         >

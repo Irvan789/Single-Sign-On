@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureUserIsAdministrator;
 use App\Http\Middleware\PassportMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -21,10 +22,12 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(base_path('routes/web.php'));
         }
     )
-    ->withMiddleware(function (Middleware $middleware): void { 
-        $middleware->append([
-            PassportMiddleware::class
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'user.admin' => EnsureUserIsAdministrator::class
         ]);
+
+        $middleware->append([PassportMiddleware::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

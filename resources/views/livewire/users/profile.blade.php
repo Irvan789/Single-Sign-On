@@ -1,0 +1,132 @@
+<x-contents>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <div class="block">
+      <div class="text-lg/4.5 font-bold">
+        Profile Information
+      </div>
+
+      <div class="text-[0.9375rem]/4.5 mt-1">
+        Update user personal information name and username.
+      </div>
+    </div>
+
+    <x-form
+      class="sm:col-span-2"
+      wire:submit="updateProfileInformation"
+    >
+      <img
+        src="{{ $user->avatar }}?size=128&r=g&d=mp"
+        class="size-24 rounded-full"
+      />
+
+      <x-input-text
+        label="Name"
+        type="text"
+        wire:model="name"
+      />
+
+      <x-input-text
+        label="Username"
+        type="text"
+        wire:model="username"
+      />
+
+      <x-input-text
+        label="Email"
+        type="email"
+        readonly="{{ $this->hasUnverifiedEmail }}"
+        wire:model="email"
+      />
+
+      <x-button
+        type="submit"
+        class="xs:max-w-34 ml-auto w-full"
+      >
+        Update Profile
+      </x-button>
+    </x-form>
+  </div>
+
+  <x-separator />
+
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <div class="block">
+      <div class="text-lg/4.5 font-bold">
+        Social Accounts
+      </div>
+
+      <div class="text-[0.9375rem]/4.5 mt-1">
+        Manage user linking social accounts
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 sm:col-span-2">
+      <x-social-account
+        name="Google"
+        email="{{ $socials_google ? $socials_google->email : '-' }}"
+        wire:click="unlinkSocialAccount('google')"
+      >
+        {{ $socials_google ? 'Unlink' : 'Not Linked' }}
+      </x-social-account>
+
+      <x-social-account
+        name="GitHub"
+        email="{{ $socials_github ? $socials_github->email : '-' }}"
+        wire:click="unlinkSocialAccount('github')"
+      >
+        {{ $socials_github ? 'Unlink' : 'Not Linked' }}
+      </x-social-account>
+    </div>
+  </div>
+
+  @if ($canManageTwoFactor)
+    @if ($twoFactorEnabled)
+      <x-separator />
+
+      <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div class="block">
+          <div class="text-lg/4.5 font-bold">
+            Disable Two-Factor Authentication
+          </div>
+
+          <div class="text-[0.9375rem]/4.5 mt-1 text-[#b85450]">
+            When you disable two-factor authentication, this user will be never prompted again for entering
+            authentication
+            code.
+          </div>
+        </div>
+
+        <x-button
+          class="xs:max-w-34 ml-auto w-full"
+          wire:click="disableTwoFactor"
+          wire:loading.attr="disabled"
+        >
+          Disable 2FA
+        </x-button>
+      </div>
+    @endif
+  @endif
+
+  <x-separator />
+
+  <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+    <div class="block">
+      <div class="text-lg/4.5 font-bold">
+        Delete Account
+      </div>
+
+      <div class="text-[0.9375rem]/4.5 mt-1 text-[#b85450]">
+        Warning: All user data will be deleted immediately.
+      </div>
+    </div>
+
+    <x-button
+      class="xs:max-w-34 ml-auto w-full"
+      wire:click="deleteAccount"
+      wire:confirm="Are you sure to delete your account? This action can't be undone!"
+      wire:loading.attr="disabled"
+    >
+      Delete Account
+    </x-button>
+  </div>
+</x-contents>

@@ -82,11 +82,20 @@
             Account Security
           </a>
 
-          @if ($user->role != 'user')
+          @if ($user->role == 'admin')
             <div class="my-1 flex items-center gap-2.5">
               <div class="h-px flex-1 bg-[#c8b96e4d]"></div>
               <div class="h-1.25 w-1.25 rotate-45 bg-[#c8b96e]"></div>
             </div>
+
+            <a
+              href="{{ route('users.home') }}"
+              class="{{ Route::is('users.home') || Route::is('users.profile') ? 'bg-[#c8b96e2e] text-[#f0ede8]' : 'transition-colors duration-300 hover:bg-[#c8b96e2e] hover:text-[#f0ede8]' }} rounded-xs relative py-2.5 pl-8 pr-2.5 text-sm/4"
+              wire:navigate
+            >
+              <span class="inset-y-2.25 inset-s-2 size-4.5 icon-[mingcute--group-line] absolute"></span>
+              Manage Users
+            </a>
 
             <a
               href="{{ route('passport.home') }}"
@@ -94,7 +103,7 @@
               wire:navigate
             >
               <span class="inset-y-2.25 inset-s-2 size-4.5 icon-[mingcute--idcard-line] absolute"></span>
-              Passport
+              Passport Client
             </a>
           @endif
         </div>

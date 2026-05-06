@@ -4,6 +4,7 @@ namespace App\Livewire\Security;
 
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
@@ -89,7 +90,7 @@ class TwoFactor extends Component
         }
 
         return view('livewire.security.two-factor')->layout('layouts::app', [
-            'title' => 'Manage Two-Factor',
+            'title' => 'Two-Factor Authentication',
             'user' => $this->user
         ]);
     }
@@ -136,9 +137,22 @@ class TwoFactor extends Component
 
     public function regenerateRecoveryCodes(GenerateNewRecoveryCodes $generateNewRecoveryCodes): void
     {
-        $generateNewRecoveryCodes($this->user);
+        $newRecoveryCodes = RateLimiter::attempt(
+            'regenerate-code.' . $this->user->id,
+            1,
+            function () use ($generateNewRecoveryCodes) {
+                $generateNewRecoveryCodes($this->user);
 
-        $this->loadRecoveryCodes();
+                $this->loadRecoveryCodes();
+            },
+            3600
+        );
+
+        if (!$newRecoveryCodes) {
+            abort(429);
+
+            return;
+        }
     }
 
     private function loadRecoveryCodes(): void

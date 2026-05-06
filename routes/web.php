@@ -7,6 +7,8 @@ use App\Livewire\Passport\Home as PassportHome;
 use App\Livewire\Passport\CreateClient as PassportCreateClient;
 use App\Livewire\Security\Home as SecurityHome;
 use App\Livewire\Security\TwoFactor as SecurityTwoFactor;
+use App\Livewire\Users\Home as UsersHome;
+use App\Livewire\Users\Profile as UsersProfile;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -28,7 +30,12 @@ Route::middleware(['auth'])->group(function () {
             ->name('security.2fa');
     });
 
-    Route::middleware(['verified', 'password.confirm'])->group(function () {
+    Route::middleware(['user.admin', 'verified', 'password.confirm'])->group(function () {
+        Route::prefix('/users')->group(function () {
+            Route::livewire('/', UsersHome::class)->name('users.home');
+            Route::livewire('/{id}', UsersProfile::class)->name('users.profile');
+        });
+
         Route::prefix('/passport')->group(function () {
             Route::livewire('/', PassportHome::class)->name('passport.home');
             Route::livewire('/create-client', PassportCreateClient::class)->name('passport.create.client');

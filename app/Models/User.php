@@ -6,6 +6,8 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -43,5 +45,17 @@ class User extends Authenticatable implements MustVerifyEmail, OAuthenticatable
     public function socialAccounts(): HasMany
     {
         return $this->hasMany(Social::class, 'user_id', 'id');
+    }
+
+    #[Scope]
+    protected function getUserWithSocialAccount(Builder $query, string $id)
+    {
+        return $query->where('id', '=', $id)->with('socialAccounts');
+    }
+
+    #[Scope]
+    protected function getUsersWithSocialAccounts(Builder $query, User $user)
+    {
+        return $query->where('id', '<>', $user->id)->with('socialAccounts')->orderBy('created_at', 'desc');
     }
 }

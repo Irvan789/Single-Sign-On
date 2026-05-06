@@ -5,7 +5,7 @@
         {{ $user->passwordless ? 'Create' : 'Change' }} Password
       </div>
 
-      <div class="mt-1 text-[0.9375rem]/4.5">
+      <div class="text-[0.9375rem]/4.5 mt-1">
         {{ $user->passwordless
             ? 'Before you can login using email and password, You must create a password first.'
             : 'Update your password associated with your account.' }}
@@ -38,7 +38,7 @@
 
       <x-button
         type="submit"
-        class="xs:max-w-30 ml-auto w-full text-xs/3"
+        class="xs:max-w-34 ml-auto w-full"
       >
         {{ $user->passwordless ? 'Create' : 'Change' }} Password
       </x-button>
@@ -54,14 +54,14 @@
           Two-Factor Authentication
         </div>
 
-        <div class="mt-1 text-[0.9375rem]/4.5">
+        <div class="text-[0.9375rem]/4.5 mt-1">
           Enable or Disable Two-Factor Authentication
         </div>
       </div>
 
       <x-anchor-button
         href="{{ route('security.2fa') }}"
-        class="xs:max-w-30 w-full text-xs/3"
+        class="xs:max-w-34 ml-auto w-full"
         wire:navigate
       >
         Manage 2FA

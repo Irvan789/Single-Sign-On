@@ -20,7 +20,7 @@
           class="size-24 rounded-full"
         />
 
-        <div class="flex flex-col gap-1">
+        <div class="block space-y-1.5">
           <div class="text-[0.9375rem]/4.5 font-medium">
             Visit Gravatar to change your avatar
           </div>
@@ -67,7 +67,7 @@
 
       <x-button
         type="submit"
-        class="xs:max-w-30 ml-auto w-full text-xs/3"
+        class="xs:max-w-34 ml-auto w-full"
       >
         Update Profile
       </x-button>
@@ -145,8 +145,8 @@
 
     <x-form
       class="sm:col-span-2"
-      wire:submit="deleteUser"
-      wire:confirm="Are you sure to delete your account? This action can't be undone!"
+      wire:submit="deleteAccount"
+      wire:confirm="Are you sure to delete this account? This action can't be undone!"
     >
       <x-input-text
         label="Current Password"
@@ -156,7 +156,7 @@
 
       <x-button
         type="submit"
-        class="xs:max-w-30 ml-auto w-full text-xs/3"
+        class="xs:max-w-34 ml-auto w-full"
       >
         Delete Account
       </x-button>

@@ -2,9 +2,7 @@
 
 namespace App\Livewire\Passport;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Laravel\Passport\ClientRepository;
 use Livewire\Component;
@@ -33,8 +31,6 @@ class CreateClient extends Component
 
     public function mount()
     {
-        Gate::allowIf(fn(User $user) => $user->role != 'user');
-
         $this->user = Auth::user();
     }
 
