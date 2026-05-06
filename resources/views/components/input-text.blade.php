@@ -9,7 +9,7 @@
     <input
       type="{{ $type ?? 'text' }}"
       autocomplete="off"
-      {{ $attributes->twMerge('rounded-xs border border-[#5e6e754d] bg-[#ffffff73] px-2.5 py-1.5 text-sm/5 focus:border-[#c8b96ea6] focus:bg-[#ffffffb3] focus:outline-none') }}
+      {{ $attributes->twMerge('rounded-xs inset-ring inset-ring-[#5e6e754d] focus:inset-ring-[#c8b96ea6] bg-[#ffffff73] px-3 py-2 text-sm/5 font-normal read-only:cursor-not-allowed focus:bg-[#ffffffb3] focus:outline-none') }}
     />
 
     {{ $slot }}
@@ -17,16 +17,16 @@
     <input
       :type="showPassword ? 'text' : 'password'"
       autocomplete="off"
-      {{ $attributes->twMerge('rounded-xs border border-[#5e6e754d] bg-[#ffffff73] pl-2.5 pr-8 py-1.5 text-sm/5 focus:border-[#c8b96ea6] focus:bg-[#ffffffb3] focus:outline-none') }}
+      {{ $attributes->twMerge('rounded-xs inset-ring inset-ring-[#5e6e754d] focus:inset-ring-[#c8b96ea6] bg-[#ffffff73] py-2 pl-3 pr-9 text-sm/5 font-normal read-only:cursor-not-allowed focus:bg-[#ffffffb3] focus:outline-none') }}
     />
 
     <button
       type="button"
-      class="inset-e-0 p-2.25 absolute top-6 flex shrink-0 cursor-pointer"
+      class="inset-e-0 absolute top-6 flex shrink-0 cursor-pointer p-2.5"
       x-on:click="showPassword = !showPassword"
     >
       <span
-        class="size-4 text-zinc-700"
+        class="size-4 text-[#3d3530]"
         :class="showPassword ? 'icon-[heroicons--eye-20-solid]' : 'icon-[heroicons--eye-slash-20-solid]'"
       >
       </span>
