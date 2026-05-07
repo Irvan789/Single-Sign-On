@@ -67,6 +67,8 @@
             name="Google"
             email="{{ $socials_google->email }}"
             wire:click="unlinkSocialAccount('google')"
+            wire:confirm="Are you sure to unlink user social account? This action can't be undone!"
+            wire:loading.attr="disabled"
           >
             Unlink
           </x-social-account>
@@ -77,6 +79,8 @@
             name="GitHub"
             email="{{ $socials_github->email }}"
             wire:click="unlinkSocialAccount('github')"
+            wire:confirm="Are you sure to unlink user social account? This action can't be undone!"
+            wire:loading.attr="disabled"
           >
             Unlink
           </x-social-account>
