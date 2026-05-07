@@ -133,7 +133,7 @@
     <x-button
       class="xs:max-w-30 ml-auto w-full text-xs/3"
       wire:click="deleteAccount"
-      wire:confirm="Are you sure to delete your account? This action can't be undone!"
+      wire:confirm="Are you sure to delete this account? This action can't be undone!"
       wire:loading.attr="disabled"
     >
       Delete Account
