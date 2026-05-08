@@ -23,7 +23,7 @@
   @if (count($clients) > 0)
     <div class="grid h-fit grid-flow-row gap-2">
       @foreach ($clients as $client)
-        <div class="rounded-xs inline-flex items-center justify-between gap-2 border border-[#c8b96e4d] p-2.5">
+        <div class="rounded-xs inline-flex items-center justify-between gap-2.5 border border-[#c8b96e4d] p-2.5">
           <div class="flex flex-col">
             <div class="text-base/5 font-bold">
               {{ $client->name }}
