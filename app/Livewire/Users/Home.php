@@ -34,7 +34,7 @@ class Home extends Component
         return view('livewire.users.home', [
             'users' => User::getUsersWithSocialAccounts($this->user)
                 ->when($this->search, function ($query, $search) {
-                    $query->where('name', 'like', "{$search}%");
+                    $query->where('name', 'ilike', "{$search}%");
                 })
                 ->paginate(10)
                 ->onEachSide(1)
