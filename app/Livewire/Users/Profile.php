@@ -100,6 +100,8 @@ class Profile extends Component
     {
         $validated = $this->validate($this->profileRules($this->user->id));
 
+        $validated['username'] = preg_replace('/[^a-zA-Z0-9]/', '_', $validated['username']);
+
         $this->user->fill($validated);
 
         if ($this->user->isDirty('email')) {
