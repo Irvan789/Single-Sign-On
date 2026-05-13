@@ -41,6 +41,15 @@ class UserFactory extends Factory
         );
     }
 
+    public function withAdminRole(): static
+    {
+        return $this->state(
+            fn(array $attributes) => [
+                'role' => 'admin'
+            ]
+        );
+    }
+
     public function withTwoFactor(): static
     {
         return $this->state(
