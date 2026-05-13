@@ -20,7 +20,7 @@ class CloudflareTurnstile implements ValidationRule
         ]);
 
         if (!$response->ok()) {
-            $fail('Failed to validate token, Please try again later.');
+            $fail('Invalid or expired turnstile token!');
         }
 
         return;
