@@ -48,12 +48,12 @@ class Home extends Component
 
             $this->dispatch('toastify', [
                 'type' => 'success',
-                'message' => 'Client Deleted Successfully!'
+                'message' => 'Client deleted successfully!'
             ]);
         } catch (Exception $e) {
             $this->dispatch('toastify', [
                 'type' => 'error',
-                'message' => 'Client Data Does Not Match!'
+                'message' => 'Client data does not match!'
             ]);
         }
     }
@@ -69,12 +69,12 @@ class Home extends Component
 
             $this->dispatch('toastify', [
                 'type' => 'success',
-                'message' => 'Client Token Cleared Successfully!'
+                'message' => 'Client token cleared successfully!'
             ]);
         } catch (Exception $error) {
             $this->dispatch('toastify', [
                 'type' => 'error',
-                'message' => 'Client Data Does Not Match!'
+                'message' => 'Client data does not match!'
             ]);
         }
     }

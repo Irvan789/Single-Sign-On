@@ -78,7 +78,7 @@ class Home extends Component
 
             $this->dispatch('toastify', [
                 'type' => 'success',
-                'message' => 'Password Updated Successfully!'
+                'message' => 'Password updated successfully!'
             ]);
         } catch (ValidationException $error) {
             $this->reset('current_password', 'password', 'password_confirmation');

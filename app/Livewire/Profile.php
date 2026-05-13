@@ -114,7 +114,7 @@ class Profile extends Component
 
         $this->dispatch('toastify', [
             'type' => 'success',
-            'message' => 'Profile Updated Successfully!'
+            'message' => 'Profile updated successfully!'
         ]);
     }
 

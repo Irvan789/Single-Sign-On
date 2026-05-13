@@ -65,7 +65,7 @@ class CreateClient extends Component
 
         $this->dispatch('toastify', [
             'type' => 'success',
-            'message' => 'Client Created Successfully!'
+            'message' => 'Client created successfully!'
         ]);
 
         $this->reset();

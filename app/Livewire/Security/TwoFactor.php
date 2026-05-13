@@ -110,7 +110,7 @@ class TwoFactor extends Component
 
             $this->dispatch('toastify', [
                 'type' => 'success',
-                'message' => 'Two-Factor Setup Successfully'
+                'message' => 'Two-Factor setup successfully'
             ]);
         } catch (Exception $error) {
             $this->dispatch('toastify', [
@@ -130,7 +130,7 @@ class TwoFactor extends Component
 
         Session::regenerate();
 
-        Session::flash('status', 'Two-Factor Disable Successfully');
+        Session::flash('status', 'Two-Factor disable successfully');
 
         $this->redirectRoute('security', navigate: true);
     }

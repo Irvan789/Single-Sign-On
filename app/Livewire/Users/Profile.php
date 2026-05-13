@@ -105,6 +105,15 @@ class Profile extends Component
         $this->user->fill($validated);
 
         if ($this->user->isDirty('email')) {
+            if (is_null($this->user->email_verified_at)) {
+                $this->dispatch('toastify', [
+                    'type' => 'error',
+                    'message' => 'Can\'t change email for unverified user!'
+                ]);
+
+                return;
+            }
+
             $this->user->email_verified_at = null;
         }
 
@@ -112,7 +121,7 @@ class Profile extends Component
 
         $this->dispatch('toastify', [
             'type' => 'success',
-            'message' => 'User Profile Updated Successfully!'
+            'message' => 'User profile updated successfully!'
         ]);
     }
 
@@ -133,7 +142,7 @@ class Profile extends Component
 
             $this->dispatch('toastify', [
                 'type' => 'success',
-                'message' => 'Social Account Unlinked Successfully!'
+                'message' => 'Social Account unlinked successfully!'
             ]);
         }
     }
@@ -146,7 +155,7 @@ class Profile extends Component
 
         $this->dispatch('toastify', [
             'type' => 'success',
-            'message' => 'Two-Factor Disable Successfully!'
+            'message' => 'Two-Factor disable successfully!'
         ]);
     }
 
@@ -158,7 +167,7 @@ class Profile extends Component
 
         $this->user->delete();
 
-        Session::flash('status', 'User Deleted Successfully');
+        Session::flash('status', 'User deleted successfully');
 
         $this->redirectRoute('users.home', navigate: true);
     }
