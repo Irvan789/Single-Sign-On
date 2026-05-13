@@ -43,7 +43,7 @@ class Login extends Component
         return view('livewire.auth.login');
     }
 
-    public function resetStatus(): void
+    public function resetPassword(): void
     {
         $this->reset('password');
     }

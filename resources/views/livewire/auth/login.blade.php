@@ -114,7 +114,7 @@
           .replaceAll('amp;', '')
         )
       } catch (error) {
-        await $wire.resetStatus()
+        await $wire.resetPassword()
 
         if (error instanceof Error) {
           return $wire.dispatch('toastify', {
