@@ -20,11 +20,22 @@ trait ProfileValidationRules
     }
 
     /**
+     * @return array<string, array<int, \Illuminate\Contracts\Validation\Rule|array<mixed>|string>>
+     */
+    protected function profileRulesErrorMessage(): array
+    {
+        return [
+            'name.regex' => 'The name field must only contain letters, numbers, and spaces.',
+            'username.regex' => 'The username field must only contain letters, numbers, and underscores.'
+        ];
+    }
+
+    /**
      * @return array<int, \Illuminate\Contracts\Validation\Rule|array<mixed>|string>
      */
     protected function nameRules(): array
     {
-        return ['required', 'string', 'max:255'];
+        return ['required', 'string', 'regex:/^[\pL\pN\s]+$/', 'max:50'];
     }
 
     /**
@@ -35,7 +46,9 @@ trait ProfileValidationRules
         return [
             'required',
             'string',
-            'max:255',
+            'lowercase',
+            'regex:/^[a-z0-9_]+$/',
+            'max:50',
             $userId === null 
                 ? Rule::unique(User::class) 
                 : Rule::unique(User::class)->ignore($userId)
@@ -50,8 +63,9 @@ trait ProfileValidationRules
         return [
             'required',
             'string',
+            'lowercase',
             'email',
-            'max:255',
+            'max:50',
             $userId === null 
                 ? Rule::unique(User::class) 
                 : Rule::unique(User::class)->ignore($userId)
