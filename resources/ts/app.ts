@@ -6,7 +6,6 @@ import {
 } from "overlayscrollbars"
 
 import { ofetch } from "ofetch"
-import * as zod from "zod"
 
 // @ts-ignore
 import "overlayscrollbars/overlayscrollbars.css"
@@ -21,7 +20,6 @@ declare global {
     }
     ofetch: typeof ofetch
     osInstance: OverlayScrollbars
-    zod: typeof zod
   }
 }
 
@@ -38,7 +36,6 @@ let turnstileTimeout: ReturnType<typeof setTimeout> | null = null
 
 document.addEventListener("livewire:initialized", () => {
   window.ofetch = ofetch
-  window.zod = zod
 })
 
 document.addEventListener("livewire:navigated", () => {

@@ -94,13 +94,6 @@
       } catch (error) {
         await $wire.resetCode()
 
-        if (error instanceof zod.ZodError) {
-          return $wire.dispatch('toastify', {
-            type: 'error',
-            message: error.issues[0].message
-          })
-        }
-
         if (error instanceof Error) {
           return $wire.dispatch('toastify', {
             type: 'error',
