@@ -8,6 +8,7 @@ use App\Livewire\Actions\Logout;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -100,6 +101,8 @@ class Profile extends Component
 
     public function updateProfileInformation(): void
     {
+        $this->name = Str::trim($this->name);
+
         $this->username = preg_replace('/[\s+]/', '_', strtolower($this->username));
 
         $validated = $this->validate($this->profileRules($this->user->id), $this->profileRulesErrorMessage());
