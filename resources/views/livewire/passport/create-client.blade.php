@@ -1,11 +1,11 @@
 <x-contents>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         Create Passport Client
       </div>
 
-      <div class="mt-1 text-[0.9375rem]/4.5">
+      <div class="text-smd">
         Create a new OAuth client
       </div>
     </div>
@@ -41,7 +41,7 @@
               x-on:change="$wire.callback[i] = $event.target.value"
             >
               <x-button
-                class="rounded-xs absolute right-0 top-px px-1.75 py-1 text-[0.625rem] leading-3"
+                class="rounded-xs px-1.75 absolute right-0 top-px py-1 text-[0.625rem] leading-3"
                 x-on:click="index.push(Date.now())"
               >
                 Add Callback
@@ -63,7 +63,7 @@
               />
 
               <x-button
-                class="inset-e-0 rounded-r-xs absolute inset-y-0 flex rounded-l-none bg-[#B85450] p-2 text-xs hover:bg-[#8B3A38]"
+                class="inset-e-0 rounded-r-xs absolute inset-y-0 flex rounded-l-none bg-[#B85450] p-2.5 text-xs hover:bg-[#8B3A38]"
                 x-on:click="index = index.filter(v => v != id)"
               >
                 <span class="icon-[mingcute--delete-2-line] size-4"></span>
@@ -74,21 +74,21 @@
       </div>
 
       @if (session('passport-client'))
-        <div class="rounded-xs w-full space-y-2 border border-[#c8b96e4d] px-2.5 py-2 text-sm text-[#8b3a38]">
-          <div class="flex flex-row gap-1">
-            <span class="icon-[mingcute--alert-line] size-4.5 mt-px"></span>
+        <div class="rounded-xs w-full space-y-2 border border-[#c8b96e4d] p-2.5">
+          <div class="text-smd inline-flex gap-1 font-medium text-[#8b3a38]">
+            <span class="icon-[mingcute--alert-line] size-5"></span>
             The client secret will not be shown again, so don't
             lose it!
           </div>
 
-          <div class="flex flex-col gap-1.5 text-sm/4 text-[#3d3530]">
-            <div class="flex flex-col gap-0.5">
-              Client ID:
+          <div class="block space-y-2 text-sm/4 text-[#3d3530]">
+            <div class="flex flex-col space-y-1">
+              <span class="font-medium">Client ID:</span>
               <span>{{ session('passport-client')['id'] }}</span>
             </div>
 
-            <div class="flex flex-col gap-0.5">
-              Client Secret:
+            <div class="flex flex-col space-y-1">
+              <span class="font-medium">Client Secret:</span>
               <span>{{ session('passport-client')['secret'] }}</span>
             </div>
           </div>
@@ -103,5 +103,4 @@
       </x-button>
     </x-form>
   </div>
-
 </x-contents>

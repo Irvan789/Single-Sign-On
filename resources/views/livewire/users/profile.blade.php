@@ -1,11 +1,11 @@
 <x-contents>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         Profile Information
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1">
+      <div class="text-smd">
         Update user personal information name and username.
       </div>
     </div>
@@ -52,12 +52,12 @@
     <x-separator />
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-      <div class="block">
-        <div class="text-lg/4.5 font-bold">
+      <div class="-mt-px block space-y-0.5">
+        <div class="text-lg/5.5 font-bold">
           Social Accounts
         </div>
 
-        <div class="text-[0.9375rem]/4.5 mt-1">
+        <div class="text-smd">
           Manage user linking social accounts
         </div>
       </div>
@@ -95,12 +95,12 @@
       <x-separator />
 
       <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-        <div class="block">
-          <div class="text-lg/4.5 font-bold">
+        <div class="-mt-px block space-y-0.5">
+          <div class="text-lg/5.5 font-bold">
             Disable Two-Factor Authentication
           </div>
 
-          <div class="text-[0.9375rem]/4.5 mt-1 text-[#b85450]">
+          <div class="text-smd text-[#b85450]">
             When you disable two-factor authentication, this user will be never prompted again for entering
             authentication
             code.
@@ -121,12 +121,12 @@
   <x-separator />
 
   <div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         Delete Account
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1 text-[#b85450]">
+      <div class="text-smd text-[#b85450]">
         Warning: All user data will be deleted immediately.
       </div>
     </div>

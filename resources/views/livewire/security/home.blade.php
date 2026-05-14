@@ -1,11 +1,11 @@
 <x-contents>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         {{ $user->passwordless ? 'Create' : 'Change' }} Password
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1">
+      <div class="text-smd">
         {{ $user->passwordless
             ? 'Before you can login using email and password, You must create a password first.'
             : 'Update your password associated with your account.' }}
@@ -49,12 +49,12 @@
     <x-separator />
 
     <div class="xs:flex-row xs:items-center flex flex-col justify-between gap-4">
-      <div class="block">
-        <div class="text-lg/4.5 font-bold">
+      <div class="-mt-px block space-y-0.5">
+        <div class="text-lg/5.5 font-bold">
           Two-Factor Authentication
         </div>
 
-        <div class="text-[0.9375rem]/4.5 mt-1">
+        <div class="text-smd">
           Enable or Disable Two-Factor Authentication
         </div>
       </div>

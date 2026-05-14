@@ -1,11 +1,11 @@
 <x-contents>
   <div class="xs:flex-row xs:items-center flex flex-col justify-between gap-4">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         Manage Users
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1">
+      <div class="text-smd">
         Update their account information and settings here
       </div>
     </div>
@@ -25,28 +25,26 @@
     <div class="flex flex-col gap-2">
       @foreach ($users as $user)
         <div
-          class="rounded-xs xs:flex-row xs:items-center flex flex-col justify-between gap-2.5 border border-[#c8b96e4d] p-2.5"
+          class="rounded-xs xs:flex-row xs:items-center flex flex-col justify-between gap-2 border border-[#c8b96e4d] p-2.5"
         >
-          <div class="flex w-full max-w-80 flex-col">
-            <div class="inline-flex items-center gap-2 overflow-hidden text-ellipsis">
-              <img
-                src="{{ $user->avatar }}?size=128&r=g&d=mp"
-                class="size-10 rounded-full"
-              />
+          <div class="inline-flex w-full max-w-80 items-center gap-2 overflow-hidden text-ellipsis">
+            <img
+              src="{{ $user->avatar }}?size=128&r=g&d=mp"
+              class="size-10 rounded-full"
+            />
 
-              <div class="flex flex-col">
-                <span class="text-base/4.5 font-semibold">
-                  {{ $user->name }}
-                </span>
-                <span class="text-sm/4 font-normal">
-                  {{ $user->email }}
-                </span>
-              </div>
+            <div class="flex flex-col">
+              <span class="text-base/4.5 font-semibold">
+                {{ $user->name }}
+              </span>
+              <span class="text-sm/4 font-normal">
+                {{ $user->email }}
+              </span>
             </div>
           </div>
 
           <x-anchor-button
-            href="/users/{{ $user->id }}"
+            href="{{ route('users.profile', ['id' => $user->id]) }}"
             class="px-3 py-2 text-xs/3"
             wire:navigate
           >

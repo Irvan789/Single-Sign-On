@@ -15,13 +15,15 @@
       class="size-20 rounded-full md:size-24"
     />
 
-    <div class="wrap-break-word flex w-full flex-col md:text-center">
+    <div class="wrap-anywhere flex w-full flex-col md:text-center">
       <div
         class="text-xl/6 font-bold"
         x-text="name"
       ></div>
-      <div class="text-sm/5">
-        <span x-text="email"></span>
+      <div
+        class="text-sm/5"
+        x-text="email"
+      >
       </div>
     </div>
   </div>

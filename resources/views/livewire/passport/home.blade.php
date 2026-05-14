@@ -1,11 +1,11 @@
 <x-contents>
   <div class="xs:flex-row xs:items-center flex flex-col justify-between gap-4">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         Passport Client
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1">
+      <div class="text-smd">
         Manage your passport client here.
       </div>
     </div>
@@ -21,9 +21,9 @@
   </div>
 
   @if (count($clients) > 0)
-    <div class="grid h-fit grid-flow-row gap-2">
+    <div class="flex flex-col gap-2">
       @foreach ($clients as $client)
-        <div class="rounded-xs inline-flex items-center justify-between gap-2.5 border border-[#c8b96e4d] p-2.5">
+        <div class="rounded-xs inline-flex items-center justify-between gap-2 border border-[#c8b96e4d] p-2.5">
           <div class="flex flex-col">
             <div class="text-base/5 font-bold">
               {{ $client->name }}

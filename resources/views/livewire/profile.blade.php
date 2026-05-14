@@ -1,11 +1,11 @@
 <x-contents>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         Profile Information
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1">
+      <div class="text-smd">
         Update your personal information like name, username, and email.
       </div>
     </div>
@@ -21,7 +21,7 @@
         />
 
         <div class="block space-y-1.5">
-          <div class="text-[0.9375rem]/4.5 font-medium">
+          <div class="text-smd font-medium">
             Visit Gravatar to change your avatar
           </div>
 
@@ -78,12 +78,12 @@
   <x-separator />
 
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         Social Accounts
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1">
+      <div class="text-smd">
         Manage your linking social accounts
       </div>
     </div>
@@ -134,12 +134,12 @@
   <x-separator />
 
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <div class="block">
-      <div class="text-lg/4.5 font-bold">
+    <div class="-mt-px block space-y-0.5">
+      <div class="text-lg/5.5 font-bold">
         Delete Account
       </div>
 
-      <div class="text-[0.9375rem]/4.5 mt-1 text-[#b85450]">
+      <div class="text-smd text-[#b85450]">
         Warning: All your data will be deleted immediately.
       </div>
     </div>
