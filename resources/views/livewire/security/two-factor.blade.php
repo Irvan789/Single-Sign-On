@@ -99,7 +99,7 @@
       >
         <x-input-text
           label="Verify the code from phone app"
-          type="text"
+          type="number"
           wire:model="code"
         />
 

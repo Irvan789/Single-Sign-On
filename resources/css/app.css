@@ -25,6 +25,17 @@ button:disabled {
   cursor: not-allowed;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 div#livewire-error {
   top: 0;
   left: 0;
