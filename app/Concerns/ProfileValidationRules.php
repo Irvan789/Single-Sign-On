@@ -25,7 +25,7 @@ trait ProfileValidationRules
     protected function profileRulesErrorMessage(): array
     {
         return [
-            'name.regex' => 'The name field must only contain letters, numbers, and spaces.',
+            'name.regex' => 'The name field must only contain letters, numbers, underscores, hyphens, and spaces.',
             'username.regex' => 'The username field must only contain letters, numbers, and underscores.'
         ];
     }
@@ -35,7 +35,7 @@ trait ProfileValidationRules
      */
     protected function nameRules(): array
     {
-        return ['required', 'string', 'regex:/^[\pL\pN\s]+$/', 'max:50'];
+        return ['required', 'string', 'regex:/^[a-zA-Z0-9_\-\s]+$/', 'max:50'];
     }
 
     /**
