@@ -98,7 +98,7 @@ class Profile extends Component
 
     public function updateProfileInformation(): void
     {
-        $this->username = preg_replace('/[\s+]/', '_', $this->username);
+        $this->username = preg_replace('/[\s+]/', '_', strtolower($this->username));
 
         $validated = $this->validate($this->profileRules($this->user->id), $this->profileRulesErrorMessage());
 

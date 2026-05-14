@@ -29,7 +29,7 @@
         label="Username"
         type="text"
         wire:model="username"
-        x-on:input="handleUsernameInput"
+        x-on:input="formatUsername"
       />
 
       <x-input-text
