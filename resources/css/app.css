@@ -8,6 +8,8 @@
   --font-sans: "Reddit Sans", sans-serif;
   --font-mono: "Reddit mono", "Consolas", monospace;
   --breakpoint-xs: 32rem;
+  --text-smd: 0.9375rem;
+  --text-smd--line-height: calc(var(--spacing) * 4.75);
 }
 
 html,
@@ -31,7 +33,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
