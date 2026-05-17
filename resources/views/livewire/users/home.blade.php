@@ -24,16 +24,14 @@
   @if (count($users) > 0)
     <div class="flex flex-col gap-2">
       @foreach ($users as $user)
-        <div
-          class="rounded-xs xs:flex-row xs:items-center flex flex-col justify-between gap-2 border border-[#c8b96e4d] p-2.5"
-        >
-          <div class="inline-flex w-full max-w-80 items-center gap-2 overflow-hidden text-ellipsis">
+        <div class="rounded-xs inline-flex items-center justify-between gap-2.5 border border-[#c8b96e4d] p-2.5">
+          <div class="flex w-full max-w-80 flex-row items-center gap-2 overflow-hidden">
             <img
               src="{{ $user->avatar }}?size=128&r=g&d=mp"
               class="size-10 rounded-full"
             />
 
-            <div class="flex flex-col">
+            <div class="flex max-w-0 flex-col text-nowrap">
               <span class="text-base/4.5 font-semibold">
                 {{ $user->name }}
               </span>
@@ -45,7 +43,7 @@
 
           <x-anchor-button
             href="{{ route('users.profile', ['id' => $user->id]) }}"
-            class="px-3 py-2 text-xs/3"
+            class="ml-auto text-nowrap px-3 py-2 text-xs/3"
             wire:navigate
           >
             View User
