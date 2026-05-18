@@ -36,7 +36,7 @@ class SocialProvider extends Controller
         return Socialite::driver('github')->redirect();
     }
 
-    public function callback(string $provider, Request $request): RedirectResponse
+    public function callback(string $provider): RedirectResponse
     {
         try {
             $socialite = Socialite::driver($provider)->user();
@@ -46,26 +46,26 @@ class SocialProvider extends Controller
                     throw new Exception('Please create password first before you can manage linking social accounts.');
                 }
 
-                $socialAccontsById = Social::getUserBySocialAccountsId($provider, $socialite->id);
+                $socialAccountById = Social::getUserBySocialAccountId($provider, $socialite->id);
 
-                if ($socialAccontsById->first()) {
-                    $socialAccontsById->delete();
+                if ($socialAccountById->first()) {
+                    $socialAccountById->delete();
 
                     Session::regenerate();
 
                     return $this->redirectBack();
                 }
 
-                $socialAccountByEmail = Social::getUserBySocialAccoutsEmail($provider, $socialite->email)->first();
+                $socialAccountByEmail = Social::getUserBySocialAccoutEmail($provider, $socialite->email);
 
-                if ($socialAccountByEmail) {
-                    throw new Exception('Error while processing your request');
+                if ($socialAccountByEmail->first()) {
+                    throw new Exception('Can\'t unlink social account with different email address');
                 }
 
-                $socialAccontsByUserId = Social::getUserBySocialUserId($provider, $this->user->id)->first();
+                $socialAccontsByUserId = Social::getUserBySocialUserId($provider, $this->user->id);
 
-                if ($socialAccontsByUserId) {
-                    throw new Exception('Error while processing your request');
+                if ($socialAccontsByUserId->first()) {
+                    throw new Exception('Can\'t unlink social account with different email address');
                 }
 
                 $socialData = [
