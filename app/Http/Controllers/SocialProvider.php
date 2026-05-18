@@ -59,13 +59,13 @@ class SocialProvider extends Controller
                 $socialAccountByEmail = Social::getUserBySocialAccoutEmail($provider, $socialite->email);
 
                 if ($socialAccountByEmail->first()) {
-                    throw new Exception('Can\'t unlink social account with different email address');
+                    throw new Exception('Can\'t unlink social account with different email address.');
                 }
 
                 $socialAccontsByUserId = Social::getUserBySocialUserId($provider, $this->user->id);
 
                 if ($socialAccontsByUserId->first()) {
-                    throw new Exception('Can\'t unlink social account with different email address');
+                    throw new Exception('Can\'t unlink social account with different email address.');
                 }
 
                 $socialData = [
@@ -128,7 +128,7 @@ class SocialProvider extends Controller
                 return $this->redirectBack();
             }
 
-            throw new Exception('Your ' . $provider . " account isn't connected to your profile yet");
+            throw new Exception('Your ' . $provider . " account isn't connected to your profile yet.");
         } catch (Exception $error) {
             Session::flash('error', $error->getMessage());
 
