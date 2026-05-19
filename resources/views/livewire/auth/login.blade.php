@@ -71,7 +71,7 @@
   <x-separator />
 
   <div class="mb-0.5 flex flex-col gap-2">
-    <x-social-link :href="route('socials.google')">
+    <x-social-link :href="route('socials.redirect', ['provider' => 'google'])">
       <img
         src="{{ asset('assets/icon/google.svg') }}"
         class="size-4"
@@ -80,7 +80,7 @@
       Continue with Google
     </x-social-link>
 
-    <x-social-link :href="route('socials.github')">
+    <x-social-link :href="route('socials.redirect', ['provider' => 'github'])">
       <img
         src="{{ asset('assets/icon/github.svg') }}"
         class="size-4"

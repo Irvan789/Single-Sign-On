@@ -114,7 +114,7 @@
       @else
         <x-social-account
           name="Google"
-          :url="route('socials.google')"
+          :url="route('socials.redirect', ['provider' => 'google'])"
           email="{{ $socials_google ? $socials_google->email : 'Not Linked' }}"
         >
           {{ $socials_google ? 'Unlink' : 'Link' }}
@@ -122,7 +122,7 @@
 
         <x-social-account
           name="GitHub"
-          :url="route('socials.github')"
+          :url="route('socials.redirect', ['provider' => 'github'])"
           email="{{ $socials_github ? $socials_github->email : 'Not Linked' }}"
         >
           {{ $socials_github ? 'Unlink' : 'Link' }}

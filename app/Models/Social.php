@@ -23,7 +23,7 @@ class Social extends Model
     }
 
     #[Scope]
-    protected function getUserBySocialAccoutEmail(Builder $query, string $provider, string $email): void
+    protected function getUserBySocialAccountEmail(Builder $query, string $provider, string $email): void
     {
         $query->where([
             'provider' => $provider,

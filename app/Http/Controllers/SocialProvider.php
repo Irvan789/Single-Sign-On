@@ -15,25 +15,18 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialProvider extends Controller
 {
-    public mixed $user;
+    private ?User $user;
 
     public function __construct()
     {
         $this->user = Auth::user();
     }
 
-    public function google(Request $request): RedirectResponse
+    public function redirect(Request $request, string $provider): RedirectResponse
     {
-        $this->createSession($request, 'google');
+        $this->createSession($request);
 
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function github(Request $request): RedirectResponse
-    {
-        $this->createSession($request, 'github');
-
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     public function callback(string $provider): RedirectResponse
@@ -56,15 +49,15 @@ class SocialProvider extends Controller
                     return $this->redirectBack();
                 }
 
-                $socialAccountByEmail = Social::getUserBySocialAccoutEmail($provider, $socialite->email);
+                $socialAccountByEmail = Social::getUserBySocialAccountEmail($provider, $socialite->email);
 
                 if ($socialAccountByEmail->first()) {
                     throw new Exception('Can\'t unlink social account with different email address.');
                 }
 
-                $socialAccontsByUserId = Social::getUserBySocialUserId($provider, $this->user->id);
+                $socialAccountsByUserId = Social::getUserBySocialUserId($provider, $this->user->id);
 
-                if ($socialAccontsByUserId->first()) {
+                if ($socialAccountsByUserId->first()) {
                     throw new Exception('Can\'t unlink social account with different email address.');
                 }
 
@@ -82,7 +75,7 @@ class SocialProvider extends Controller
                 return $this->redirectBack();
             }
 
-            $loginUsingSocialAccount = Social::getUserBySocialAccountsId($provider, $socialite->id)->first();
+            $loginUsingSocialAccount = Social::getUserBySocialAccountId($provider, $socialite->id)->first();
 
             if ($loginUsingSocialAccount) {
                 $user = User::where('id', $loginUsingSocialAccount->user_id)->first();
@@ -178,10 +171,10 @@ class SocialProvider extends Controller
             return Redirect::to($intended);
         }
 
-        $socialite = Session::get('url.socialite');
+        $socialiteUrl = Session::get('url.socialite');
 
-        if ($socialite) {
-            return Redirect::to($socialite);
+        if ($socialiteUrl) {
+            return Redirect::to($socialiteUrl);
         }
 
         return Redirect::route('profile');

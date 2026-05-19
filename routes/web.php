@@ -46,8 +46,9 @@ Route::middleware(['auth'])->group(function () {
 Route::controller(SocialProvider::class)
     ->prefix('/socials')
     ->group(function () {
-        Route::get('/google', 'google')->name('socials.google');
-        Route::get('/github', 'github')->name('socials.github');
+        Route::get('/{provider}', 'redirect')
+            ->name('socials.redirect')
+            ->whereIn('provider', ['google', 'github']);
 
         Route::get('/{provider}/callback', 'callback');
     });
