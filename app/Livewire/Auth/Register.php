@@ -25,4 +25,9 @@ class Register extends Component
     {
         return view('livewire.auth.register');
     }
+
+    public function resetForm(): void
+    {
+        $this->reset(['password_confirmation']);
+    }
 }

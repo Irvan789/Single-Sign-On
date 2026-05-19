@@ -3,7 +3,7 @@
     Please confirm your password before continuing.
   </x-auth-header>
 
-  <x-form x-on:submit.prevent="$js.confirm($event)">
+  <x-form wire:submit="$js.confirm($event)">
     @csrf
 
     <x-input-text
@@ -27,11 +27,8 @@
   <script lang="js">
     $js.confirm = async (event) => {
       const formData = new FormData(event.currentTarget)
-      const button = event.submitter
 
       try {
-        button.setAttribute("disabled", "disabled")
-
         await ofetch("{{ route('password.confirm.store') }}", {
           method: "POST",
           headers: {
@@ -42,7 +39,7 @@
 
         await $wire.navigate()
       } catch (error) {
-        button.removeAttribute("disabled")
+        await $wire.resetForm()
 
         if (error instanceof Error) {
           return $wire.dispatch('toastify', {

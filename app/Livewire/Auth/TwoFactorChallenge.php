@@ -39,7 +39,7 @@ class TwoFactorChallenge extends Component
         return view('livewire.auth.two-factor-challenge');
     }
 
-    public function resetCode(): void
+    public function resetForm(): void
     {
         $this->reset(['code', 'recovery_code']);
     }

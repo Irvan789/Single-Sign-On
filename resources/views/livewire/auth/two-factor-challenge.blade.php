@@ -61,7 +61,7 @@
 
   <x-separator />
 
-  <div class="text-[0.9375rem]/4.5 -mt-1 text-center font-medium text-[#3d3530]">
+  <div class="text-smd -mt-1 text-center font-medium text-[#3d3530]">
     Return to
     <a
       href="{{ route('login') }}"
@@ -92,7 +92,7 @@
           .replaceAll('amp;', '')
         )
       } catch (error) {
-        await $wire.resetCode()
+        await $wire.resetForm()
 
         if (error instanceof Error) {
           return $wire.dispatch('toastify', {

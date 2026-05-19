@@ -24,4 +24,9 @@ class ForgotPassword extends Component
 
         $this->redirectRoute('login', navigate: true);
     }
+
+    public function resetForm(): void
+    {
+        $this->reset();
+    }
 }

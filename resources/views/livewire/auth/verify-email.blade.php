@@ -16,7 +16,7 @@
 
   <x-separator />
 
-  <div class="text-[0.9375rem]/4.5 -mt-1 text-center font-medium text-[#3d3530]">
+  <div class="text-smd -mt-1 text-center font-medium text-[#3d3530]">
     Not {{ $user->username }}?
 
     <x-form
@@ -28,7 +28,7 @@
 
       <x-button
         type="submit"
-        class="text-[0.9375rem]/4.5 w-fit cursor-pointer bg-transparent p-0 text-[#8b7355] hover:bg-transparent hover:underline"
+        class="text-smd w-fit cursor-pointer bg-transparent p-0 text-[#8b7355] hover:bg-transparent hover:underline"
       >
         Logout
       </x-button>
@@ -51,13 +51,13 @@
           body: formData
         })
 
-        return $wire.dispatch('toastify', {
+        $wire.dispatch('toastify', {
           type: 'success',
           message: 'A new verification link has been sent to your email address.'
         })
       } catch (error) {
         if (error instanceof Error) {
-          return $wire.dispatch('toastify', {
+          $wire.dispatch('toastify', {
             type: 'error',
             message: Object.values(error.data.errors)[0][0] ?? error.message
           })

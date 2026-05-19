@@ -6,18 +6,6 @@
   <x-form wire:submit="$js.reset($event)">
     @csrf
 
-    <input
-      type="hidden"
-      name="token"
-      value="{{ request()->route('token') }}"
-    >
-
-    <input
-      type="hidden"
-      name="email"
-      value="{{ request('email') }}"
-    />
-
     <x-input-text
       label="Password"
       type="password"
@@ -47,9 +35,11 @@
   <script lang="js">
     $js.reset = async (event) => {
       const formData = new FormData(event.currentTarget)
-      const button = event.submitter
 
       try {
+        formData.append("token", "{{ request()->route('token') }}")
+        formData.append("email", "{{ request('email') }}")
+
         const res = await ofetch("{{ route('password.update') }}", {
           method: "POST",
           headers: {
@@ -60,7 +50,7 @@
 
         await $wire.navigate(res.message)
       } catch (error) {
-        button.removeAttribute("disabled")
+        await $wire.resetForm()
 
         if (error instanceof Error) {
           return $wire.dispatch('toastify', {

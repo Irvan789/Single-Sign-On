@@ -22,7 +22,7 @@
       type="text"
       name="username"
       wire:model="username"
-      x-on:input="$js.username"
+      x-on:input="$js.usernameInput"
     />
 
     <x-input-text
@@ -62,7 +62,7 @@
 
   <x-separator />
 
-  <div class="text-[0.9375rem]/4.5 -mt-1 text-center font-medium text-[#3d3530]">
+  <div class="text-smd -mt-1 text-center font-medium text-[#3d3530]">
     Already have an account?,
     <a
       href="{{ route('login') }}"
@@ -90,6 +90,8 @@
 
         Livewire.navigate("{{ route('home') }}")
       } catch (error) {
+        await $wire.resetForm()
+
         if (error instanceof Error) {
           return $wire.dispatch('toastify', {
             type: 'error',
@@ -99,14 +101,8 @@
       }
     }
 
-    $js.username = (event) => {
-      let inputValue = event.target.value
-
-      inputValue = inputValue.replace(/\s/g, '_')
-      inputValue = inputValue.replace(/[^a-zA-Z0-9_]/g, '_')
-      inputValue = inputValue.toLowerCase()
-
-      event.target.value = inputValue
+    $js.usernameInput = (event) => {
+      event.target.value = event.target.value.replaceAll(/[^a-zA-Z0-9_]/g, "_").toLowerCase()
     }
   </script>
 @endscript

@@ -7,7 +7,7 @@
   </div>
 
   @if ($slot)
-    <span class="text-[0.9375rem]/4.5">
+    <span class="text-smd">
       {{ $slot }}
     </span>
   @endif
