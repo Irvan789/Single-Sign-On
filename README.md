@@ -25,12 +25,12 @@ php artisan key:generate && php artisan passport:keys
 
 4. Install all dependencies.
 ```bash
-composer install && npm ci
+composer install && bun install --frozen-lockfile
 ```
 
 5. Building assets.
 ```bash
-npm run build
+bun run build
 ```
 
 6. Run preview server.
