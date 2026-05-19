@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Home extends Component
 {
-    public $user;
+    public ?User $user;
 
     public function mount()
     {

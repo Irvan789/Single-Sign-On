@@ -173,7 +173,7 @@
   </div>
 
   <script lang="js">
-    function formatUsername(event) {
+    const usernameInput = (event) => {
       event.target.value = event.target.value.replaceAll(/[^a-zA-Z0-9_]/g, "_").toLowerCase()
     }
   </script>

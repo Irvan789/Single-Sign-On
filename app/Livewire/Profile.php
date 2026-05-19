@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Livewire\Actions\Logout;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -17,7 +18,7 @@ class Profile extends Component
 {
     use ProfileValidationRules, PasswordValidationRules;
 
-    public mixed $user;
+    public ?User $user;
 
     public string $name = '';
 
@@ -105,7 +106,7 @@ class Profile extends Component
 
         $this->username = preg_replace('/[\s+]/', '_', strtolower($this->username));
 
-        $validated = $this->validate($this->profileRules($this->user->id), $this->profileRulesErrorMessage());
+        $validated = $this->validate($this->profileRules($this->user->id), $this->profileRulesErrorMessages());
 
         $this->user->fill($validated);
 

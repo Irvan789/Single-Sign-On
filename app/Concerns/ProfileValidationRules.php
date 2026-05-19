@@ -22,7 +22,7 @@ trait ProfileValidationRules
     /**
      * @return array<string, array<int, \Illuminate\Contracts\Validation\Rule|array<mixed>|string>>
      */
-    protected function profileRulesErrorMessage(): array
+    protected function profileRulesErrorMessages(): array
     {
         return [
             'name.regex' => 'The name field must only contain letters, numbers, underscores, hyphens, and spaces.',

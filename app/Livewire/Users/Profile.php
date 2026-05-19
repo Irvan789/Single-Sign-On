@@ -20,7 +20,7 @@ class Profile extends Component
 {
     use ProfileValidationRules, PasswordValidationRules;
 
-    public $user;
+    public ?User $user;
 
     public string $name = '';
 
@@ -100,10 +100,10 @@ class Profile extends Component
     public function updateProfileInformation(): void
     {
         $this->name = Str::trim($this->name);
-        
+
         $this->username = preg_replace('/[\s+]/', '_', strtolower($this->username));
 
-        $validated = $this->validate($this->profileRules($this->user->id), $this->profileRulesErrorMessage());
+        $validated = $this->validate($this->profileRules($this->user->id), $this->profileRulesErrorMessages());
 
         $this->user->fill($validated);
 
@@ -130,10 +130,10 @@ class Profile extends Component
 
     public function unlinkSocialAccount(string $provider): void
     {
-        $socialAccontsById = Social::getUserBySocialAccoutsEmail($provider, $this->user->email);
+        $socialAccontByEmail = Social::getUserBySocialAccountEmail($provider, $this->user->email);
 
-        if ($socialAccontsById->first()) {
-            $socialAccontsById->delete();
+        if ($socialAccontByEmail->first()) {
+            $socialAccontByEmail->delete();
 
             if ($provider == 'google') {
                 $this->socials_google = null;
@@ -170,7 +170,7 @@ class Profile extends Component
 
         $this->user->delete();
 
-        Session::flash('status', 'User deleted successfully');
+        Session::flash('status', 'User deleted successfully!');
 
         $this->redirectRoute('users.home', navigate: true);
     }
