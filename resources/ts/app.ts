@@ -34,52 +34,13 @@ const authenticationRoutes = ["/login", "/register", "/forgot-password"]
 let turnstileWidgetId: string | null = null
 let turnstileTimeout: ReturnType<typeof setTimeout> | null = null
 
-document.addEventListener("livewire:initialized", () => {
-  window.ofetch = ofetch
-})
-
-document.addEventListener("livewire:navigated", () => {
-  const overlayScrollbarElements = document.querySelectorAll(
-    "[data-overlayscrollbars-viewport]"
-  )
-
-  if (overlayScrollbarElements.length == 0) {
-    const elements = document.getElementsByClassName("overlay-scrollbars")
-    initOverlayScrollbars(elements, scrollbarOptions)
-  }
-
-  if (turnstileTimeout) clearTimeout(turnstileTimeout)
-
-  if (authenticationRoutes.includes(location.pathname)) {
-    !turnstileWidgetId ? renderTurnstile() : resetTurnstile()
-  } else {
-    if (turnstileWidgetId) {
-      removeTurnstile()
-      turnstileWidgetId = null
-    }
-  }
-})
-
-if (window.Livewire) {
-  window.Livewire.on("toastify", async () => {
-    if (turnstileTimeout) clearTimeout(turnstileTimeout)
-
-    if (authenticationRoutes.includes(location.pathname)) {
-      resetTurnstile()
-    }
-  })
-}
-
 const initOverlayScrollbars = (
   elements: HTMLCollectionOf<Element>,
   config: OverlayScrollbarOptions
 ) => {
-  for (let i in elements) {
-    if (!isNaN(Number(i))) {
-      const element = elements[i] as HTMLElement
-      window.osInstance = OverlayScrollbars(element, config)
-    }
-  }
+  Array.from(elements).forEach((element) => {
+    window.osInstance = OverlayScrollbars(element as HTMLElement, config)
+  })
 }
 
 const renderTurnstile = () => {
@@ -99,3 +60,41 @@ const resetTurnstile = () => {
   removeTurnstile()
   renderTurnstile()
 }
+
+const handleTurnstileResetOrOnNavigation = () => {
+  if (turnstileTimeout) clearTimeout(turnstileTimeout)
+
+  if (authenticationRoutes.includes(location.pathname)) {
+    turnstileWidgetId ? resetTurnstile() : renderTurnstile()
+
+    return
+  }
+
+  if (turnstileWidgetId) {
+    removeTurnstile()
+    turnstileWidgetId = null
+
+    return
+  }
+}
+
+document.addEventListener("livewire:initialized", () => {
+  window.ofetch = ofetch
+
+  window.Livewire?.on("toastify", async () => {
+    handleTurnstileResetOrOnNavigation()
+  })
+})
+
+document.addEventListener("livewire:navigated", () => {
+  const overlayScrollbarElements = document.querySelectorAll(
+    "[data-overlayscrollbars-viewport]"
+  )
+
+  if (overlayScrollbarElements.length == 0) {
+    const elements = document.getElementsByClassName("overlay-scrollbars")
+    initOverlayScrollbars(elements, scrollbarOptions)
+  }
+
+  handleTurnstileResetOrOnNavigation()
+})
