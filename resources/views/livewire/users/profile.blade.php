@@ -29,7 +29,7 @@
         label="Username"
         type="text"
         wire:model="username"
-        x-on:input="usernameInput"
+        x-on:input="$js.usernameInput"
       />
 
       <x-input-text
@@ -142,9 +142,11 @@
     </x-button>
   </div>
 
-  <script lang="js">
-    const usernameInput = (event) => {
-      event.target.value = event.target.value.replaceAll(/[^a-zA-Z0-9_]/g, "_").toLowerCase()
-    }
-  </script>
+  @script
+    <script lang="js">
+      $js.usernameInput = (event) => {
+        event.target.value = event.target.value.replaceAll(/[^a-zA-Z0-9_]/g, "_").toLowerCase()
+      }
+    </script>
+  @endscript
 </x-contents>
