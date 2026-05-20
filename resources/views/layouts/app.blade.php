@@ -171,12 +171,6 @@
       </div>
     </div>
   </div>
-
-  <script lang="js">
-    const usernameInput = (event) => {
-      event.target.value = event.target.value.replaceAll(/[^a-zA-Z0-9_]/g, "_").toLowerCase()
-    }
-  </script>
 </body>
 
 </html>
