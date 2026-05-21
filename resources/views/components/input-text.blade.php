@@ -1,5 +1,5 @@
 <label
-  class="text-[0.9375rem]/4.5 relative flex w-full flex-col gap-1.5 font-medium text-[#3d3530]"
+  class="text-smd relative flex w-full flex-col gap-1.5 font-medium text-[#3d3530]"
   x-data="{ showPassword: false }"
   {{ $attributes->only(['x-show']) }}
 >

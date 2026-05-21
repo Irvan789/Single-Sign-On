@@ -53,7 +53,7 @@
 
   <button
     type="button"
-    class="mx-auto w-fit text-[0.9375rem]/4 font-medium text-[#8b7355] hover:underline"
+    class="text-smd/4 mx-auto w-fit font-medium text-[#8b7355] hover:underline"
     x-on:click="switchInputCode()"
     x-text="showRecoveryInput ? 'Using your authentication code' : 'Try using your recovery code'"
   >

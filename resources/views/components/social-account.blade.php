@@ -1,6 +1,6 @@
 <div class="flex flex-row items-center justify-between gap-4">
   <div class="flex flex-col">
-    <div class="text-[0.9375rem]/4.5 font-semibold">
+    <div class="text-smd font-semibold">
       {{ $name }}
     </div>
 

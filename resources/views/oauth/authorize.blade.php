@@ -11,7 +11,7 @@
 
     <div class="mt-4 flex flex-col gap-3.5">
       @if (count($scopes) > 0)
-        <div class="text-[0.9375rem]">
+        <div class="text-smd">
           <div class="mb-0.5">
             This application will be able to:
           </div>
@@ -104,7 +104,7 @@
     </div>
 
     <div
-      class="text-[0.9375rem]/4.5 mt-3.5 inline-flex w-full items-center justify-center gap-1 font-medium text-[#3d3530]"
+      class="text-smd/4.5 mt-3.5 inline-flex w-full items-center justify-center gap-1 font-medium text-[#3d3530]"
     >
       Not {{ $user->username }}?
 
