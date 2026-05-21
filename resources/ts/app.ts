@@ -7,9 +7,6 @@ import {
 
 import { ofetch } from "ofetch"
 
-// @ts-ignore
-import "overlayscrollbars/overlayscrollbars.css"
-
 declare global {
   interface Window {
     Livewire?: typeof Livewire

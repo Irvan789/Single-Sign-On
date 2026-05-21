@@ -2,7 +2,7 @@
 @plugin "@iconify/tailwind4";
 
 @source "../views";
-@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@import "overlayscrollbars/overlayscrollbars.css";
 
 @theme {
   --font-sans: "Reddit Sans", sans-serif;
@@ -38,9 +38,10 @@ input[type="number"] {
   appearance: textfield;
 }
 
-div#livewire-error {
-  top: 0;
-  left: 0;
+dialog#livewire-error {
+  margin: 2rem !important;
+  width: calc(100% - 4rem) !important;
+  height: calc(100% - 4rem) !important;
 }
 
 [x-cloak] {
@@ -50,22 +51,10 @@ div#livewire-error {
 .os-theme-dark.os-scrollbar,
 .os-theme-light.os-scrollbar {
   --os-size: 4px;
+  --os-padding-axis: 0px;
   --os-padding-perpendicular: 0px;
   --os-handle-border-radius: 8px;
   --os-handle-bg: #3d3530;
   --os-handle-bg-hover: #3d3530;
   --os-handle-bg-active: #3d3530;
-}
-
-::-webkit-scrollbar {
-  height: 6px;
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #3d3530;
 }
