@@ -6,7 +6,7 @@
       </div>
 
       <div class="text-smd">
-        Update their account information and settings here
+        Update their account information and settings here.
       </div>
     </div>
 

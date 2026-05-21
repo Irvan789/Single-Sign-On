@@ -22,7 +22,7 @@
 
         <div class="block space-y-1.5">
           <div class="text-smd font-medium">
-            Visit Gravatar to change your avatar
+            Visit Gravatar to change your avatar.
           </div>
 
           <a
@@ -84,7 +84,7 @@
       </div>
 
       <div class="text-smd">
-        Manage your linking social accounts
+        Manage your linking social accounts.
       </div>
     </div>
 

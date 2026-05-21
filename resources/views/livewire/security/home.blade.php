@@ -55,7 +55,7 @@
         </div>
 
         <div class="text-smd">
-          Enable or Disable Two-Factor Authentication
+          Enable or Disable Two-Factor Authentication.
         </div>
       </div>
 

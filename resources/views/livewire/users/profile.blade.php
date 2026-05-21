@@ -58,7 +58,7 @@
         </div>
 
         <div class="text-smd">
-          Manage user linking social accounts
+          Manage user linking social accounts.
         </div>
       </div>
 
@@ -102,7 +102,7 @@
 
           <div class="text-smd text-[#b85450]">
             When you disable two-factor authentication, this user will be never prompted again for entering
-            authentication
+            authentication.
             code.
           </div>
         </div>

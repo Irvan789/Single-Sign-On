@@ -8,7 +8,7 @@
           </div>
 
           <div class="text-smd">
-            Keep your recovery codes safely for unauthorization access
+            Keep your recovery codes safely for unauthorization access.
           </div>
         </div>
 
@@ -42,7 +42,7 @@
           </div>
 
           <div class="text-smd text-[#b85450]">
-            When you disable two-factor authentication, you will be never prompted again for entering authentication
+            When you disable two-factor authentication, you will be never prompted again for entering authentication.
             code.
           </div>
         </div>
