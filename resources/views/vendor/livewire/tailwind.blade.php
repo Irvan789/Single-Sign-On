@@ -78,7 +78,7 @@
               @endif
             </span>
 
-            <div class="xs:inline-flex xs:gap-x-1 hidden">
+            <div class="hidden sm:inline-flex sm:gap-x-1">
               @foreach ($elements as $element)
                 @if (is_string($element))
                   <div aria-disabled="true">
