@@ -35,27 +35,33 @@ class User extends Authenticatable implements MustVerifyEmail, OAuthenticatable
 
     public function initials(): string
     {
-        return Str::of($this->name)
-            ->explode(' ')
-            ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
-            ->implode('');
+        return Str::of($this->name)->explode(' ')->take(2)->map(fn($word) => Str::substr($word, 0, 1))->implode('');
     }
 
-    public function socialAccounts(): HasMany
+    public function isAdmin(): bool
+    {
+        return $this->role == 'admin';
+    }
+
+    public function socials(): HasMany
     {
         return $this->hasMany(Social::class, 'user_id', 'id');
     }
 
-    #[Scope]
-    protected function getUserWithSocialAccount(Builder $query, string $id)
+    public function socialAccount(string $provider)
     {
-        return $query->where('id', '=', $id)->with('socialAccounts');
+        return $this->socials()->where('provider', $provider);
     }
 
     #[Scope]
-    protected function getUsersWithSocialAccounts(Builder $query, User $user)
+    protected function withSocialAccount(Builder $query, string $id)
     {
-        return $query->where('id', '<>', $user->id)->with('socialAccounts')->orderBy('created_at', 'desc');
+        return $query->where('id', '=', $id)->with('socials');
+    }
+
+    #[Scope]
+    protected function withSocialAccounts(Builder $query, User $user)
+    {
+        return $query->where('id', '<>', $user->id)->with('socials')->orderBy('created_at', 'desc');
     }
 }

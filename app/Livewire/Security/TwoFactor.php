@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Security;
 
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -17,7 +18,7 @@ use Livewire\Component;
 
 class TwoFactor extends Component
 {
-    public $user;
+    public ?User $user;
 
     #[Locked]
     public bool $canManageTwoFactor;

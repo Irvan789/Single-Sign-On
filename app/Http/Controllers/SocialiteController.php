@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 
-class SocialProvider extends Controller
+class SocialiteController extends Controller
 {
     private ?User $user;
 
@@ -39,7 +39,7 @@ class SocialProvider extends Controller
                     throw new Exception('Please create password first before you can manage linking social accounts.');
                 }
 
-                $socialAccountById = Social::getUserBySocialAccountId($provider, $socialite->id);
+                $socialAccountById = Social::whereSocialiteId($provider, $socialite->id);
 
                 if ($socialAccountById->first()) {
                     $socialAccountById->delete();
@@ -49,13 +49,13 @@ class SocialProvider extends Controller
                     return $this->redirectBack();
                 }
 
-                $socialAccountByEmail = Social::getUserBySocialAccountEmail($provider, $socialite->email);
+                $socialAccountByEmail = Social::whereSocialiteEmail($provider, $socialite->email);
 
                 if ($socialAccountByEmail->first()) {
                     throw new Exception('Can\'t unlink social account with different email address.');
                 }
 
-                $socialAccountsByUserId = Social::getUserBySocialUserId($provider, $this->user->id);
+                $socialAccountsByUserId = Social::whereUserId($provider, $this->user->id);
 
                 if ($socialAccountsByUserId->first()) {
                     throw new Exception('Can\'t unlink social account with different email address.');
@@ -75,10 +75,10 @@ class SocialProvider extends Controller
                 return $this->redirectBack();
             }
 
-            $loginUsingSocialAccount = Social::getUserBySocialAccountId($provider, $socialite->id)->first();
+            $loginUsingSocialAccount = Social::whereSocialiteId($provider, $socialite->id)->first();
 
             if ($loginUsingSocialAccount) {
-                $user = User::where('id', $loginUsingSocialAccount->user_id)->first();
+                $user = User::find($loginUsingSocialAccount->user_id);
 
                 Auth::loginUsingId($user->id, true);
 

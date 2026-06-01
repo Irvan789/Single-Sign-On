@@ -32,7 +32,7 @@ class Home extends Component
         }
 
         return view('livewire.users.home', [
-            'users' => User::getUsersWithSocialAccounts($this->user)
+            'users' => User::withSocialAccounts($this->user)
                 ->when($this->search, function ($query, $search) {
                     $query->whereFullText('name', $search);
                 })

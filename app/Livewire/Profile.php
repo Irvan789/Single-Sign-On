@@ -28,9 +28,9 @@ class Profile extends Component
 
     public string $password = '';
 
-    public mixed $socials_google;
+    public mixed $social_google;
 
-    public mixed $socials_github;
+    public mixed $social_github;
 
     public function boot()
     {
@@ -57,9 +57,9 @@ class Profile extends Component
 
             $this->email = $this->user->email;
 
-            $this->socials_google = $this->user->socialAccounts()->where('provider', 'google')->first();
+            $this->social_google = $this->user->socialAccount('google')->first();
 
-            $this->socials_github = $this->user->socialAccounts()->where('provider', 'github')->first();
+            $this->social_github = $this->user->socialAccount('github')->first();
         }
     }
 

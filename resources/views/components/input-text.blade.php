@@ -22,7 +22,7 @@
 
     <button
       type="button"
-      class="inset-e-0 absolute top-6 flex shrink-0 cursor-pointer p-2.5"
+      class="inset-e-0 top-6.25 absolute flex shrink-0 cursor-pointer p-2.5"
       x-on:click="showPassword = !showPassword"
     >
       <span

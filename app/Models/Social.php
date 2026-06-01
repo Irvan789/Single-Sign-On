@@ -14,7 +14,7 @@ class Social extends Model
     use HasUuids;
 
     #[Scope]
-    protected function getUserBySocialAccountId(Builder $query, string $provider, string $id): void
+    protected function whereSocialiteId(Builder $query, string $provider, string $id): void
     {
         $query->where([
             'provider' => $provider,
@@ -23,7 +23,7 @@ class Social extends Model
     }
 
     #[Scope]
-    protected function getUserBySocialAccountEmail(Builder $query, string $provider, string $email): void
+    protected function whereSocialiteEmail(Builder $query, string $provider, string $email): void
     {
         $query->where([
             'provider' => $provider,
@@ -32,7 +32,7 @@ class Social extends Model
     }
 
     #[Scope]
-    protected function getUserBySocialUserId(Builder $query, string $provider, string $id): void
+    protected function whereUserId(Builder $query, string $provider, string $id): void
     {
         $query->where([
             'provider' => $provider,

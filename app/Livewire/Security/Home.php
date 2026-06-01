@@ -3,6 +3,7 @@
 namespace App\Livewire\Security;
 
 use App\Concerns\PasswordValidationRules;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
@@ -14,7 +15,7 @@ class Home extends Component
 {
     use PasswordValidationRules;
 
-    public $user;
+    public ?User $user;
 
     public string $current_password = '';
 

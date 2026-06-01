@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\SocialProvider;
+use App\Http\Controllers\SocialiteController;
 use App\Livewire\Home;
 use App\Livewire\Profile;
 use App\Livewire\Passport\Home as PassportHome;
@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::controller(SocialProvider::class)
+Route::controller(SocialiteController::class)
     ->prefix('/socials')
     ->group(function () {
         Route::get('/{provider}', 'redirect')

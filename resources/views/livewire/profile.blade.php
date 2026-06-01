@@ -90,22 +90,22 @@
 
     <div class="flex flex-col gap-4 sm:col-span-2">
       @if ($user->passwordless)
-        @if ($socials_google)
+        @if ($social_google)
           <x-social-account
             name="Google"
             :url="route('security')"
-            email="{{ $socials_google->email }}"
+            email="{{ $social_google->email }}"
             wire:navigate
           >
             Account Security
           </x-social-account>
         @endif
 
-        @if ($socials_github)
+        @if ($social_github)
           <x-social-account
             name="GitHub"
             :url="route('security')"
-            email="{{ $socials_github->email }}"
+            email="{{ $social_github->email }}"
             wire:navigate
           >
             Account Security
@@ -115,17 +115,17 @@
         <x-social-account
           name="Google"
           :url="route('socials.redirect', ['provider' => 'google'])"
-          email="{{ $socials_google ? $socials_google->email : 'Not Linked' }}"
+          email="{{ $social_google ? $social_google->email : 'Not Linked' }}"
         >
-          {{ $socials_google ? 'Unlink' : 'Link' }}
+          {{ $social_google ? 'Unlink' : 'Link' }}
         </x-social-account>
 
         <x-social-account
           name="GitHub"
           :url="route('socials.redirect', ['provider' => 'github'])"
-          email="{{ $socials_github ? $socials_github->email : 'Not Linked' }}"
+          email="{{ $social_github ? $social_github->email : 'Not Linked' }}"
         >
-          {{ $socials_github ? 'Unlink' : 'Link' }}
+          {{ $social_github ? 'Unlink' : 'Link' }}
         </x-social-account>
       @endif
     </div>

@@ -48,7 +48,7 @@
     </x-form>
   </div>
 
-  @if ($socials_google || $socials_github)
+  @if ($social_google || $social_github)
     <x-separator />
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -63,10 +63,10 @@
       </div>
 
       <div class="flex flex-col gap-4 sm:col-span-2">
-        @if ($socials_google)
+        @if ($social_google)
           <x-social-account
             name="Google"
-            email="{{ $socials_google->email }}"
+            email="{{ $social_google->email }}"
             wire:click="unlinkSocialAccount('google')"
             wire:confirm="Are you sure to unlink user social account? This action can't be undone!"
             wire:loading.attr="disabled"
@@ -75,10 +75,10 @@
           </x-social-account>
         @endif
 
-        @if ($socials_github)
+        @if ($social_github)
           <x-social-account
             name="GitHub"
-            email="{{ $socials_github->email }}"
+            email="{{ $social_github->email }}"
             wire:click="unlinkSocialAccount('github')"
             wire:confirm="Are you sure to unlink user social account? This action can't be undone!"
             wire:loading.attr="disabled"

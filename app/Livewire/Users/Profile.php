@@ -30,9 +30,9 @@ class Profile extends Component
 
     public string $password = '';
 
-    public mixed $socials_google;
+    public mixed $social_google;
 
-    public mixed $socials_github;
+    public mixed $social_github;
 
     #[Locked]
     public bool $canManageTwoFactor;
@@ -56,7 +56,7 @@ class Profile extends Component
 
     public function mount(string $id)
     {
-        $this->user = User::getUserWithSocialAccount($id)->first();
+        $this->user = User::withSocialAccount($id)->first();
 
         if (!$this->user) {
             abort(404);
@@ -72,9 +72,9 @@ class Profile extends Component
 
         $this->email = $this->user->email;
 
-        $this->socials_google = $this->user->socialAccounts()->where('provider', 'google')->first();
+        $this->social_google = $this->user->socialAccount('google')->first();
 
-        $this->socials_github = $this->user->socialAccounts()->where('provider', 'github')->first();
+        $this->social_github = $this->user->socialAccount('github')->first();
 
         $this->canManageTwoFactor = Features::canManageTwoFactorAuthentication();
 
@@ -136,11 +136,11 @@ class Profile extends Component
             $socialAccontByEmail->delete();
 
             if ($provider == 'google') {
-                $this->socials_google = null;
+                $this->social_google = null;
             }
 
             if ($provider == 'github') {
-                $this->socials_github = null;
+                $this->social_github = null;
             }
 
             $this->dispatch('toastify', [
@@ -166,7 +166,7 @@ class Profile extends Component
     {
         $this->user->oauthApps()->delete();
 
-        $this->user->socialAccounts()->delete();
+        $this->user->socials()->delete();
 
         $this->user->delete();
 
