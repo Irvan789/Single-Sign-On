@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable(['name', 'email', 'user_id', 'provider', 'provider_id'])]
 class Social extends Model
 {
     use HasUuids;
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id', 'user_id');
+    }
 
     #[Scope]
     protected function whereSocialiteId(Builder $query, string $provider, string $id): void
