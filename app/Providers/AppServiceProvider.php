@@ -38,9 +38,7 @@ class AppServiceProvider extends ServiceProvider
         DB::prohibitDestructiveCommands(app()->isProduction());
 
         Password::defaults(
-            fn(): ?Password => app()->isProduction()
-                ? Password::min(8)->mixedCase()->letters()->symbols()->uncompromised()
-                : null
+            fn(): ?Password => Password::min(8)->uncompromised()
         );
     }
 
