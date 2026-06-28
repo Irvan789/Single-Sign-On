@@ -38,7 +38,9 @@ class AppServiceProvider extends ServiceProvider
         DB::prohibitDestructiveCommands(app()->isProduction());
 
         Password::defaults(
-            fn(): ?Password => Password::min(8)->uncompromised()
+            fn (): ?Password => app()->isProduction()
+                ? Password::min(8)->uncompromised()
+                : null
         );
     }
 
@@ -47,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
         Passport::authorizationView('oauth.authorize');
         Passport::tokensCan([
             'user' => 'Retrive the user profile',
-            'user:email' => 'Retrive the user email'
+            'user:email' => 'Retrive the user email',
         ]);
 
         Passport::tokensExpireIn(CarbonInterval::hours(1));
