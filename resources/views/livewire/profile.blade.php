@@ -27,7 +27,7 @@
 
           <a
             href="https://gravatar.com/profile/avatars"
-            class="rounded-xs inline-flex w-fit items-center justify-center gap-1 bg-[#3d3530e6] px-3 py-2 text-center text-xs/3 text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530]"
+            class="rounded-xs inline-flex w-fit items-center justify-center gap-1 bg-[#514a43] px-3 py-2 text-center text-xs/3 text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530]"
             target="blank"
           >
             Gravatar

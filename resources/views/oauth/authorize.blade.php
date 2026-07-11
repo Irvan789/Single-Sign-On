@@ -89,7 +89,7 @@
 
           <button
             type="submit"
-            class="rounded-xs w-full cursor-pointer bg-[#3d3530e6] px-3 py-2.5 text-sm/4 text-neutral-100 transition-colors duration-300 hover:bg-[#3d3530]"
+            class="rounded-xs w-full cursor-pointer bg-[#514a43] px-3 py-2.5 text-sm/4 text-neutral-100 transition-colors duration-300 hover:bg-[#3d3530]"
           >
             Authorize
           </button>
@@ -103,9 +103,7 @@
       <div class="h-px flex-1 bg-[#c8b96e4d]"></div>
     </div>
 
-    <div
-      class="text-smd/4.5 mt-3.5 inline-flex w-full items-center justify-center gap-1 font-medium text-[#3d3530]"
-    >
+    <div class="text-smd/4.5 mt-3.5 inline-flex w-full items-center justify-center gap-1 font-medium text-[#3d3530]">
       Not {{ $user->username }}?
 
       <form

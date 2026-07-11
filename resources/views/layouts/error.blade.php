@@ -22,7 +22,7 @@
 
         <a
           href="{{ route('home') }}"
-          class="rounded-xs mx-auto bg-[#3d3530e6] px-3 py-2 text-sm/4 text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530]"
+          class="rounded-xs mx-auto bg-[#514a43] px-3 py-2 text-sm/4 text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530]"
           wire:navigate
         >
           Return To Home

@@ -9,7 +9,7 @@
     <input
       type="{{ $type ?? 'text' }}"
       autocomplete="off"
-      {{ $attributes->twMerge('rounded-xs inset-ring inset-ring-[#5e6e754d] focus:inset-ring-[#c8b96ea6] bg-[#ffffff73] px-3 py-2 text-sm/5 font-normal read-only:cursor-not-allowed read-only:bg-[#3d35301a] focus:bg-[#ffffffb3] focus:outline-none read-only:focus:bg-[#3d35301a]') }}
+      {{ $attributes->twMerge('rounded-xs inset-ring inset-ring-[#cfd2d0] focus:inset-ring-[#dbd19f] bg-[#fffcf6] px-3 py-2 text-sm/5 font-normal read-only:cursor-not-allowed read-only:bg-[#ece8dd] focus:bg-[#fffefa] focus:outline-none read-only:focus:bg-[#ece8dd]') }}
     />
 
     {{ $slot }}
@@ -17,7 +17,7 @@
     <input
       :type="showPassword ? 'text' : 'password'"
       autocomplete="off"
-      {{ $attributes->twMerge('rounded-xs inset-ring inset-ring-[#5e6e754d] focus:inset-ring-[#c8b96ea6] bg-[#ffffff73] py-2 pl-3 pr-9 text-sm/5 font-normal read-only:cursor-not-allowed read-only:bg-[#3d35301a] focus:bg-[#ffffffb3] focus:outline-none read-only:focus:bg-[#3d35301a]') }}
+      {{ $attributes->twMerge('rounded-xs inset-ring inset-ring-[#cfd2d0] focus:inset-ring-[#dbd19f] bg-[#fffcf6] py-2 pl-3 pr-9 text-sm/5 font-normal read-only:cursor-not-allowed read-only:bg-[#ece8dd] focus:bg-[#fffefa] focus:outline-none read-only:focus:bg-[#ece8dd]') }}
     />
 
     <button
