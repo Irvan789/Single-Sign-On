@@ -1,7 +1,7 @@
-@props(['variant' => 'primary'])
+@props(['variant' => 'warning'])
 
 <button
-  {{ $attributes->merge(['type' => 'button'])->twMerge('rounded-xs px-3 py-2.5 text-sm/4 text-[#f0ede8] transition-colors duration-300', $variant == 'danger' ? 'bg-[#8b3a38e6] hover:bg-[#8b3a38] disabled:bg-[#8b3a38cc] disabled:hover:bg-[#8b3a38cc]' : ($variant == 'warning' ? 'bg-[#b8952ae6] hover:bg-[#b8952a] disabled:bg-[#b8952acc] disabled:hover:bg-[#b8952acc]' : 'bg-[#514a43] hover:bg-[#3d3530] disabled:bg-[#3d3530cc] disabled:hover:bg-[#3d3530cc]')) }}
+  {{ $attributes->merge(['type' => 'button'])->twMerge('rounded-xs px-3 py-2.5 text-sm/4 text-[#f0ede8] transition-colors duration-300', $variant == 'danger' ? 'bg-[#964f4d] hover:bg-[#8b3a38] disabled:bg-[#a26361] disabled:hover:bg-[#a26361]' : ($variant == 'warning' ? 'bg-[#bf9f41] hover:bg-[#b8952a] disabled:bg-[#c6ab56] disabled:hover:bg-[#c6ab56]' : 'bg-[#514a43] hover:bg-[#3d3530] disabled:bg-[#66605b] disabled:hover:bg-[#66605b]')) }}
 >
   {{ $slot }}
 </button>
