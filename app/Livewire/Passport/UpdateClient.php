@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Passport;
 
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Livewire\Component;
 
 class UpdateClient extends Component
 {
-    public mixed $user;
+    public ?User $user;
 
     public mixed $client;
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Passport;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Laravel\Passport\ClientRepository;
@@ -9,7 +10,7 @@ use Livewire\Component;
 
 class CreateClient extends Component
 {
-    public mixed $user;
+    public ?User $user;
 
     public string $name = '';
 
@@ -70,6 +71,6 @@ class CreateClient extends Component
             'message' => 'Client created successfully!'
         ]);
 
-        $this->reset();
+        $this->reset(['name', 'callbacks']);
     }
 }
