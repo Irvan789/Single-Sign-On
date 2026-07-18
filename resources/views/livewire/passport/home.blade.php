@@ -40,6 +40,7 @@
             <x-anchor-button
               href="{{ route('passport.update.client', ['id' => $client->id]) }}"
               class="w-full content-center px-3 py-2 text-xs/3"
+              wire:navigate
             >
               Update
             </x-anchor-button>

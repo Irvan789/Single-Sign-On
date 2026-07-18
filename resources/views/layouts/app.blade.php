@@ -99,7 +99,7 @@
 
             <a
               href="{{ route('passport.home') }}"
-              class="{{ Route::is('passport.home') || Route::is('passport.create.client') ? 'bg-[#c8b96e2e] text-[#f0ede8]' : 'transition-colors duration-300 hover:bg-[#c8b96e2e] hover:text-[#f0ede8]' }} rounded-xs relative py-2.5 pl-8 pr-2.5 text-sm/4"
+              class="{{ Route::is('passport.home') || Route::is('passport.create.client') || Route::is('passport.update.client') ? 'bg-[#c8b96e2e] text-[#f0ede8]' : 'transition-colors duration-300 hover:bg-[#c8b96e2e] hover:text-[#f0ede8]' }} rounded-xs relative py-2.5 pl-8 pr-2.5 text-sm/4"
               wire:navigate
             >
               <span class="inset-y-2.25 inset-s-2 size-4.5 icon-[mingcute--idcard-line] absolute"></span>
