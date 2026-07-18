@@ -21,8 +21,6 @@
         wire:model="name"
       />
 
-      <pre x-text="JSON.stringify(redirects, null, 2)"></pre>
-
       <div class="relative flex flex-col gap-2">
         <template
           x-for="(value, i) in redirects"
