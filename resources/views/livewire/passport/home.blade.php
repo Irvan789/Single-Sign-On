@@ -23,7 +23,9 @@
   @if (count($clients) > 0)
     <div class="flex flex-col gap-2">
       @foreach ($clients as $client)
-        <div class="rounded-xs inline-flex items-center justify-between gap-2 border border-[#c8b96e4d] p-2.5">
+        <div
+          class="rounded-xs xs:flex-row xs:items-center xs:justify-between flex flex-col gap-2 border border-[#c8b96e4d] p-2.5"
+        >
           <div class="flex flex-col">
             <div class="text-base/5 font-bold">
               {{ $client->name }}
@@ -34,7 +36,14 @@
             </span>
           </div>
 
-          <div class="xs:grid-cols-2 grid grid-cols-1 gap-1">
+          <div class="max-w-71 grid w-full grid-cols-3 gap-1">
+            <x-anchor-button
+              href="{{ route('passport.update.client', ['id' => $client->id]) }}"
+              class="w-full content-center px-3 py-2 text-xs/3"
+            >
+              Update
+            </x-anchor-button>
+
             <x-button
               variant="warning"
               class="px-3 py-2 text-xs/3"

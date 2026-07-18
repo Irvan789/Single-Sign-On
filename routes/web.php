@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\SocialiteController;
 use App\Livewire\Home;
-use App\Livewire\Profile;
-use App\Livewire\Passport\Home as PassportHome;
 use App\Livewire\Passport\CreateClient as PassportCreateClient;
+use App\Livewire\Passport\Home as PassportHome;
+use App\Livewire\Passport\UpdateClient as PassportUpdateClient;
+use App\Livewire\Profile;
 use App\Livewire\Security\Home as SecurityHome;
 use App\Livewire\Security\TwoFactor as SecurityTwoFactor;
 use App\Livewire\Users\Home as UsersHome;
@@ -38,7 +39,12 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('/passport')->group(function () {
             Route::livewire('/', PassportHome::class)->name('passport.home');
-            Route::livewire('/create-client', PassportCreateClient::class)->name('passport.create.client');
+
+            Route::prefix('/client')->group(function () {
+                Route::livewire('/create', PassportCreateClient::class)->name('passport.create.client');
+                Route::livewire('/update', PassportUpdateClient::class)->name('passport.update.client');
+            });
+
         });
     });
 });
@@ -53,4 +59,4 @@ Route::controller(SocialiteController::class)
         Route::get('/{provider}/callback', 'callback');
     });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

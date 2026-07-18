@@ -2,30 +2,26 @@
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
     <div class="-mt-px block space-y-0.5">
       <div class="text-lg/5.5 font-bold">
-        Create Passport Client
+        Update Passport Client
       </div>
 
       <div class="text-smd">
-        Create a new OAuth client
+        Update OAuth Client {{ $client->name }}
       </div>
     </div>
 
     <x-form
       class="sm:col-span-2"
-      wire:submit="createPassportClient"
-      x-data="{ redirects: [{ id: Date.now(), url: '' }] }"
-      x-on:toastify.window="
-        const event= Array.isArray($event.detail) ? $event.detail[0] : $event.detail
-        if (event.type == 'success') {
-          redirects = [{ id: Date.now(), url: '' }]
-        }
-      "
+      wire:submit="updatePassportClient"
+      x-data="{ redirects: $wire.callbacks.map((url, i) => ({ id: i, url })) }"
     >
       <x-input-text
         label="Application Name"
         type="text"
         wire:model="name"
       />
+
+      <pre x-text="JSON.stringify(redirects, null, 2)"></pre>
 
       <div class="relative flex flex-col gap-2">
         <template
@@ -36,7 +32,7 @@
             <x-input-text
               label="Callback URL"
               type="url"
-              x-model="callbacks"
+              x-model="$wire.callbacks[i]"
               x-on:change="$wire.callbacks[i] = $event.target.value"
             >
               <x-button
@@ -58,7 +54,7 @@
               <x-input-text
                 type="url"
                 class="pr-11.5"
-                x-model="callbacks"
+                x-model="$wire.callbacks[i]"
                 x-on:change="$wire.callbacks[i] = $event.target.value"
               />
 
@@ -73,33 +69,11 @@
         </template>
       </div>
 
-      @if (session('passport-client'))
-        <div class="rounded-xs w-full space-y-2 border border-[#c8b96e4d] p-2.5">
-          <div class="text-smd inline-flex gap-1 font-medium text-[#8b3a38]">
-            <span class="icon-[mingcute--alert-line] size-5"></span>
-            The client secret will not be shown again, so don't
-            lose it!
-          </div>
-
-          <div class="block space-y-2 text-sm/4 text-[#3d3530]">
-            <div class="flex flex-col space-y-1">
-              <span class="font-medium">Client ID:</span>
-              <span>{{ session('passport-client')['id'] }}</span>
-            </div>
-
-            <div class="flex flex-col space-y-1">
-              <span class="font-medium">Client Secret:</span>
-              <span>{{ session('passport-client')['secret'] }}</span>
-            </div>
-          </div>
-        </div>
-      @endif
-
       <x-button
         type="submit"
         class="xs:max-w-30 ml-auto w-full text-xs/3"
       >
-        Create Client
+        Update Client
       </x-button>
     </x-form>
   </div>

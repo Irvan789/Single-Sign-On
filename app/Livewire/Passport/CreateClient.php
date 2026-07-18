@@ -9,11 +9,11 @@ use Livewire\Component;
 
 class CreateClient extends Component
 {
-    public $user;
+    public mixed $user;
 
     public string $name = '';
 
-    public array $callback = [];
+    public array $callbacks = [];
 
     public function boot()
     {
@@ -36,27 +36,29 @@ class CreateClient extends Component
 
     public function render()
     {
-        return view('livewire.passport.create-client')->layout('layouts::app', [
-            'title' => 'Create Passport Client',
-            'user' => $this->user
-        ]);
+        return view('livewire.passport.create-client')
+            ->layout('layouts::app', [
+                'title' => 'Create Passport Client',
+                'user' => $this->user
+            ]);
     }
 
-    public function createPassportClient(): void
+    public function createPassportClient()
     {
         $this->validate([
             'name' => ['required', 'string'],
-            'callback' => ['required', 'array'],
-            'callback.*' => ['required', 'string', 'url']
+            'callbacks' => ['required', 'array'],
+            'callbacks.*' => ['required', 'string', 'url']
         ]);
 
-        $client = app(ClientRepository::class)->createAuthorizationCodeGrantClient(
-            user: Auth::user(),
-            name: $this->name,
-            redirectUris: $this->callback,
-            confidential: true,
-            enableDeviceFlow: false
-        );
+        $client = app(ClientRepository::class)
+            ->createAuthorizationCodeGrantClient(
+                user: Auth::user(),
+                name: $this->name,
+                redirectUris: $this->callbacks,
+                confidential: true,
+                enableDeviceFlow: false
+            );
 
         Session::flash('passport-client', [
             'id' => $client->id,

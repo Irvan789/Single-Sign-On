@@ -5,6 +5,7 @@ namespace App\Livewire\Passport;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Laravel\Passport\Passport;
 use Laravel\Passport\Token;
 use Livewire\Component;
@@ -13,9 +14,9 @@ use Livewire\WithPagination;
 
 class Home extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithoutUrlPagination, WithPagination;
 
-    public $user;
+    public ?User $user;
 
     public function mount(): void
     {
@@ -24,6 +25,13 @@ class Home extends Component
 
     public function render()
     {
+        if (Session::has('status') || Session::has('error')) {
+            $this->dispatch('toastify', [
+                'type' => Session::has('error') ? 'error' : 'success',
+                'message' => Session::get('error') ?? Session::get('status')
+            ]);
+        }
+
         return view('livewire.passport.home', [
             'clients' => $this->user->oauthApps()->orderBy('created_at', 'desc')->paginate(10)->onEachSide(1)
         ])->layout('layouts::app', [
@@ -35,8 +43,8 @@ class Home extends Component
     public function deletePassportClient(string $clientId)
     {
         try {
-            if (!$this->user->oauthApps()->where('id', '=', $clientId)->first()) {
-                throw new Exception();
+            if (! $this->user->oauthApps()->where('id', '=', $clientId)->first()) {
+                throw new Exception;
             }
 
             $this->deletePassportAuthCodeAndToken($clientId);
@@ -60,23 +68,19 @@ class Home extends Component
 
     public function deletePassportClientToken(string $clientId)
     {
-        try {
-            if (!$this->user->oauthApps()->where('id', '=', $clientId)->first()) {
-                throw new Exception();
-            }
-
-            $this->deletePassportAuthCodeAndToken($clientId);
-
-            $this->dispatch('toastify', [
-                'type' => 'success',
-                'message' => 'Client token cleared successfully!'
-            ]);
-        } catch (Exception $error) {
+        if (! $this->user->oauthApps()->where('id', '=', $clientId)->first()) {
             $this->dispatch('toastify', [
                 'type' => 'error',
                 'message' => 'Client data does not match!'
             ]);
         }
+
+        $this->deletePassportAuthCodeAndToken($clientId);
+
+        $this->dispatch('toastify', [
+            'type' => 'success',
+            'message' => 'Client token cleared successfully!'
+        ]);
     }
 
     private function deletePassportAuthCodeAndToken(string $clientId)
@@ -88,13 +92,22 @@ class Home extends Component
                 $token->refreshToken?->revoke();
             });
 
-        Passport::authCode()->newQuery()->where('client_id', '=', $clientId)->delete();
+        Passport::authCode()->newQuery()
+            ->where('client_id', '=', $clientId)
+            ->delete();
 
-        Passport::token()->newQuery()->where('revoked', '=', true)->delete();
-        Passport::refreshToken()->newQuery()->where('revoked', '=', true)->delete();
+        Passport::token()->newQuery()
+            ->where('revoked', '=', true)
+            ->delete();
+
+        Passport::refreshToken()->newQuery()
+            ->where('revoked', '=', true)
+            ->delete();
 
         if (Passport::$deviceCodeGrantEnabled) {
-            Passport::deviceCode()->newQuery()->where('revoked', '=', true)->delete();
+            Passport::deviceCode()->newQuery()
+                ->where('revoked', '=', true)
+                ->delete();
         }
     }
 }
