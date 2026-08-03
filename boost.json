@@ -1,11 +1,14 @@
 {
     "agents": [
-        "claude_code"
+        "opencode"
     ],
     "cloud": false,
     "guidelines": true,
     "mcp": true,
     "nightwatch": false,
+    "packages": [
+        "livewire/blaze"
+    ],
     "sail": false,
     "skills": [
         "fortify-development",
@@ -14,6 +17,7 @@
         "socialite-development",
         "livewire-development",
         "pest-testing",
-        "tailwindcss-development"
+        "tailwindcss-development",
+        "blaze-optimize"
     ]
 }
