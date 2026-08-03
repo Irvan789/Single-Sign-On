@@ -2,34 +2,36 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-  @include('partials.head')
+    @include('partials.head')
 </head>
 
 <body
-  class="bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-size-[4rem] overflow-hidden bg-[#fffaf0] bg-fixed bg-no-repeat antialiased selection:bg-[#3d3530] selection:text-white"
-  style="background-image: url('{{ asset('assets/images/background/perlica.webp') }}')"
+    class="overflow-hidden bg-[#f4eee2] bg-size-[4rem] bg-fixed bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-no-repeat text-[#544636] antialiased"
+    style="background-image: url('{{asset('assets/images/background/perlica_v2.webp')}}')"
 >
-  <div class="overlay-scrollbars h-full w-full">
-    <div class="flex min-h-full w-full py-4">
-      <x-toastify />
+    <x-toastify />
 
-      <div class="xs:max-w-116 m-auto grid w-full max-w-md grid-rows-[max-content_auto_max-content]">
-        <div
-          class="text-lg/5.5 inline-flex w-full justify-center divide-x divide-[#c8b96e80] p-4 font-bold text-[#3d3530]"
-        >
-          {{ $slot }}
+    <div class="overlay-scrollbars size-full">
+        <div class="flex min-h-full w-full px-4 py-8">
+            <div
+                class="m-auto grid w-full max-w-98 grid-rows-[max-content_auto_max-content] gap-4 md:max-w-md"
+            >
+                <div
+                    class="inline-flex w-full justify-center divide-x divide-[#c8b96e]/50 text-lg/5.5 font-bold"
+                >
+                    {{ $slot }}
+                </div>
+
+                <a
+                    href="{{ route('home') }}"
+                    class="mx-auto w-fit rounded-xs bg-[#6b5a46] px-3 py-2 text-sm/4 text-[#f0ede8] transition-colors duration-300 hover:bg-[#544636]"
+                    wire:navigate
+                >
+                    Return To Home
+                </a>
+            </div>
         </div>
-
-        <a
-          href="{{ route('home') }}"
-          class="rounded-xs mx-auto bg-[#514a43] px-3 py-2 text-sm/4 text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530]"
-          wire:navigate
-        >
-          Return To Home
-        </a>
-      </div>
     </div>
-  </div>
 </body>
 
 </html>

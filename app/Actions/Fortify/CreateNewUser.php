@@ -21,7 +21,7 @@ class CreateNewUser implements CreatesNewUsers
         Validator::make($input, [
             ...$this->profileRules(),
             'password' => $this->passwordRules(),
-            'captcha' => ['required', new CloudflareTurnstile()]
+            'captcha' => ['required', new CloudflareTurnstile],
         ])->validate();
 
         return User::create([
@@ -29,7 +29,7 @@ class CreateNewUser implements CreatesNewUsers
             'username' => $input['username'],
             'email' => $input['email'],
             'password' => $input['password'],
-            'avatar' => 'https://www.gravatar.com/avatar/' . hash('sha256', $input['email'])
+            'avatar' => 'https://www.gravatar.com/avatar/'.hash('sha256', $input['email']),
         ]);
     }
 }

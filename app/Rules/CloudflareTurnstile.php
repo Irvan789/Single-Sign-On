@@ -12,17 +12,16 @@ class CloudflareTurnstile implements ValidationRule
     /**
      * @param  Closure(string, ?string=): PotentiallyTranslatedString  $fail
      */
-    public function validate(string $attribute, mixed $value, Closure $fail): void
+    public function validate($attribute, $value, Closure $fail): void
     {
-        $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-            'secret' => config('services.turnstile.secret'),
-            'response' => $value
-        ]);
+        $response = Http::asForm()->timeout(5)
+            ->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                'secret' => config('services.turnstile.secret'),
+                'response' => $value,
+            ]);
 
-        if (!$response->ok()) {
+        if (! $response->ok()) {
             $fail('Invalid or expired turnstile token!');
         }
-
-        return;
     }
 }

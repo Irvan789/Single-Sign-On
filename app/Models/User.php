@@ -6,8 +6,6 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
-use Illuminate\Database\Eloquent\Attributes\Scope;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -29,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail, OAuthenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed'
+            'password' => 'hashed',
         ];
     }
 
@@ -39,7 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail, OAuthenticatable
             ->explode(' ')
             ->take(2)
             ->map(
-                fn($word) => Str::substr($word, 0, 1)
+                fn ($word) => Str::substr($word, 0, 1)
             )
             ->implode('');
     }
@@ -49,27 +47,14 @@ class User extends Authenticatable implements MustVerifyEmail, OAuthenticatable
         return $this->role == 'admin';
     }
 
+    public function social(string $provider): ?Social
+    {
+        return $this->hasOne(Social::class, 'user_id', 'id')
+            ->firstWhere('provider', $provider);
+    }
+
     public function socials(): HasMany
     {
         return $this->hasMany(Social::class, 'user_id', 'id');
-    }
-
-    public function socialAccount(string $provider): HasMany
-    {
-        return $this->socials()->where('provider', $provider);
-    }
-
-    #[Scope]
-    protected function withSocialAccount(Builder $query, string $id): Builder
-    {
-        return $query->where('id', '=', $id)->with('socials');
-    }
-
-    #[Scope]
-    protected function withSocialAccounts(Builder $query, User $user): Builder
-    {
-        return $query->where('id', '<>', $user->id)
-            ->with('socials')
-            ->orderBy('created_at', 'desc');
     }
 }

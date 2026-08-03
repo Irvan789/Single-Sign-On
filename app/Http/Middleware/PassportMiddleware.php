@@ -14,7 +14,6 @@ class PassportMiddleware
     /**
      * @param  Closure(Request): (Response)  $next
      */
-
     public mixed $redirectUri;
 
     public function handle(Request $request, Closure $next): Response
@@ -30,7 +29,7 @@ class PassportMiddleware
                     $url = Uri::of($request->query('redirect_uri'));
                     $this->redirectUri = Str::of($url->scheme())->append('://')->append($url->host());
                 } elseif ($request->query('client_id') && Str::isUuid($request->query('client_id'))) {
-                    $oAuthClient = DB::table('oauth_clients')->where('id', $request->query('client_id'))->first();
+                    $oAuthClient = DB::table('oauth_clients')->firstWhere('id', $request->query('client_id'));
 
                     if ($oAuthClient) {
                         $url = Uri::of(json_decode($oAuthClient->redirect_uris)[0]);
@@ -42,7 +41,7 @@ class PassportMiddleware
 
                 return response()->view('oauth.error', [
                     'message' => $content->error_description,
-                    'redirect_uri' => $this->redirectUri
+                    'redirect_uri' => $this->redirectUri,
                 ]);
             }
         }

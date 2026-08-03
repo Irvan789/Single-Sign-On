@@ -9,7 +9,6 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -22,42 +21,41 @@ class SocialiteController extends Controller
         $this->user = Auth::user();
     }
 
-    public function redirect(Request $request, string $provider): RedirectResponse
+    public function redirect(string $provider, Request $request): RedirectResponse
     {
         $this->createSession($request);
 
         return Socialite::driver($provider)->redirect();
     }
 
-    public function callback(string $provider): RedirectResponse
+    public function callback(string $provider, Request $request): RedirectResponse
     {
         try {
             $socialite = Socialite::driver($provider)->user();
 
             if ($this->user) {
+
                 if ($this->user->passwordless) {
                     throw new Exception('Please create password first before you can manage linking social accounts.');
                 }
 
-                $socialAccountById = Social::whereSocialiteId($provider, $socialite->id);
+                $socialAccountById = Social::firstWhere('provider_id', $socialite->id);
 
-                if ($socialAccountById->first()) {
+                if ($socialAccountById) {
                     $socialAccountById->delete();
 
-                    Session::regenerate();
-
-                    return $this->redirectBack();
+                    return $this->redirectBack($request);
                 }
 
-                $socialAccountByEmail = Social::whereSocialiteEmail($provider, $socialite->email);
+                $socialAccountByEmail = Social::firstWhere(['provider' => $provider, 'email' => $socialite->email]);
 
-                if ($socialAccountByEmail->first()) {
+                if ($socialAccountByEmail) {
                     throw new Exception('Can\'t unlink social account with different email address.');
                 }
 
-                $socialAccountsByUserId = Social::whereUserId($provider, $this->user->id);
+                $socialAccountsByUserId = Social::firstWhere(['provider' => $provider, 'user_id' => $this->user->id]);
 
-                if ($socialAccountsByUserId->first()) {
+                if ($socialAccountsByUserId) {
                     throw new Exception('Can\'t unlink social account with different email address.');
                 }
 
@@ -65,17 +63,15 @@ class SocialiteController extends Controller
                     'user_id' => $this->user->id,
                     'provider' => $provider,
                     'name' => $socialite->name,
-                    'email' => $socialite->email
+                    'email' => $socialite->email,
                 ];
 
                 $this->updateOrCreateSocialAccount($socialData, id: $socialite->id);
 
-                Session::regenerate();
-
-                return $this->redirectBack();
+                return $this->redirectBack($request);
             }
 
-            $loginUsingSocialAccount = Social::whereSocialiteId($provider, $socialite->id)->first();
+            $loginUsingSocialAccount = Social::firstWhere('provider_id', $socialite->id);
 
             if ($loginUsingSocialAccount) {
                 $user = User::find($loginUsingSocialAccount->user_id);
@@ -84,32 +80,30 @@ class SocialiteController extends Controller
 
                 Session::regenerate();
 
-                return $this->redirectBack();
+                return $this->redirectBack($request);
             }
 
-            $findUserByEmail = User::where('email', $socialite->email)->first();
+            $findUserByEmail = User::firstWhere('email', $socialite->email);
 
-            if (!$findUserByEmail) {
+            if (! $findUserByEmail) {
                 $userData = [
                     'name' => $socialite->name,
-                    'username' => 'u' . Carbon::now()->setMicrosecond(0)->timestamp,
-                    'avatar' => 'https://gravatar.com/avatar/' . hash('sha256', strtolower(trim($socialite->email))),
-                    'passwordless' => true
+                    'username' => 'u'.Carbon::now()->setMicrosecond(0)->timestamp,
+                    'avatar' => 'https://gravatar.com/avatar/'.hash('sha256', strtolower(trim($socialite->email))),
+                    'passwordless' => true,
                 ];
 
                 $user = $this->updateOrCreateUserByEmail($userData, $socialite->email);
 
-                $user
-                    ->forceFill([
-                        'email_verified_at' => Carbon::now()
-                    ])
-                    ->save();
+                $user->forceFill([
+                    'email_verified_at' => Carbon::now(),
+                ])->save();
 
                 $socialData = [
                     'provider' => $provider,
                     'user_id' => $user->id,
                     'name' => $socialite->name,
-                    'email' => $socialite->email
+                    'email' => $socialite->email,
                 ];
 
                 $this->updateOrCreateSocialAccount($socialData, id: $socialite->id);
@@ -118,31 +112,28 @@ class SocialiteController extends Controller
 
                 Session::regenerate();
 
-                return $this->redirectBack();
+                return $this->redirectBack($request);
             }
 
-            throw new Exception('Your ' . $provider . " account isn't connected to your profile yet.");
+            throw new Exception('Your '.$provider." account isn't connected to your profile yet.");
         } catch (Exception $error) {
-            Session::flash('error', $error->getMessage());
-
-            return Redirect::route($this->user ? 'profile' : 'login');
+            return redirect()->route($this->user ? 'profile' : 'login')
+                ->with('notify', [
+                    'type' => 'error',
+                    'message' => $error->getMessage(),
+                ]);
         }
     }
 
     private function updateOrCreateSocialAccount(array $data, ?string $id = null, ?string $email = null): mixed
     {
-        if (!$id && !$email) {
+        if (! $id && ! $email) {
             throw new Exception('Invalid request data');
         }
 
         return Social::updateOrCreate(
-            $id
-                ? [
-                    'provider_id' => $id
-                ]
-                : [
-                    'email' => $email
-                ],
+            $id ? ['provider_id' => $id]
+                : ['email' => $email],
             $data
         );
     }
@@ -150,9 +141,7 @@ class SocialiteController extends Controller
     private function updateOrCreateUserByEmail(array $data, string $email): User
     {
         return User::updateOrCreate(
-            [
-                'email' => $email
-            ],
+            ['email' => $email],
             $data
         );
     }
@@ -160,23 +149,25 @@ class SocialiteController extends Controller
     private function createSession(Request $request): void
     {
         $isFromProfile = $request->header('referer') == route('profile');
-        Session::put('url.socialite', route($isFromProfile ? 'profile' : 'home'));
+        session()->put('url.socialite', route($isFromProfile ? 'profile' : 'home'));
     }
 
-    private function redirectBack(): RedirectResponse
+    private function redirectBack(Request $request): RedirectResponse
     {
-        $intended = Session::get('url.intended');
+        $intended = $request->session()->get('url.intended');
 
-        if ($intended && $intended != route('passport.home')) {
-            return Redirect::to($intended);
+        if ($intended && $intended != route('oauth.manage.clients')) {
+            return redirect()->to($intended);
         }
 
-        $socialiteUrl = Session::get('url.socialite');
+        $socialiteUrl = $request->session()->get('url.socialite');
 
         if ($socialiteUrl) {
-            return Redirect::to($socialiteUrl);
+            $request->session()->flush();
+
+            return redirect()->to($socialiteUrl);
         }
 
-        return Redirect::route('profile');
+        return redirect()->route('profile');
     }
 }

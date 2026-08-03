@@ -1,12 +1,12 @@
 <?php
 
-use App\Livewire\Auth\ConfirmPassword;
-use App\Livewire\Auth\ForgotPassword;
-use App\Livewire\Auth\Login;
-use App\Livewire\Auth\Register;
-use App\Livewire\Auth\ResetPassword;
-use App\Livewire\Auth\TwoFactorChallenge;
-use App\Livewire\Auth\VerifyEmail;
+use App\Livewire\Components\Authentication\ConfirmPassword;
+use App\Livewire\Components\Authentication\ForgotPassword;
+use App\Livewire\Components\Authentication\Login;
+use App\Livewire\Components\Authentication\Register;
+use App\Livewire\Components\Authentication\ResetPassword;
+use App\Livewire\Components\Authentication\TwoFactorChallenge;
+use App\Livewire\Components\Authentication\VerifyEmail;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 

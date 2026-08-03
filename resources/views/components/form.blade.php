@@ -1,3 +1,3 @@
-<form {{ $attributes->merge(['autocomplete' => 'off'])->twMerge('flex flex-col gap-4') }}>
-  {{ $slot }}
+<form {{ $attributes->merge(['autocomplete' => 'off'])->twMerge('flex-1 space-y-4') }}>
+    {{ $slot }}
 </form>

@@ -2,12 +2,13 @@
 
 namespace App\Concerns;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rules\Password;
 
 trait PasswordValidationRules
 {
     /**
-     * @return array<int, Rule|array<mixed>|string>
+     * @return array<int, ValidationRule|array<mixed>|string>
      */
     protected function passwordRules(): array
     {
@@ -15,7 +16,7 @@ trait PasswordValidationRules
     }
 
     /**
-     * @return array<int, Rule|array<mixed>|string>
+     * @return array<int, ValidationRule|array<mixed>|string>
      */
     protected function currentPasswordRules(): array
     {

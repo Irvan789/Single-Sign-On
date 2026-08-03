@@ -3,6 +3,7 @@
 use Laravel\Fortify\Features;
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Fortify Guard
@@ -115,7 +116,8 @@ return [
 
     'limiters' => [
         'login' => 'login',
-        'two-factor' => 'two-factor'
+        'two-factor' => 'two-factor',
+        'passkeys' => 'passkeys',
     ],
 
     /*
@@ -146,10 +148,16 @@ return [
         Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),
+        // Features::updateProfileInformation(),
+        // Features::updatePasswords(),
         Features::twoFactorAuthentication([
             'confirm' => true,
-            'confirmPassword' => true
+            'confirmPassword' => true,
             // 'window' => 0
-        ])
-    ]
+        ]),
+        // Features::passkeys([
+        //     'confirmPassword' => true,
+        // ]),
+    ],
+
 ];

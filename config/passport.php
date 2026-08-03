@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Passport Guard
@@ -42,5 +43,6 @@ return [
     |
     */
 
-    'connection' => env('PASSPORT_CONNECTION')
+    'connection' => env('PASSPORT_CONNECTION'),
+
 ];

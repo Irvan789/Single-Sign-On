@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Livewire\Hooks\ValidationNotifier;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Blade;
@@ -11,17 +12,19 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Passport\Passport;
+use Livewire\Component;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        Livewire::componentHook(ValidationNotifier::class);
     }
 
     public function boot(): void
     {
-        if (config('app.env') == 'production') {
+        if (app()->isProduction()) {
             URL::forceScheme('https');
         }
 
@@ -29,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->configurePassport();
         $this->configureTurnstile();
+
+        $this->configureComponent();
     }
 
     protected function configureDefaults(): void
@@ -60,6 +65,16 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::directive('turnstile', function () {
             return '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>';
+        });
+    }
+
+    protected function configureComponent(): void
+    {
+        Component::macro('notify', function (string $type, string $message) {
+            $this->dispatch('notify', [
+                'type' => $type,
+                'message' => $message,
+            ]);
         });
     }
 }

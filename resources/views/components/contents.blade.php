@@ -1,3 +1,3 @@
-<div class="flex flex-col gap-4 p-4 lg:p-5">
-  {{ $slot }}
+<div {{ $attributes->only(['class', 'x-data'])->twMerge('mx-auto flex w-full max-w-2xl flex-col gap-3.5') }}>
+    {{ $slot }}
 </div>

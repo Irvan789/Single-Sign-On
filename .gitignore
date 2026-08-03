@@ -20,6 +20,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.nova
+/.omo
 /.vscode
 /.zed
-_ide_helper.php

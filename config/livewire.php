@@ -15,7 +15,7 @@ return [
 
     'component_locations' => [
         resource_path('views/components'),
-        resource_path('views/livewire')
+        resource_path('views/livewire'),
     ],
 
     /*
@@ -31,7 +31,7 @@ return [
 
     'component_namespaces' => [
         'layouts' => resource_path('views/layouts'),
-        'pages' => resource_path('views/pages')
+        'pages' => resource_path('views/pages'),
     ],
 
     /*
@@ -139,7 +139,7 @@ return [
             'jpg', 'jpeg', 'mpga', 'webp', 'wma',
         ],
         'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...
-        'cleanup' => true       // Should cleanup temporary uploads older than 24 hrs...
+        'cleanup' => true,       // Should cleanup temporary uploads older than 24 hrs...
     ],
 
     /*
@@ -194,7 +194,7 @@ return [
 
     'navigate' => [
         'show_progress_bar' => true,
-        'progress_bar_color' => '#c8b96e',
+        'progress_bar_color' => '#544636',
     ],
 
     /*
@@ -277,6 +277,6 @@ return [
         'max_size' => 1 * 1024 * 1024,  // 1MB - maximum request payload size in bytes
         'max_nesting_depth' => 10,      // Maximum depth of dot-notation property paths
         'max_calls' => 50,              // Maximum method calls per request
-        'max_components' => 20          // Maximum components per batch request
-    ]
+        'max_components' => 20,          // Maximum components per batch request
+    ],
 ];

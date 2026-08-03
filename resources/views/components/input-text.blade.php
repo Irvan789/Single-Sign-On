@@ -1,35 +1,37 @@
 <label
-  class="text-smd relative flex w-full flex-col gap-1.5 font-medium text-[#3d3530]"
-  x-data="{ showPassword: false }"
-  {{ $attributes->only(['x-show']) }}
+    class="relative flex flex-col gap-1.25 text-sm/4 font-medium text-[#4a3f35]"
+    x-data="{ showPassword: false }"
+    {{ $attributes->only(['x-show']) }}
 >
-  {{ $label ?? '' }}
+    {{ $label ?? '' }}
 
-  @if ($type != 'password')
-    <input
-      type="{{ $type ?? 'text' }}"
-      autocomplete="off"
-      {{ $attributes->twMerge('rounded-xs inset-ring inset-ring-[#cfd2d0] focus:inset-ring-[#dbd19f] bg-[#fffcf6] px-3 py-2 text-sm/5 font-normal read-only:cursor-not-allowed read-only:bg-[#ece8dd] focus:bg-[#fffefa] focus:outline-none read-only:focus:bg-[#ece8dd]') }}
-    />
+    @if ($type != 'password')
+        <input
+            type="{{ $type ?? 'text' }}"
+            class="rounded border-none bg-[#fefdfb] px-3 py-2 text-sm/5 font-normal text-[#685e50] inset-ring inset-ring-[#c9b896]/50 outline-none read-only:cursor-not-allowed read-only:bg-[#f4eee2]/70 focus:inset-ring-[#c9b896]/80 disabled:bg-[#f4eee2]/70"
+            {{ $attributes->except(['class', 'label'])->merge(['autocomplete'=>'off']) }}
+        />
+    @else
+        <input
+            :type="showPassword ? 'text' : 'password'"
+            class="rounded border-none bg-[#fefdfb] px-3 py-2 text-sm/5 font-normal text-[#685e50] inset-ring inset-ring-[#c9b896]/50 outline-none read-only:cursor-not-allowed read-only:bg-[#f4eee2]/70 focus:inset-ring-[#c9b896]/80 disabled:bg-[#f4eee2]/70"
+            {{ $attributes->except(['class', 'label'])->merge(['autocomplete'=>'off']) }}
+        />
+
+        <button
+            type="button"
+            class="absolute inset-e-0 top-5.25 flex shrink-0 cursor-pointer p-2.5"
+            x-on:click="showPassword = !showPassword"
+        >
+            <span
+                class="size-4 text-[#544636]"
+                :class="showPassword
+                    ? 'icon-[heroicons--eye-20-solid]'
+                    : 'icon-[heroicons--eye-slash-20-solid]'"
+            >
+            </span>
+        </button>
+    @endif
 
     {{ $slot }}
-  @else
-    <input
-      :type="showPassword ? 'text' : 'password'"
-      autocomplete="off"
-      {{ $attributes->twMerge('rounded-xs inset-ring inset-ring-[#cfd2d0] focus:inset-ring-[#dbd19f] bg-[#fffcf6] py-2 pl-3 pr-9 text-sm/5 font-normal read-only:cursor-not-allowed read-only:bg-[#ece8dd] focus:bg-[#fffefa] focus:outline-none read-only:focus:bg-[#ece8dd]') }}
-    />
-
-    <button
-      type="button"
-      class="inset-e-0 top-6.25 absolute flex shrink-0 cursor-pointer p-2.5"
-      x-on:click="showPassword = !showPassword"
-    >
-      <span
-        class="size-4 text-[#3d3530]"
-        :class="showPassword ? 'icon-[heroicons--eye-20-solid]' : 'icon-[heroicons--eye-slash-20-solid]'"
-      >
-      </span>
-    </button>
-  @endif
 </label>
