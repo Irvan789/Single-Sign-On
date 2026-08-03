@@ -1,30 +1,13 @@
 <x-contents>
-  <div
-    class="flex flex-row items-center gap-3 md:flex-col md:gap-4"
-    x-data="{
-        name: '{{ $user->name }}',
-        email: '{{ $user->email }}'
-    }"
-    x-on:profile-updated.window="
-        name = $event.detail[0].name
-        email = $event.detail[0].email
-    "
-  >
-    <img
-      src="{{ $user->avatar }}?size=128&r=g&d=mp"
-      class="size-20 rounded-full md:size-24"
-    />
+    <div class="flex flex-col items-center gap-4 py-1">
+        <img
+            src="{{ $user->avatar }}?size=128&r=g&d=mp"
+            class="size-28 rounded-full border-4 border-[#c9b896]/25 lg:size-28"
+        />
 
-    <div class="wrap-anywhere flex w-full flex-col md:text-center">
-      <div
-        class="text-xl/6 font-bold"
-        x-text="name"
-      ></div>
-      <div
-        class="text-sm/5"
-        x-text="email"
-      >
-      </div>
+        <div class="relative z-10 min-w-0 flex-1 text-center">
+            <h2 class="mb-1 font-serif text-[1.75rem]/4">Welcome back, {{ $user->name }}!</h2>
+            <p class="text-sm/4">{{ $user->email }}</p>
+        </div>
     </div>
-  </div>
 </x-contents>

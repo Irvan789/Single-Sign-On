@@ -5,14 +5,18 @@ namespace App\Extensions;
 use DateTimeInterface;
 use Illuminate\Database\PostgresConnection;
 use PDO;
+use PDOStatement;
 
 /**
  * @source https://github.com/vermaysha/pgbouncer-laravel-extension
  */
-
 class PgBouncerExtension extends PostgresConnection
-{ 
-    public function bindValues($statement, $bindings)
+{
+    /**
+     * @param  PDOStatement  $statement
+     * @param  array  $bindings
+     */
+    public function bindValues($statement, $bindings): void
     {
         foreach ($bindings as $key => $value) {
             $statement->bindValue(
@@ -27,8 +31,11 @@ class PgBouncerExtension extends PostgresConnection
             );
         }
     }
- 
-    public function prepareBindings(array $bindings)
+
+    /**
+     * @param  array  $bindings
+     */
+    public function prepareBindings($bindings): array
     {
         $grammar = $this->getQueryGrammar();
 

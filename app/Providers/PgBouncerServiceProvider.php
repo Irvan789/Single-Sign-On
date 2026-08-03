@@ -11,9 +11,8 @@ use PDO;
 /**
  * @source https://github.com/vermaysha/pgbouncer-laravel-extension
  */
-
 class PgBouncerServiceProvider extends ServiceProvider
-{ 
+{
     public function register(): void
     {
         Connection::resolverFor('pgsql', function ($connection, $database, $prefix, $config) {
@@ -25,5 +24,5 @@ class PgBouncerServiceProvider extends ServiceProvider
 
             return new PostgresConnection($connection, $database, $prefix, $config);
         });
-    } 
+    }
 }

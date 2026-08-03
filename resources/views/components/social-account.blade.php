@@ -1,30 +1,15 @@
-<div class="flex flex-row items-center justify-between gap-4">
-  <div class="flex flex-col">
-    <div class="text-smd font-semibold">
-      {{ $name }}
+<div
+    class="flex flex-row items-center justify-between gap-4 rounded bg-[#f4eee2]/40 p-4 inset-ring inset-ring-[#c9b896]/40"
+>
+    <div class="flex flex-col">
+        <div class="text-base/5 font-medium">{{ $name }}</div>
+
+        <div class="text-xs/3.5 break-all text-[#8a7f70]">{{ $email }}</div>
     </div>
 
-    <div class="break-all text-sm/4">
-      {{ $email }}
-    </div>
-  </div>
-
-  @if (isset($url))
     <a
-      href="{{ $url }}"
-      class="rounded-xs min-w-16 bg-[#514a43] px-3 py-2 text-center text-xs/3 capitalize text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530]"
-      {{ $attributes }}
+        {{ $attributes->merge(['href' => $url ?? null])->twMerge(['min-w-15 rounded px-2.5 py-2 text-center text-xs/3 capitalize transition-colors duration-300', $email != 'Not Linked' ? 'text-[#a8503d] inset-ring inset-ring-[#a8503d]/40 hover:bg-[#a8503d]/10' : 'inset-ring inset-ring-[#c9b896]/60 hover:bg-[#c9b896]/10']) }}
     >
-      {{ $slot }}
+        {{ $slot }}
     </a>
-  @else
-    <button
-      type="button"
-      class="rounded-xs min-w-16 bg-[#514a43] px-3 py-2 text-center text-xs/3 capitalize text-[#f0ede8] transition-colors duration-300 hover:bg-[#3d3530] disabled:bg-[#66605b] disabled:hover:bg-[#66605b]"
-      @if ($email == '-') disabled @endif
-      {{ $attributes }}
-    >
-      {{ $slot }}
-    </button>
-  @endif
 </div>

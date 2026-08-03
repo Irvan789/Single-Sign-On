@@ -32,7 +32,8 @@ class FortifyServiceProvider extends ServiceProvider
 
         $this->app->instance(
             LogoutResponse::class,
-            new class implements LogoutResponse {
+            new class implements LogoutResponse
+            {
                 public function toResponse($request)
                 {
                     Session::put('url.intended', $request->input('authorize_url'));
@@ -48,7 +49,7 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureActions();
         $this->configureRateLimiting();
 
-        Fortify::authenticateThrough(function (Request $request) {
+        Fortify::authenticateThrough(function () {
             return array_filter([
                 config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
                 config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
@@ -56,7 +57,7 @@ class FortifyServiceProvider extends ServiceProvider
                     ? RedirectIfTwoFactorAuthenticatable::class
                     : null,
                 AttemptToAuthenticate::class,
-                PrepareAuthenticatedSession::class
+                PrepareAuthenticatedSession::class,
             ]);
         });
     }
@@ -69,14 +70,14 @@ class FortifyServiceProvider extends ServiceProvider
 
     private function configureRateLimiting(): void
     {
-        RateLimiter::for('two-factor', function (Request $request) {
-            return Limit::perMinute(5)->by($request->session()->get('login.id'));
-        });
-
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
+        });
+
+        RateLimiter::for('two-factor', function (Request $request) {
+            return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
     }
 }

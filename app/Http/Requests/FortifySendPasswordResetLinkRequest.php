@@ -19,7 +19,7 @@ class FortifySendPasswordResetLinkRequest extends SendPasswordResetLinkRequest
     public function rules(): array
     {
         return array_merge(parent::rules(), [
-            'captcha' => ['required', new CloudflareTurnstile()]
+            'captcha' => ['required', new CloudflareTurnstile],
         ]);
     }
 }

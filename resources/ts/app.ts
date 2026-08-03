@@ -1,97 +1,93 @@
 import { Livewire } from "../../vendor/livewire/livewire/dist/livewire.csp.esm"
 
-import {
-  OverlayScrollbars,
-  PartialOptions as OverlayScrollbarOptions
-} from "overlayscrollbars"
-
+import { decode } from "decode-formdata"
 import { ofetch } from "ofetch"
 
+import { OverlayScrollbars, PartialOptions as OverlayScrollbarOptions } from "overlayscrollbars"
+
 declare global {
-  interface Window {
-    Livewire?: typeof Livewire
-    turnstile: {
-      remove: (e: Element | string) => void
-      render: (e: Element | string) => string
-      reset: (e: Element | string) => void
+    interface Window {
+        Livewire?: typeof Livewire
+        form2Json: typeof decode
+        ofetch: typeof ofetch
+        overlayScrollbars: OverlayScrollbars
+        turnstile: {
+            remove: (e: Element | string) => void
+            render: (e: Element | string) => string
+            reset: (e: Element | string) => void
+        }
     }
-    ofetch: typeof ofetch
-    osInstance: OverlayScrollbars
-  }
 }
 
 const scrollbarOptions: OverlayScrollbarOptions = {
-  scrollbars: {
-    autoHide: "scroll"
-  }
+    scrollbars: {
+        visibility: "hidden"
+    }
 }
 
-const authenticationRoutes = ["/login", "/register", "/forgot-password"]
+const routeWithTurnstile = ["/login", "/register", "/forgot-password"]
 
 let turnstileWidgetId: string | null = null
 let turnstileTimeout: ReturnType<typeof setTimeout> | null = null
 
-const initOverlayScrollbars = (
-  elements: HTMLCollectionOf<Element>,
-  config: OverlayScrollbarOptions
-) => {
-  Array.from(elements).forEach((element) => {
-    window.osInstance = OverlayScrollbars(element as HTMLElement, config)
-  })
+function initOverlayScrollbars(
+    elements: HTMLCollectionOf<Element>,
+    config: OverlayScrollbarOptions
+): void {
+    Array.from(elements).forEach((element) => {
+        window.overlayScrollbars = OverlayScrollbars(element as HTMLElement, config)
+    })
 }
 
-const renderTurnstile = () => {
-  turnstileTimeout = setTimeout(() => {
+function renderTurnstile(): void {
     const turnstile = document.getElementsByClassName("turnstile")
-    turnstileWidgetId = window.turnstile.render(
-      `#${turnstile[0].getAttribute("id")}`
-    )
-  }, 1000)
+    turnstileTimeout = setTimeout(() => {
+        turnstileWidgetId = window.turnstile.render(`#${turnstile[0].getAttribute("id")}`)
+    }, 1000)
 }
 
-const removeTurnstile = () => {
-  window.turnstile.remove(turnstileWidgetId!)
+function removeTurnstile(): void {
+    if (turnstileWidgetId) {
+        window.turnstile.remove(turnstileWidgetId)
+        turnstileWidgetId = null
+    }
 }
 
-const resetTurnstile = () => {
-  removeTurnstile()
-  renderTurnstile()
-}
-
-const handleTurnstileResetOrOnNavigation = () => {
-  if (turnstileTimeout) clearTimeout(turnstileTimeout)
-
-  if (authenticationRoutes.includes(location.pathname)) {
-    turnstileWidgetId ? resetTurnstile() : renderTurnstile()
-
-    return
-  }
-
-  if (turnstileWidgetId) {
+function resetTurnstile(): void {
     removeTurnstile()
-    turnstileWidgetId = null
+    renderTurnstile()
+}
 
-    return
-  }
+function livewireTurnstileEventHandler(): void {
+    if (turnstileTimeout) clearTimeout(turnstileTimeout)
+
+    if (routeWithTurnstile.includes(location.pathname)) {
+        turnstileWidgetId ? resetTurnstile() : renderTurnstile()
+
+        return
+    }
+
+    if (turnstileWidgetId) {
+        removeTurnstile()
+
+        return
+    }
 }
 
 document.addEventListener("livewire:initialized", () => {
-  window.ofetch = ofetch
+    window.Livewire?.on("notify", livewireTurnstileEventHandler)
 
-  window.Livewire?.on("toastify", async () => {
-    handleTurnstileResetOrOnNavigation()
-  })
+    window.ofetch = ofetch
+    window.form2Json = decode
 })
 
 document.addEventListener("livewire:navigated", () => {
-  const overlayScrollbarElements = document.querySelectorAll(
-    "[data-overlayscrollbars-viewport]"
-  )
+    const overlayScrollbarElements = document.querySelectorAll("[data-overlayscrollbars-viewport]")
 
-  if (overlayScrollbarElements.length == 0) {
-    const elements = document.getElementsByClassName("overlay-scrollbars")
-    initOverlayScrollbars(elements, scrollbarOptions)
-  }
+    if (overlayScrollbarElements.length == 0) {
+        const elements = document.getElementsByClassName("overlay-scrollbars")
+        initOverlayScrollbars(elements, scrollbarOptions)
+    }
 
-  handleTurnstileResetOrOnNavigation()
+    livewireTurnstileEventHandler()
 })
