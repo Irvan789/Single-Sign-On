@@ -1,114 +1,105 @@
 name: Testing & Deploy Application
 env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  DB_CONNECTION: pgsql
-  DB_HOST: localhost
-  DB_PORT: 5432
-  DB_DATABASE: testing
-  DB_USERNAME: postgres
-  DB_PASSWORD: postgres
+    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    DB_CONNECTION: pgsql
+    DB_HOST: localhost
+    DB_PORT: 5432
+    DB_DATABASE: testing
+    DB_USERNAME: postgres
+    DB_PASSWORD: postgres
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - ".env.example"
-      - ".prettierrc"
-      - "README.md"
+    push:
+        branches:
+            - main
+        paths-ignore:
+            - ".env.example"
+            - ".prettierrc"
+            - "README.md"
 
 jobs:
-  Testing-Application:
-    name: Testing Application
-    runs-on: ubuntu-latest
+    Testing-Application:
+        name: Testing Application
+        runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: testing
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready 
-          --health-interval 10s 
-          --health-timeout 5s 
-          --health-retries 3
-        ports:
-          - 5432:5432
+        services:
+            postgres:
+                image: postgres:latest
+                env:
+                    POSTGRES_DB: testing
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                options: >-
+                    --health-cmd pg_isready 
+                    --health-interval 10s 
+                    --health-timeout 5s 
+                    --health-retries 3
+                ports:
+                    - 5432:5432
 
-    steps:
-      - uses: actions/checkout@v6
+        steps:
+            - uses: actions/checkout@v6
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.4"
-          tools: composer:v2
-          coverage: xdebug
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "8.4"
+                  tools: composer:v2
+                  coverage: xdebug
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: "latest"
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: "latest"
 
-      - name: Install Node Dependencies
-        run: bun install --frozen-lockfile
+            - name: Install Node Dependencies
+              run: bun install --frozen-lockfile
 
-      - name: Install Playwright
-        run: bunx playwright install
+            - name: Install Playwright
+              run: bunx playwright install
 
-      - name: Install Dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+            - name: Install Dependencies
+              run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Copy Environment File
-        run: cp .env.example .env
+            - name: Copy Environment File
+              run: cp .env.example .env
 
-      - name: Clear Config
-        run: php artisan config:clear
+            - name: Clear Config
+              run: php artisan config:clear
 
-      - name: Generate Application Key
-        run: php artisan key:generate
+            - name: Generate Application Key
+              run: php artisan key:generate
 
-      - name: Run Database Migration
-        run: php artisan migrate -v
+            - name: Run Database Migration
+              run: php artisan migrate -v
 
-      - name: Building Assets
-        run: bun run build
+            - name: Building Assets
+              run: bun run build
 
-      - name: Test with Pest
-        run: php artisan test --ci --parallel
+            - name: Test with Pest
+              run: php artisan test --ci --parallel
 
-  Deploy-Application:
-    needs: Testing-Application
+    Deploy-Application:
+        needs: Testing-Application
 
-    name: Deploy Application
-    runs-on: ubuntu-latest
+        name: Deploy Application
+        runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v6
+        steps:
+            - uses: actions/checkout@v6
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.4"
-          tools: composer:v2
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: "latest"
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: "latest"
+            - name: Install Vercel CLI
+              run: bun add -g vercel@latest
 
-      - name: Install Vercel CLI
-        run: bun add -g vercel@latest
+            - name: Pull Vercel Environment Information
+              run: vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
 
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
-
-      - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ env.VERCEL_TOKEN }}
-
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }}
+            - name: Deploy Project to Vercel
+              run: vercel deploy --prod --token=${{ env.VERCEL_TOKEN }}
