@@ -17,8 +17,8 @@
 
     <div class="flex h-full max-h-full min-w-full flex-row overflow-hidden">
         <div
-            class="fixed top-0 -left-68 z-10 flex h-full w-full max-w-68 flex-col justify-between gap-4 border-r border-[#c9b896]/50 bg-[#fbf8f1] transition-all duration-300 lg:relative lg:left-0 lg:z-0 lg:max-h-full"
-            :class="[showSidebar ? 'left-0!' : '']"
+            class="fixed top-0 z-10 flex h-full w-full max-w-68 flex-col justify-between gap-4 border-r border-[#c9b896]/50 bg-[#fbf8f1] transition-all duration-300 lg:relative lg:left-0 lg:z-0 lg:max-h-full lg:transition-none"
+            :class="[showSidebar ? 'left-0' : '-left-68']"
             x-on:click.outside="showSidebar = false"
         >
             <div class="flex h-full max-h-[calc(100%-2rem)] flex-col">
@@ -32,7 +32,7 @@
                     </a>
 
                     <button
-                        class="absolute inset-e-2.5 inline-flex lg:hidden"
+                        class="absolute inset-e-3 top-4.25 inline-flex lg:hidden"
                         x-on:click="showSidebar = false"
                     >
                         <span class="icon-[tabler--x] size-5"></span>
@@ -120,7 +120,7 @@
                 >
                     <div class="flex items-center gap-3">
                         <button
-                            class="inline-flex items-center transition-colors duration-300 lg:hidden"
+                            class="-mt-px inline-flex items-center transition-colors duration-300 lg:hidden"
                             x-on:click.stop="showSidebar = !showSidebar"
                         >
                             <span class="icon-[tabler--menu-2] size-5"></span>
