@@ -44,6 +44,11 @@ SERVER_HOST=
 SERVER_PORT=
 ```
 
+## Laravel Boost
+```bash
+php artisan boost:install
+```
+
 ## Read More
 [Laravel Fortify](https://laravel.com/docs/fortify)\
 [Laravel Passport](https://laravel.com/docs/passport)\
