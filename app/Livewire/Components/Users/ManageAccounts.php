@@ -4,7 +4,6 @@ namespace App\Livewire\Components\Users;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -13,7 +12,7 @@ class ManageAccounts extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
-    public mixed $user;
+    public ?User $user;
 
     public string $search = '';
 

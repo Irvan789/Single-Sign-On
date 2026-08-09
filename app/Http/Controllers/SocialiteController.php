@@ -125,7 +125,7 @@ class SocialiteController extends Controller
         }
     }
 
-    private function updateOrCreateSocialAccount(array $data, ?string $id = null, ?string $email = null): mixed
+    private function updateOrCreateSocialAccount(array $data, ?string $id = null, ?string $email = null): Social
     {
         if (! $id && ! $email) {
             throw new Exception('Invalid request data');
