@@ -21,7 +21,7 @@
             :class="[showSidebar ? 'left-0' : '-left-68']"
             x-on:click.outside="showSidebar = false"
         >
-            <div class="flex h-full max-h-[calc(100%-2rem)] flex-col">
+            <div class="flex h-full flex-col">
                 <div class="relative flex flex-row items-center justify-between gap-4 p-4">
                     <a
                         href="/"
@@ -39,78 +39,84 @@
                     </button>
                 </div>
 
-                <div class="flex flex-col gap-0.5 px-2">
-                    <span class="mb-1 px-2 text-xs/3">Home</span>
+                <div class="overlay-scrollbars h-full max-h-[calc(100%-3.5rem)]">
+                    <div class="flex h-full flex-col justify-between">
+                        <div class="flex flex-col gap-0.5 px-2">
+                            <span class="mb-1 px-2 text-xs/3">Home</span>
 
-                    <a
-                        href="{{ route('profile') }}"
-                        class="{{ Route::is('profile') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded-lg py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
-                        wire:navigate
-                    >
-                        <span
-                            class="custom-icon--user absolute inset-y-2 inset-s-1.75 size-5"
-                        ></span>
+                            <a
+                                href="{{ route('profile') }}"
+                                class="{{ Route::is('profile') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded-lg py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
+                                wire:navigate
+                            >
+                                <span
+                                    class="custom-icon--user absolute inset-y-2 inset-s-1.75 size-5"
+                                ></span>
 
-                        My profile
-                    </a>
+                                My profile
+                            </a>
 
-                    <a
-                        href="{{ route('security.password') }}"
-                        class="{{ Route::is('security.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded-lg py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
-                        wire:navigate
-                    >
-                        <span
-                            class="custom-icon--shield absolute inset-y-2 inset-s-1.75 size-5"
-                        ></span>
+                            <a
+                                href="{{ route('security.password') }}"
+                                class="{{ Route::is('security.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded-lg py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
+                                wire:navigate
+                            >
+                                <span
+                                    class="custom-icon--shield absolute inset-y-2 inset-s-1.75 size-5"
+                                ></span>
 
-                        Account security
-                    </a>
+                                Account security
+                            </a>
 
-                    @if ($user->isAdmin())
-                        <span class="mt-2 mb-1 px-2 text-xs/3">Admin</span>
+                            @if ($user->isAdmin())
+                                <span class="mt-2 mb-1 px-2 text-xs/3">Admin</span>
 
-                        <a
-                            href="{{ route('users.manage.accounts') }}"
-                            class="{{ Route::is('users.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded-lg py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
-                            wire:navigate
+                                <a
+                                    href="{{ route('users.manage.accounts') }}"
+                                    class="{{ Route::is('users.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded-lg py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
+                                    wire:navigate
+                                >
+                                    <span
+                                        class="custom-icon--users absolute inset-y-2 inset-s-1.75 size-5"
+                                    ></span>
+
+                                    Manage users
+                                </a>
+
+                                <a
+                                    href="{{ route('oauth.manage.clients') }}"
+                                    class="{{ Route::is('oauth.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded-lg py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
+                                    wire:navigate
+                                >
+                                    <span
+                                        class="custom-icon--key absolute inset-y-2 inset-s-1.75 size-5"
+                                    ></span>
+
+                                    OAuth clients
+                                </a>
+                            @endif
+                        </div>
+
+                        <form
+                            method="POST"
+                            action="{{ route('logout') }}"
+                            class="contents"
                         >
-                            <span
-                                class="custom-icon--users absolute inset-y-2 inset-s-1.75 size-5"
-                            ></span>
+                            @csrf
 
-                            Manage users
-                        </a>
+                            <button
+                                class="relative mx-2 my-4 rounded-lg py-2.5 pr-2 pl-7.75 text-start text-sm/4 font-medium text-[#8a7f70] transition-colors duration-300 hover:bg-[#f5e9e4] hover:text-[#a8503d]"
+                            >
+                                <span
+                                    class="custom-icon--exit absolute inset-y-2 inset-s-1.75 size-5"
+                                ></span>
 
-                        <a
-                            href="{{ route('oauth.manage.clients') }}"
-                            class="{{ Route::is('oauth.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded-lg py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
-                            wire:navigate
-                        >
-                            <span
-                                class="custom-icon--key absolute inset-y-2 inset-s-1.75 size-5"
-                            ></span>
-
-                            OAuth clients
-                        </a>
-                    @endif
+                                Logout
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-            <form
-                method="POST"
-                action="{{ route('logout') }}"
-                class="contents"
-            >
-                @csrf
-
-                <button
-                    class="relative mx-2 my-4 rounded-lg py-2.5 pr-2 pl-7.75 text-start text-sm/4 font-medium text-[#8a7f70] transition-colors duration-300 hover:bg-[#f5e9e4] hover:text-[#a8503d]"
-                >
-                    <span class="custom-icon--exit absolute inset-y-2 inset-s-1.75 size-5"></span>
-
-                    Logout
-                </button>
-            </form>
         </div>
 
         <div class="overlay-scrollbars size-full">
