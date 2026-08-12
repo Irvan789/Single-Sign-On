@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     @include('partials.head')
 </head>
 
 <body
     class="overflow-hidden bg-[#f4eee2] bg-size-[4rem] bg-fixed bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-no-repeat text-[#544636] antialiased"
-    style="background-image: url('{{asset('assets/images/background/perlica_v2.webp')}}')"
+    style="background-image: url('{{asset('assets/images/background/perlica-v2.webp')}}')"
 >
     <x-toastify />
 
@@ -33,5 +32,4 @@
         </div>
     </div>
 </body>
-
 </html>
