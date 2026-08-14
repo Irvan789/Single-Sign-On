@@ -115,7 +115,7 @@
 
     <x-modal-dialog
         title="Delete Account"
-        description="Enter your password before continuing."
+        description="Enter your password to continue account deletion."
         x-show="modalDelete"
         x-on:click.outside="modalDelete = false"
     >
@@ -125,7 +125,7 @@
             wire:confirm="Are you sure to delete your account? This action can't be undone!"
         >
             <x-input-text
-                label="Current Password"
+                label="Your Password"
                 type="password"
                 wire:model="password"
             />
