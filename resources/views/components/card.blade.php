@@ -1,5 +1,5 @@
 <div
-    {{ $attributes->only('class')->twMerge('flex flex-col gap-4 rounded-lg bg-[#fbf8f1] p-5 inset-ring inset-ring-[#c9b896]/40') }}
+    {{ $attributes->only('class')->twMerge('flex flex-col gap-4 rounded-xs bg-[#fbf8f1] p-5 inset-ring inset-ring-[#c9b896]/40') }}
 >
     <div class="block space-y-0.5">
         <div class="font-serif text-2xl/5">{{ $title }}</div>

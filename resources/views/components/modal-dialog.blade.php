@@ -9,7 +9,7 @@
     class="fixed inset-s-0 top-0 z-50 flex size-full bg-[#f4eee2]/80 px-4 py-8 transition-opacity"
 >
     <div
-        class="relative m-auto grid w-full max-w-md grid-rows-[max-content_auto_max-content] rounded-lg bg-[#fbf8f1] p-5 inset-ring inset-ring-[#c9b896]/50 sm:max-w-116"
+        class="relative m-auto grid w-full max-w-md grid-rows-[max-content_auto_max-content] rounded-xs bg-[#fbf8f1] p-5 inset-ring inset-ring-[#c9b896]/50 sm:max-w-116"
         {{ $attributes->only('x-on:click.outside') }}
     >
         <div class="space-y-0.5">
