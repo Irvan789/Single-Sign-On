@@ -35,7 +35,7 @@ class UpdateClients extends Component
             'client' => $this->client,
         ])
             ->layout('layouts::app', [
-                'title' => 'Update Passport Client',
+                'title' => 'Update OAuth Client',
             ]);
     }
 

@@ -24,7 +24,7 @@ class ManageClients extends Component
         return view('livewire.oauth-passports.manage-clients', [
             'clients' => $this->user->oauthApps()->orderBy('created_at', 'desc')->paginate(10)->onEachSide(1),
         ])->layout('layouts::app', [
-            'title' => 'Passport Client',
+            'title' => 'OAuth Client',
         ]);
     }
 }

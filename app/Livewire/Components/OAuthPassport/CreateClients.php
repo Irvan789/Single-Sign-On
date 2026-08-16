@@ -17,7 +17,7 @@ class CreateClients extends Component
     {
         return view('livewire.oauth-passports.create-clients')
             ->layout('layouts::app', [
-                'title' => 'Create Passport Client',
+                'title' => 'Create OAuth Client',
             ]);
     }
 

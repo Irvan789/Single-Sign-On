@@ -78,7 +78,7 @@ class UserTwoFactor extends Component
 
         return view('livewire.account-security.user-two-factor')
             ->layout('layouts::app', [
-                'title' => 'Two-Factor Authentication',
+                'title' => '2-Step Factor Authentication',
             ]);
     }
 
