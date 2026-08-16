@@ -46,11 +46,11 @@
 
                             <a
                                 href="{{ route('profile') }}"
-                                class="{{ Route::is('profile') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
+                                class="{{ Route::is('profile') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded py-2.5 pr-2 pl-7.5 text-sm/4 font-medium"
                                 wire:navigate
                             >
                                 <span
-                                    class="custom-icon--user absolute inset-y-2 inset-s-1.75 size-5"
+                                    class="custom-icon--user absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                 ></span>
 
                                 My profile
@@ -58,11 +58,11 @@
 
                             <a
                                 href="{{ route('security.password') }}"
-                                class="{{ Route::is('security.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
+                                class="{{ Route::is('security.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded py-2.5 pr-2 pl-7.5 text-sm/4 font-medium"
                                 wire:navigate
                             >
                                 <span
-                                    class="custom-icon--shield absolute inset-y-2 inset-s-1.75 size-5"
+                                    class="custom-icon--shield absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                 ></span>
 
                                 Account security
@@ -73,11 +73,11 @@
 
                                 <a
                                     href="{{ route('users.manage.accounts') }}"
-                                    class="{{ Route::is('users.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
+                                    class="{{ Route::is('users.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded py-2.5 pr-2 pl-7.5 text-sm/4 font-medium"
                                     wire:navigate
                                 >
                                     <span
-                                        class="custom-icon--users absolute inset-y-2 inset-s-1.75 size-5"
+                                        class="custom-icon--users absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                     ></span>
 
                                     Manage users
@@ -85,11 +85,11 @@
 
                                 <a
                                     href="{{ route('oauth.manage.clients') }}"
-                                    class="{{ Route::is('oauth.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded py-2.5 pr-2 pl-7.75 text-sm/4 font-medium"
+                                    class="{{ Route::is('oauth.*') ? 'bg-[#c8b96e]/20 text-[#6b5a46]' : 'text-[#8a7f70] transition-colors duration-300 hover:bg-[#c8b96e]/10 hover:text-[#6b5a46]' }} relative rounded py-2.5 pr-2 pl-7.5 text-sm/4 font-medium"
                                     wire:navigate
                                 >
                                     <span
-                                        class="custom-icon--key absolute inset-y-2 inset-s-1.75 size-5"
+                                        class="custom-icon--key absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                     ></span>
 
                                     OAuth clients
@@ -105,10 +105,10 @@
                             @csrf
 
                             <button
-                                class="relative mx-2 my-4 rounded py-2.5 pr-2 pl-7.75 text-start text-sm/4 font-medium text-[#8a7f70] transition-colors duration-300 hover:bg-[#f5e9e4] hover:text-[#a8503d]"
+                                class="relative mx-2 my-4 rounded py-2.5 pr-2 pl-7.5 text-start text-sm/4 font-medium text-[#8a7f70] transition-colors duration-300 hover:bg-[#f5e9e4] hover:text-[#a8503d]"
                             >
                                 <span
-                                    class="custom-icon--exit absolute inset-y-2 inset-s-1.75 size-5"
+                                    class="custom-icon--exit absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                 ></span>
 
                                 Logout
