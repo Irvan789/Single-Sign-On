@@ -30,8 +30,8 @@
 
             <x-card
                 variant="danger"
-                title="Disable Two-Factor Authentication"
-                description="When you disable two-factor authentication, you will be never prompted again for entering authentication code."
+                title="Disable 2-Step Factor Authentication"
+                description="When you disable 2-step factor authentication, you will be never prompted again for entering authentication code."
                 class="flex flex-col justify-between sm:flex-row sm:items-center"
             >
                 <x-button
@@ -46,8 +46,8 @@
             </x-card>
         @else
             <x-card
-                title="Enable Two-Factor Authentication"
-                description="Follow the step to enable Two-Factor Authentication."
+                title="Enable 2-Step Factor Authentication"
+                description="Follow the step to enable 2-Step Factor Authentication."
             >
                 <div class="flex flex-col gap-4">
                     <div class="block space-y-0.5">
