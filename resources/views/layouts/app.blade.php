@@ -50,7 +50,7 @@
                                 wire:navigate
                             >
                                 <span
-                                    class="custom-icon--user absolute inset-y-2.25 inset-s-1.75 size-4.5"
+                                    class="icon-[uil--user] absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                 ></span>
 
                                 My profile
@@ -62,7 +62,7 @@
                                 wire:navigate
                             >
                                 <span
-                                    class="custom-icon--shield absolute inset-y-2.25 inset-s-1.75 size-4.5"
+                                    class="icon-[uil--shield] absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                 ></span>
 
                                 Account security
@@ -77,7 +77,7 @@
                                     wire:navigate
                                 >
                                     <span
-                                        class="custom-icon--users absolute inset-y-2.25 inset-s-1.75 size-4.5"
+                                        class="icon-[uil--users-alt] absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                     ></span>
 
                                     Manage users
@@ -89,7 +89,7 @@
                                     wire:navigate
                                 >
                                     <span
-                                        class="custom-icon--key absolute inset-y-2.25 inset-s-1.75 size-4.5"
+                                        class="icon-[uil--key-skeleton-alt] absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                     ></span>
 
                                     OAuth clients
@@ -100,15 +100,15 @@
                         <form
                             method="POST"
                             action="{{ route('logout') }}"
-                            class="contents"
+                            class="px-2 py-4"
                         >
                             @csrf
 
                             <button
-                                class="relative mx-2 my-4 rounded py-2.5 pr-2 pl-7.5 text-start text-sm/4 font-medium text-[#8a7f70] transition-colors duration-300 hover:bg-[#f5e9e4] hover:text-[#a8503d]"
+                                class="relative w-full rounded py-2.5 pr-2 pl-7.5 text-start text-sm/4 font-medium text-[#8a7f70] transition-colors duration-300 hover:bg-[#f5e9e4] hover:text-[#a8503d]"
                             >
                                 <span
-                                    class="custom-icon--exit absolute inset-y-2.25 inset-s-1.75 size-4.5"
+                                    class="icon-[mingcute--exit-line] absolute inset-y-2.25 inset-s-1.75 size-4.5"
                                 ></span>
 
                                 Logout
