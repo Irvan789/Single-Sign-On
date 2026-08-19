@@ -12,7 +12,7 @@
 
         <img
             src="{{ $user->avatar }}?size=128&r=g&d=mp"
-            class="absolute top-4.5 right-4.5 size-6 rounded-full md:top-6.5 md:right-6.5"
+            class="absolute top-4.5 right-4.5 size-6 rounded-full sm:top-6.5 sm:right-6.5"
         />
 
         <div class="flex flex-col gap-3.5">
