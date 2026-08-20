@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\AccountSecurity;
+namespace App\Livewire\Pages\AccountSecurity;
 
 use App\Models\User;
 use Exception;
@@ -76,7 +76,7 @@ class UserTwoFactor extends Component
             $this->loadRecoveryCodes();
         }
 
-        return view('livewire.account-security.user-two-factor')
+        return view('livewire.pages.account-security.user-two-factor')
             ->layout('layouts::app', [
                 'title' => '2-Step Factor Authentication',
             ]);

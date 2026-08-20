@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\OAuthPassport;
+namespace App\Livewire\Pages\OAuthPassport;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -15,7 +15,7 @@ class CreateClients extends Component
 
     public function render()
     {
-        return view('livewire.oauth-passports.create-clients')
+        return view('livewire.pages.oauth-passports.create-clients')
             ->layout('layouts::app', [
                 'title' => 'Create OAuth Client',
             ]);

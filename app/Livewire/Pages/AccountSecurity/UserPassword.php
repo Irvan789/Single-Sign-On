@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\AccountSecurity;
+namespace App\Livewire\Pages\AccountSecurity;
 
 use App\Concerns\PasswordValidationRules;
 use App\Models\User;
@@ -33,7 +33,7 @@ class UserPassword extends Component
 
     public function render()
     {
-        return view('livewire.account-security.user-password')
+        return view('livewire.pages.account-security.user-password')
             ->layout('layouts::app', [
                 'title' => 'Account Security',
             ]);

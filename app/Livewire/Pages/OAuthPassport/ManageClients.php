@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\OAuthPassport;
+namespace App\Livewire\Pages\OAuthPassport;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,7 @@ class ManageClients extends Component
 
     public function render()
     {
-        return view('livewire.oauth-passports.manage-clients', [
+        return view('livewire.pages.oauth-passports.manage-clients', [
             'clients' => $this->user->oauthApps()->orderBy('created_at', 'desc')->paginate(10)->onEachSide(1),
         ])->layout('layouts::app', [
             'title' => 'OAuth Client',

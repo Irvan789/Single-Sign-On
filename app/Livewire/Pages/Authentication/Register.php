@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\Authentication;
+namespace App\Livewire\Pages\Authentication;
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -22,7 +22,7 @@ class Register extends Component
 
     public function render()
     {
-        return view('livewire.authentication.register');
+        return view('livewire.pages.authentication.register');
     }
 
     public function resetForm(): void

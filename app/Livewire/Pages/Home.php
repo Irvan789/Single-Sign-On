@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components;
+namespace App\Livewire\Pages;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -18,7 +18,7 @@ class Home extends Component
 
     public function render(): View
     {
-        return view('livewire.home')->layout('layouts::app', [
+        return view('livewire.pages.home')->layout('layouts::app', [
             'title' => 'Home',
             'user' => $this->user,
         ]);

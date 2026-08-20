@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\Users;
+namespace App\Livewire\Pages\Users;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ class ManageAccounts extends Component
 
     public function render()
     {
-        return view('livewire.users.manage-accounts', [
+        return view('livewire.pages.users.manage-accounts', [
             'users' => User::where('id', '<>', $this->user->id)
                 ->with('socials')
                 ->when($this->search, function ($query, $search) {

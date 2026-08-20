@@ -1,15 +1,15 @@
 <?php
 
 use App\Http\Controllers\SocialiteController;
-use App\Livewire\Components\AccountSecurity\UserPassword as AccountUserPassword;
-use App\Livewire\Components\AccountSecurity\UserTwoFactor as AccountUserTwoFactor;
-use App\Livewire\Components\Home;
-use App\Livewire\Components\OAuthPassport\CreateClients as OAuthCreateClients;
-use App\Livewire\Components\OAuthPassport\ManageClients as OAuthManageClients;
-use App\Livewire\Components\OAuthPassport\UpdateClients as OAuthUpdateClients;
-use App\Livewire\Components\Profile;
-use App\Livewire\Components\Users\ManageAccounts as ManageUserAccounts;
-use App\Livewire\Components\Users\UpdateAccounts as UpdateUserAccounts;
+use App\Livewire\Pages\AccountSecurity\UserPassword as AccountUserPassword;
+use App\Livewire\Pages\AccountSecurity\UserTwoFactor as AccountUserTwoFactor;
+use App\Livewire\Pages\Home;
+use App\Livewire\Pages\OAuthPassport\CreateClients as OAuthCreateClients;
+use App\Livewire\Pages\OAuthPassport\ManageClients as OAuthManageClients;
+use App\Livewire\Pages\OAuthPassport\UpdateClients as OAuthUpdateClients;
+use App\Livewire\Pages\Profile;
+use App\Livewire\Pages\Users\ManageAccounts as ManageUserAccounts;
+use App\Livewire\Pages\Users\UpdateAccounts as UpdateUserAccounts;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 

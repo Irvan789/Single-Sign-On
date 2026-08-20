@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\Authentication;
+namespace App\Livewire\Pages\Authentication;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ class VerifyEmail extends Component
 
     public function render()
     {
-        return view('livewire.authentication.verify-email', [
+        return view('livewire.pages.authentication.verify-email', [
             'user' => $this->user,
         ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\Authentication;
+namespace App\Livewire\Pages\Authentication;
 
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Livewire\Attributes\Layout;
@@ -25,7 +25,7 @@ class TwoFactorChallenge extends Component
 
     public function render()
     {
-        return view('livewire.authentication.two-factor-challenge');
+        return view('livewire.pages.authentication.two-factor-challenge');
     }
 
     public function resetForm(): void

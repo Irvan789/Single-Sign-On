@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\Authentication;
+namespace App\Livewire\Pages\Authentication;
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -14,7 +14,7 @@ class ResetPassword extends Component
 
     public function render()
     {
-        return view('livewire.authentication.reset-password');
+        return view('livewire.pages.authentication.reset-password');
     }
 
     public function navigate(string $message): void

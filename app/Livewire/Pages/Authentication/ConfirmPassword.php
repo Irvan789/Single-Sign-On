@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\Authentication;
+namespace App\Livewire\Pages\Authentication;
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -12,7 +12,7 @@ class ConfirmPassword extends Component
 
     public function render()
     {
-        return view('livewire.authentication.confirm-password');
+        return view('livewire.pages.authentication.confirm-password');
     }
 
     public function navigate(): void

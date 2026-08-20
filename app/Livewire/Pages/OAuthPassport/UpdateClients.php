@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\OAuthPassport;
+namespace App\Livewire\Pages\OAuthPassport;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +31,7 @@ class UpdateClients extends Component
 
     public function render()
     {
-        return view('livewire.oauth-passports.update-clients', [
+        return view('livewire.pages.oauth-passports.update-clients', [
             'client' => $this->client,
         ])
             ->layout('layouts::app', [

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components;
+namespace App\Livewire\Pages;
 
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
@@ -46,7 +46,7 @@ class Profile extends Component
             $this->notify($payload['type'], $payload['message']);
         }
 
-        return view('livewire.profile', [
+        return view('livewire.pages.profile', [
             'social_google' => $this->user->social('google'),
             'social_github' => $this->user->social('github'),
         ])->layout('layouts::app', [

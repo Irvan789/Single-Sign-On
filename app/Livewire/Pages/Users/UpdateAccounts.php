@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components\Users;
+namespace App\Livewire\Pages\Users;
 
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
@@ -60,7 +60,7 @@ class UpdateAccounts extends Component
 
     public function render()
     {
-        return view('livewire.users.update-accounts', [
+        return view('livewire.pages.users.update-accounts', [
             'social_google' => $this->user->social('google'),
             'social_github' => $this->user->social('github'),
         ])->layout('layouts::app', [

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
@@ -88,7 +89,7 @@ class SocialiteController extends Controller
             if (! $findUserByEmail) {
                 $userData = [
                     'name' => $socialite->name,
-                    'username' => 'u'.Carbon::now()->setMicrosecond(0)->timestamp,
+                    'username' => strtolower(trim(explode('@', $socialite->email)[0])).Str::random(5),
                     'avatar' => 'https://gravatar.com/avatar/'.hash('sha256', strtolower(trim($socialite->email))),
                     'passwordless' => true,
                 ];
