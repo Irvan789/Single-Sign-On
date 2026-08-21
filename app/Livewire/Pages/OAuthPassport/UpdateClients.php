@@ -2,58 +2,52 @@
 
 namespace App\Livewire\Pages\OAuthPassport;
 
+use App\Livewire\Forms\PassportClientForm;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Services\UserService;
+use Illuminate\Contracts\View\View;
+use Laravel\Passport\Client;
 use Laravel\Passport\Passport;
 use Laravel\Passport\Token;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts::app', ['title' => 'Update OAuth Client'])]
 class UpdateClients extends Component
 {
     public ?User $user;
 
-    public mixed $client;
+    public ?Client $client;
 
-    public string $name = '';
+    public PassportClientForm $passportClientForm;
 
-    public array $callbacks = [];
-
-    public function mount(string $id)
+    public function mount(string $id, UserService $userService): void
     {
-        $this->user = Auth::user();
+        $this->user = $userService->profile();
 
         $this->client = $this->user->oauthApps()->findOrFail($id);
 
-        $this->name = $this->client->name;
-
-        $this->callbacks = $this->client->redirect_uris;
+        $this->passportClientForm->set($this->client);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.pages.oauth-passports.update-clients', [
             'client' => $this->client,
-        ])
-            ->layout('layouts::app', [
-                'title' => 'Update OAuth Client',
-            ]);
+        ]);
     }
 
-    public function updatePassportClient()
+    public function updatePassportClient(): void
     {
-        $this->validate([
-            'name' => ['required', 'string'],
-            'callbacks' => ['required', 'array'],
-            'callbacks.*' => ['required', 'string', 'url'],
-        ]);
+        $data = $this->passportClientForm->data();
 
         Passport::client()->findOrFail($this->client->id)
             ->update([
-                'name' => $this->name,
-                'redirect_uris' => $this->callbacks,
+                'name' => $data['name'],
+                'redirect_uris' => $data['callbacks'],
             ]);
 
-        session()->flash('notify', [
+        session()->flash('notify-session', [
             'type' => 'success',
             'message' => 'Client updated successfully!',
         ]);
@@ -76,7 +70,7 @@ class UpdateClients extends Component
             ->where(['id' => $id, 'owner_id' => $this->user->id])
             ->delete();
 
-        session()->flash('notify', [
+        session()->flash('notify-session', [
             'type' => 'success',
             'message' => 'Client deleted successfully!',
         ]);

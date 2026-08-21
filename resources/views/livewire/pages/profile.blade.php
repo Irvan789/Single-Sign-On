@@ -23,20 +23,20 @@
                 <x-input-text
                     label="Name"
                     type="text"
-                    wire:model="name"
+                    wire:model="profileForm.name"
                 />
 
                 <x-input-text
                     label="Username"
                     type="text"
-                    wire:model="username"
+                    wire:model="profileForm.username"
                     x-on:input="$js.lowercase"
                 />
 
                 <x-input-text
                     label="Email"
                     type="email"
-                    wire:model="email"
+                    wire:model="profileForm.email"
                 />
 
                 <hr class="border-t border-[#c9b896]/30" />
@@ -57,22 +57,22 @@
     >
         <div class="flex flex-col gap-4">
             @if ($user->passwordless)
-                @if ($social_google)
+                @if (isset($user->socials['google']))
                     <x-social-account
                         name="Google"
                         url="{{ route('security.password') }}"
-                        email="{{ $social_google->email }}"
+                        email="{{ $user->socials['google']->email }}"
                         wire:navigate
                     >
                         Account Security
                     </x-social-account>
                 @endif
 
-                @if ($social_github)
+                @if (isset($user->socials['github']))
                     <x-social-account
                         name="GitHub"
                         url="{{ route('security.password') }}"
-                        email="{{ $social_github->email }}"
+                        email="{{ $user->socials['github']->email }}"
                         wire:navigate
                     >
                         Account Security
@@ -82,17 +82,17 @@
                 <x-social-account
                     name="Google"
                     url="{{ route('socials.login', ['provider' => 'google']) }}"
-                    email="{{ $social_google ? $social_google->email : 'Not Linked' }}"
+                    email="{{ isset($user->socials['google']) ? $user->socials['google']->email : 'Not Linked' }}"
                 >
-                    {{ $social_google ? 'Unlink' : 'Link' }}
+                    {{ isset($user->socials['google']) ? 'Unlink' : 'Link' }}
                 </x-social-account>
 
                 <x-social-account
                     name="GitHub"
                     url="{{ route('socials.login', ['provider' => 'github']) }}"
-                    email="{{ $social_github ? $social_github->email : 'Not Linked' }}"
+                    email="{{ isset($user->socials['github']) ? $user->socials['github']->email : 'Not Linked' }}"
                 >
-                    {{ $social_github ? 'Unlink' : 'Link' }}
+                    {{ isset($user->socials['github']) ? 'Unlink' : 'Link' }}
                 </x-social-account>
             @endif
         </div>

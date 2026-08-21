@@ -4,11 +4,13 @@ namespace App\Livewire\Pages\Users;
 
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
+use App\Livewire\Forms\PasswordForm;
+use App\Livewire\Forms\ProfileForm;
 use App\Models\Social;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Contracts\View\View;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Features;
 use Livewire\Attributes\Computed;
@@ -21,15 +23,9 @@ class UpdateAccounts extends Component
 
     public ?User $user;
 
-    public string $name;
+    public ProfileForm $profileForm;
 
-    public string $username;
-
-    public string $email;
-
-    public string $password;
-
-    public string $password_confirmation;
+    public PasswordForm $passwordForm;
 
     #[Locked]
     public bool $canManageTwoFactor;
@@ -37,19 +33,17 @@ class UpdateAccounts extends Component
     #[Locked]
     public bool $twoFactorEnabled;
 
-    public function mount(string $id)
+    public function mount(string $id, UserService $userService): void
     {
-        $this->user = User::where('id', $id)->firstOrFail();
+        $this->user = $userService->findById($id);
 
-        if ($this->user->id == Auth::user()->id) {
-            return $this->redirectRoute('profile', navigate: true);
+        if ($this->user->id == $userService->profile()->id) {
+            $this->redirectRoute('profile', navigate: true);
+
+            return;
         }
 
-        $this->name = $this->user->name;
-
-        $this->username = $this->user->username;
-
-        $this->email = $this->user->email;
+        $this->profileForm->set($this->user);
 
         $this->canManageTwoFactor = Features::canManageTwoFactorAuthentication();
 
@@ -58,14 +52,17 @@ class UpdateAccounts extends Component
         }
     }
 
-    public function render()
+    public function hydrate(): void
     {
-        return view('livewire.pages.users.update-accounts', [
-            'social_google' => $this->user->social('google'),
-            'social_github' => $this->user->social('github'),
-        ])->layout('layouts::app', [
-            'title' => $this->name.' Profile',
-        ]);
+        $this->user['socials'] = $this->user->socials->keyBy('provider');
+    }
+
+    public function render(): View
+    {
+        return view('livewire.pages.users.update-accounts')
+            ->layout('layouts::app', [
+                'title' => $this->user->name.' Profile',
+            ]);
     }
 
     #[Computed]
@@ -74,43 +71,22 @@ class UpdateAccounts extends Component
         return $this->user instanceof MustVerifyEmail && ! $this->user->hasVerifiedEmail();
     }
 
-    public function updateProfileInformation(): void
+    public function updateProfileInformation(UserService $userService): void
     {
-        $this->name = Str::trim($this->name);
+        $data = $this->profileForm->data($this->user->id);
 
-        $this->username = preg_replace('/[\s+]/', '_', strtolower($this->username));
-
-        $validated = $this->validate($this->profileRules($this->user->id), $this->profileRulesErrorMessages());
-
-        $this->user->fill($validated);
-
-        if ($this->user->isDirty('email')) {
-            if (is_null($this->user->email_verified_at)) {
-                $this->notify('error', 'Can\'t change email address for unverified user!');
-
-                return;
-            }
-
-            $this->user->email_verified_at = null;
-        }
-
-        $this->user->save();
+        $userService->updateById($this->user->id, $data);
 
         $this->notify('success', 'User profile updated successfully!');
     }
 
-    public function updatePassword(): void
+    public function updateAccountPassword(UserService $userService): void
     {
-        $validated = $this->validate([
-            'password' => $this->passwordRules(),
-        ]);
+        $data = $this->passwordForm->data($this->user, true);
 
-        $this->user->update([
-            'password' => $validated['password'],
-            'passwordless' => false,
-        ]);
+        $userService->updateById($this->user->id, $data);
 
-        $this->reset('password', 'password_confirmation');
+        $this->passwordForm->reset();
 
         $this->notify('success', 'User password updated successfully!');
     }
@@ -134,7 +110,7 @@ class UpdateAccounts extends Component
         }
     }
 
-    public function disableTwoFactor(DisableTwoFactorAuthentication $disableTwoFactorAuthentication)
+    public function disableTwoFactor(DisableTwoFactorAuthentication $disableTwoFactorAuthentication): void
     {
         $disableTwoFactorAuthentication($this->user);
 
@@ -143,15 +119,11 @@ class UpdateAccounts extends Component
         $this->notify('success', 'Two-Factor disable successfully!');
     }
 
-    public function deleteAccount(): void
+    public function deleteAccount(UserService $userService): void
     {
-        $this->user->oauthApps()->delete();
+        $userService->deleteByUser($this->user);
 
-        $this->user->socials()->delete();
-
-        $this->user->delete();
-
-        session()->flash('notify', [
+        session()->flash('notify-session', [
             'type' => 'success',
             'message' => 'User deleted successfully!',
         ]);

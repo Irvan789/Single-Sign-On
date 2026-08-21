@@ -3,15 +3,10 @@
         title="Manage Users"
         description="Update their account information and details here."
     >
-        <form
-            class="contents"
-            wire:submit="searchUser"
-        >
-            <x-input-search
-                placeholder="Search User..."
-                wire:model="search"
-            />
-        </form>
+        <x-input-search
+            placeholder="Search User..."
+            wire:model.live.debounce.300ms="search"
+        />
 
         @if (count($users) > 0)
             <table class="w-full table-auto">

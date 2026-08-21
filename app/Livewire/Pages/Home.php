@@ -3,24 +3,23 @@
 namespace App\Livewire\Pages;
 
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts::app', ['title' => 'Home'])]
 class Home extends Component
 {
     public ?User $user;
 
-    public function mount()
+    public function mount(UserService $userService): void
     {
-        $this->user = Auth::user();
+        $this->user = $userService->profile();
     }
 
     public function render(): View
     {
-        return view('livewire.pages.home')->layout('layouts::app', [
-            'title' => 'Home',
-            'user' => $this->user,
-        ]);
+        return view('livewire.pages.home');
     }
 }

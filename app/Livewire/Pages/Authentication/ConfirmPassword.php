@@ -22,6 +22,6 @@ class ConfirmPassword extends Component
 
     public function resetForm(): void
     {
-        $this->reset(['password']);
+        $this->reset('password');
     }
 }

@@ -5,40 +5,44 @@ namespace App\Livewire\Pages;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Livewire\Actions\Logout;
+use App\Livewire\Forms\ProfileForm;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts::app', ['title' => 'My Profile'])]
 class Profile extends Component
 {
     use PasswordValidationRules, ProfileValidationRules;
 
     public ?User $user;
 
-    public string $name;
-
-    public string $username;
-
-    public string $email;
+    public ProfileForm $profileForm;
 
     public string $password;
 
-    public function mount()
+    public function mount(UserService $userService): void
     {
-        $this->user = Auth::user();
+        $this->user = $userService->profile();
 
-        $this->name = $this->user->name;
-
-        $this->username = $this->user->username;
-
-        $this->email = $this->user->email;
+        $this->profileForm->set($this->user);
     }
 
-    public function render()
+    public function hydrate(): void
+    {
+        $this->user['socials'] = $this->user->socials->keyBy('provider');
+    }
+
+    public function dehydrate(): void
+    {
+        $this->reset('password');
+    }
+
+    public function render(): View
     {
         if (session()->has('notify')) {
             $payload = session()->get('notify');
@@ -46,13 +50,7 @@ class Profile extends Component
             $this->notify($payload['type'], $payload['message']);
         }
 
-        return view('livewire.pages.profile', [
-            'social_google' => $this->user->social('google'),
-            'social_github' => $this->user->social('github'),
-        ])->layout('layouts::app', [
-            'title' => 'My Profile',
-            'user' => $this->user,
-        ]);
+        return view('livewire.pages.profile');
     }
 
     #[Computed]
@@ -72,45 +70,23 @@ class Profile extends Component
         $this->notify('success', 'A new verification link has been sent to your email address.');
     }
 
-    public function updateProfileInformation(): void
+    public function updateProfileInformation(UserService $userService): void
     {
-        $this->name = Str::trim($this->name);
+        $data = $this->profileForm->data($this->user->id);
 
-        $this->username = preg_replace('/[\s+]/', '_', strtolower($this->username));
-
-        $validated = $this->validate($this->profileRules($this->user->id), $this->profileRulesErrorMessages());
-
-        $this->user->fill($validated);
-
-        if ($this->user->isDirty('email')) {
-            $this->user->email_verified_at = null;
-        }
-
-        $this->user->save();
+        $userService->updateById($this->user->id, $data);
 
         $this->notify('success', 'Profile updated successfully!');
     }
 
-    public function deleteAccount(Logout $logout): void
+    public function deleteAccount(UserService $userService, Logout $logout): void
     {
-        try {
-            $this->validate([
-                'password' => $this->currentPasswordRules(),
-            ]);
+        $this->validate([
+            'password' => $this->currentPasswordRules(),
+        ]);
 
-            $this->reset('password');
+        $this->reset('password');
 
-            $this->user->oauthApps()->delete();
-
-            $this->user->socials()->delete();
-
-            tap(Auth::user(), $logout(...))->delete();
-
-            $this->redirect(route('login'), navigate: true);
-        } catch (ValidationException $error) {
-            $this->reset('password');
-
-            throw $error;
-        }
+        $userService->delete($logout);
     }
 }

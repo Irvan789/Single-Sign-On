@@ -3,8 +3,9 @@
 namespace App\Livewire\Pages\AccountSecurity;
 
 use App\Models\User;
+use App\Services\UserService;
 use Exception;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
@@ -12,10 +13,12 @@ use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
 use Laravel\Fortify\Features;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
+#[Layout('layouts:app', ['title' => '2-Step Factor Authentication'])]
 class UserTwoFactor extends Component
 {
     public ?User $user;
@@ -41,9 +44,9 @@ class UserTwoFactor extends Component
     #[Validate('required|string|size:6', onUpdate: false)]
     public string $code = '';
 
-    public function mount(EnableTwoFactorAuthentication $enableTwoFactorAuthentication): void
+    public function mount(EnableTwoFactorAuthentication $enableTwoFactorAuthentication, UserService $userService): void
     {
-        $this->user = Auth::user();
+        $this->user = $userService->profile();
 
         $this->canManageTwoFactor = Features::canManageTwoFactorAuthentication();
 
@@ -56,7 +59,7 @@ class UserTwoFactor extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
         if (! $this->twoFactorEnabled) {
             try {
@@ -76,10 +79,7 @@ class UserTwoFactor extends Component
             $this->loadRecoveryCodes();
         }
 
-        return view('livewire.pages.account-security.user-two-factor')
-            ->layout('layouts::app', [
-                'title' => '2-Step Factor Authentication',
-            ]);
+        return view('livewire.pages.account-security.user-two-factor');
     }
 
     public function enableTwoFactor(ConfirmTwoFactorAuthentication $confirmTwoFactorAuthentication): void
@@ -101,7 +101,7 @@ class UserTwoFactor extends Component
         }
     }
 
-    public function disableTwoFactor(DisableTwoFactorAuthentication $disableTwoFactorAuthentication)
+    public function disableTwoFactor(DisableTwoFactorAuthentication $disableTwoFactorAuthentication): void
     {
         $disableTwoFactorAuthentication($this->user);
 

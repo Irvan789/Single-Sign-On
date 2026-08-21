@@ -3,25 +3,25 @@
         title="{{ $user->passwordless ? 'Create' : 'Change' }} Password"
         description="Choose a strong password you don't use elsewhere."
     >
-        <x-form wire:submit="updatePassword">
+        <x-form wire:submit="updateAccountPassword">
             @if (!$user->passwordless)
                 <x-input-text
                     label="Current Password"
                     type="password"
-                    wire:model="current_password"
+                    wire:model="passwordForm.current_password"
                 />
             @endif
 
             <x-input-text
                 label="New Password"
                 type="password"
-                wire:model="password"
+                wire:model="passwordForm.password"
             />
 
             <x-input-text
                 label="Confirm New Password"
                 type="password"
-                wire:model="password_confirmation"
+                wire:model="passwordForm.password_confirmation"
             />
 
             <hr class="border-t border-[#c9b896]/30" />

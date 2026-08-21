@@ -13,20 +13,20 @@
                 <x-input-text
                     label="Name"
                     type="text"
-                    wire:model="name"
+                    wire:model="profileForm.name"
                 />
 
                 <x-input-text
                     label="Username"
                     type="text"
-                    wire:model="username"
+                    wire:model="profileForm.username"
                     x-on:input="$js.lowercase"
                 />
 
                 <x-input-text
                     label="Email"
                     type="email"
-                    wire:model="email"
+                    wire:model="profileForm.email"
                 />
 
                 <hr class="border-t border-[#c9b896]/30" />
@@ -45,17 +45,17 @@
         title="Change Password"
         description="Choose a strong password for this user."
     >
-        <x-form wire:submit="updatePassword">
+        <x-form wire:submit="updateAccountPassword">
             <x-input-text
                 label="New Password"
                 type="password"
-                wire:model="password"
+                wire:model="passwordForm.password"
             />
 
             <x-input-text
                 label="Confirm New Password"
                 type="password"
-                wire:model="password_confirmation"
+                wire:model="passwordForm.password_confirmation"
             />
 
             <hr class="border-t border-[#c9b896]/30" />
@@ -69,16 +69,16 @@
         </x-form>
     </x-card>
 
-    @if ($social_google || $social_github)
+    @if (isset($user->socials['google']) || isset($user->socials['github']))
         <x-card
             title="Connected Accounts"
             description="Manage user connected social accounts."
         >
             <div class="flex flex-col gap-4">
-                @if ($social_google)
+                @if (isset($user->socials['google']))
                     <x-social-account
                         name="Google"
-                        email="{{ $social_google->email }}"
+                        email="{{ $user->socials['google']->email }}"
                         wire:click="unlinkSocialAccount('google')"
                         wire:confirm="Are you sure to unlink user social account? This action can't be undone!"
                         wire:loading.attr="disabled"
@@ -87,10 +87,10 @@
                     </x-social-account>
                 @endif
 
-                @if ($social_github)
+                @if (isset($user->socials['github']))
                     <x-social-account
-                        name="GitHub"
-                        email="{{ $social_github->email }}"
+                        name="Google"
+                        email="{{ $user->socials['github']->email }}"
                         wire:click="unlinkSocialAccount('github')"
                         wire:confirm="Are you sure to unlink user social account? This action can't be undone!"
                         wire:loading.attr="disabled"

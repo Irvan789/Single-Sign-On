@@ -27,6 +27,6 @@ class Register extends Component
 
     public function resetForm(): void
     {
-        $this->reset(['password_confirmation']);
+        $this->reset('password_confirmation');
     }
 }

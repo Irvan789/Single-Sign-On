@@ -8,14 +8,12 @@
     @if ($type != 'password')
         <input
             type="{{ $type ?? 'text' }}"
-            class="rounded border-none bg-[#fefdfb] px-3 py-2 text-sm/5 font-normal text-[#685e50] inset-ring inset-ring-[#c9b896]/50 outline-none read-only:cursor-not-allowed read-only:bg-[#f4eee2]/70 focus:inset-ring-[#c9b896]/80 disabled:bg-[#f4eee2]/70"
-            {{ $attributes->except(['class', 'label'])->merge(['autocomplete'=>'off']) }}
+            {{ $attributes->except(['label'])->merge(['autocomplete' => 'off'])->twMerge('rounded border-none bg-[#fefdfb] px-3 py-2 text-sm/5 font-normal text-[#685e50] inset-ring inset-ring-[#c9b896]/50 outline-none read-only:cursor-not-allowed read-only:bg-[#f4eee2]/70 focus:inset-ring-[#c9b896]/80 disabled:bg-[#f4eee2]/70') }}
         />
     @else
         <input
             :type="showPassword ? 'text' : 'password'"
-            class="rounded border-none bg-[#fefdfb] px-3 py-2 text-sm/5 font-normal text-[#685e50] inset-ring inset-ring-[#c9b896]/50 outline-none read-only:cursor-not-allowed read-only:bg-[#f4eee2]/70 focus:inset-ring-[#c9b896]/80 disabled:bg-[#f4eee2]/70"
-            {{ $attributes->except(['class', 'label'])->merge(['autocomplete'=>'off']) }}
+            {{ $attributes->except(['label'])->merge(['autocomplete' => 'off'])->twMerge('rounded border-none bg-[#fefdfb] px-3 py-2 text-sm/5 font-normal text-[#685e50] inset-ring inset-ring-[#c9b896]/50 outline-none read-only:cursor-not-allowed read-only:bg-[#f4eee2]/70 focus:inset-ring-[#c9b896]/80 disabled:bg-[#f4eee2]/70') }}
         />
 
         <button

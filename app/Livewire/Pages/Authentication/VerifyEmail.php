@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Authentication;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Services\UserService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -12,9 +12,9 @@ class VerifyEmail extends Component
 {
     public ?User $user;
 
-    public function boot()
+    public function boot(UserService $user)
     {
-        $this->user = Auth::user();
+        $this->user = $user->profile();
 
         if ($this->user->email_verified_at) {
             $this->redirectRoute('home', navigate: true);

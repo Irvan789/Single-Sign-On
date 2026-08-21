@@ -3,11 +3,13 @@
 namespace App\Livewire\Pages\Users;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Services\UserService;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
+#[Layout('layouts::app', ['title' => 'Manage Users'])]
 class ManageAccounts extends Component
 {
     use WithoutUrlPagination, WithPagination;
@@ -16,29 +18,17 @@ class ManageAccounts extends Component
 
     public string $search = '';
 
-    public function mount(): void
+    public function mount(UserService $userService): void
     {
-        $this->user = Auth::user();
+        $this->user = $userService->profile();
     }
 
-    public function render()
+    public function render(UserService $userService)
     {
+        $users = $userService->findAll($this->search);
+
         return view('livewire.pages.users.manage-accounts', [
-            'users' => User::where('id', '<>', $this->user->id)
-                ->with('socials')
-                ->when($this->search, function ($query, $search) {
-                    $query->whereFullText('name', $search);
-                })
-                ->orderBy('created_at', 'desc')
-                ->paginate(10)
-                ->onEachSide(1),
-        ])->layout('layouts::app', [
-            'title' => 'Manage Users',
+            'users' => $users,
         ]);
-    }
-
-    public function searchUser(): void
-    {
-        $this->resetPage();
     }
 }

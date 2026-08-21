@@ -19,7 +19,7 @@ class ForgotPassword extends Component
 
     public function navigate(string $message): void
     {
-        session()->flash('notify', [
+        session()->flash('notify-session', [
             'type' => 'success',
             'message' => $message,
         ]);
@@ -29,6 +29,6 @@ class ForgotPassword extends Component
 
     public function resetForm(): void
     {
-        $this->reset(['email']);
+        $this->reset('email');
     }
 }

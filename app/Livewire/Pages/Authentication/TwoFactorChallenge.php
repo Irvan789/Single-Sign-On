@@ -30,6 +30,6 @@ class TwoFactorChallenge extends Component
 
     public function resetForm(): void
     {
-        $this->reset(['code', 'recovery_code']);
+        $this->reset('code', 'recovery_code');
     }
 }

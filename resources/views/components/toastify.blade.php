@@ -1,7 +1,7 @@
 @php
-    $notify = session('notify')
+    $notify = session('notify-session');
 @endphp
-  
+
 <div
     x-data="{
         toasts:
