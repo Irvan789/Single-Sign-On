@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Social;
 use App\Models\User;
 use App\Repositories\SocialRepository;
 use App\Repositories\UserRepository;
@@ -13,32 +12,12 @@ use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Random\Randomizer;
 
-class SocialService
+class SocialiteService
 {
     public function __construct(
         protected SocialRepository $socialRepository,
         protected UserRepository $userRepository,
     ) {}
-
-    public function updateOrCreate(array $data, ?string $id = null, ?string $email = null): Social
-    {
-        return $this->socialRepository->updateOrCreate($data, $id, $email);
-    }
-
-    public function findByProviderId(string $id): ?Social
-    {
-        return $this->socialRepository->findByProviderId($id);
-    }
-
-    public function findByProviderNameAndUserId(string $provider, string $id): ?Social
-    {
-        return $this->socialRepository->findByProviderNameAndUserId($provider, $id);
-    }
-
-    public function findByProviderNameAndEmail(string $provider, string $email): ?Social
-    {
-        return $this->socialRepository->findByProviderNameAndEmail($provider, $email);
-    }
 
     public function authenticate(string $provider, SocialiteUser $socialite, ?User $user): void
     {
@@ -53,7 +32,7 @@ class SocialService
                 throw new Exception('Please create password first before you can manage linking social accounts.');
             }
 
-            $socialByProviderNameAndEmail = $this->findByProviderNameAndEmail($provider, $socialite->getEmail());
+            $socialByProviderNameAndEmail = $this->socialRepository->findByProviderNameAndEmail($provider, $socialite->getEmail());
 
             if ($socialByProviderNameAndEmail) {
                 if ($user->id == $socialByProviderNameAndEmail->user_id) {
@@ -65,7 +44,7 @@ class SocialService
                 throw new Exception('Failed to link or unlink social account in your account.');
             }
 
-            $socialByProviderNameAndUserId = $this->findByProviderNameAndUserId($provider, $user->id);
+            $socialByProviderNameAndUserId = $this->socialRepository->findByProviderNameAndUserId($provider, $user->id);
 
             if ($socialByProviderNameAndUserId) {
                 throw new Exception('Failed to link or unlink social account in your account.');
@@ -73,12 +52,12 @@ class SocialService
 
             $social['user_id'] = $user->id;
 
-            $this->updateOrCreate($social, id: $socialite->getId());
+            $this->socialRepository->updateOrCreate($social, id: $socialite->getId());
 
             return;
         }
 
-        $loginUsingSocialAccount = $this->findByProviderId($socialite->getId());
+        $loginUsingSocialAccount = $this->socialRepository->findByProviderId($socialite->getId());
 
         if ($loginUsingSocialAccount) {
             $user = $this->userRepository->findById($loginUsingSocialAccount->user_id);
@@ -113,7 +92,7 @@ class SocialService
 
         $social['user_id'] = $user->id;
 
-        $this->updateOrCreate($social, id: $socialite->getId());
+        $this->socialRepository->updateOrCreate($social, id: $socialite->getId());
 
         Auth::loginUsingId($user->id, true);
 

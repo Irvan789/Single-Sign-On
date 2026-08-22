@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SocialiteRequest;
 use App\Models\User;
-use App\Services\SocialService;
+use App\Services\SocialiteService;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +14,7 @@ class SocialiteController extends Controller
 {
     public function __construct(
         protected ?User $user,
-        protected SocialService $socialService,
+        protected SocialiteService $socialiteService,
         protected UserService $userService
     ) {
         $this->user = Auth::user();
@@ -34,7 +34,7 @@ class SocialiteController extends Controller
         try {
             $socialite = $request->authenticate();
 
-            $this->socialService->authenticate($provider, $socialite, $this->user);
+            $this->socialiteService->authenticate($provider, $socialite, $this->user);
 
             return $this->redirectBack();
         } catch (Exception $exception) {
