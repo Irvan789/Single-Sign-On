@@ -6,10 +6,10 @@ use App\Models\Social;
 
 class SocialRepository
 {
-    public function updateOrCreate(array $data, ?string $id = null, ?string $email = null): Social
+    public function updateOrCreate(array $data, ?array $existing = []): Social
     {
         return Social::updateOrCreate(
-            $id ? ['provider_id' => $id] : ['email' => $email],
+            $existing,
             $data
         );
     }

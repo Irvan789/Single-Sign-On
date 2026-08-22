@@ -52,7 +52,7 @@ class SocialiteService
 
             $social['user_id'] = $user->id;
 
-            $this->socialRepository->updateOrCreate($social, id: $socialite->getId());
+            $this->socialRepository->updateOrCreate($social, ['provider_id' => $socialite->getId()]);
 
             return;
         }
@@ -84,7 +84,7 @@ class SocialiteService
             'passwordless' => true,
         ];
 
-        $user = $this->userRepository->updateOrCreateByEmail($user, $socialite->getEmail());
+        $user = $this->userRepository->updateOrCreate($user, ['email' => $socialite->getEmail()]);
 
         $user->forceFill([
             'email_verified_at' => Carbon::now(),
@@ -92,7 +92,7 @@ class SocialiteService
 
         $social['user_id'] = $user->id;
 
-        $this->socialRepository->updateOrCreate($social, id: $socialite->getId());
+        $this->socialRepository->updateOrCreate($social, ['provider_id' => $socialite->getId()]);
 
         Auth::loginUsingId($user->id, true);
 

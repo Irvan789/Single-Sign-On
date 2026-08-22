@@ -7,10 +7,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository
 {
-    public function updateOrCreateByEmail(array $data, string $email): User
+    public function updateOrCreate(array $data, ?array $existing = []): User
     {
         return User::updateOrCreate(
-            ['email' => $email],
+            $existing,
             $data
         );
     }
@@ -44,11 +44,11 @@ class UserRepository
         return User::findOrFail($id);
     }
 
-    public function findByEmail(string $email): ?User
+    public function findByEmail(string $email): User
     {
-        return User::firstWhere([
+        return User::where([
             'email' => $email,
-        ]);
+        ])->firstOrFail();
     }
 
     public function delete(User $user): void

@@ -25,7 +25,7 @@ class UserService
 
     public function updateOrCreateByEmail(array $data, string $email): User
     {
-        return $this->userRepository->updateOrCreateByEmail($data, $email);
+        return $this->userRepository->updateOrCreate($data, ['email' => $email]);
     }
 
     public function findAll(string $search): LengthAwarePaginator
