@@ -18,7 +18,7 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-#[Layout('layouts:app', ['title' => '2-Step Factor Authentication'])]
+#[Layout('layouts::app', ['title' => '2-Step Factor Authentication'])]
 class UserTwoFactor extends Component
 {
     public ?User $user;
