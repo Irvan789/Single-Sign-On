@@ -41,7 +41,7 @@ class SocialiteController extends Controller
             return redirect()->route($this->user ? 'profile' : 'login')
                 ->with('notify-session', [
                     'type' => 'error',
-                    'message' => $exception->getMessage() ?? 'Something went wrong!iutfs /',
+                    'message' => $exception->getMessage() ?? 'Something went wrong!',
                 ]);
         }
     }
