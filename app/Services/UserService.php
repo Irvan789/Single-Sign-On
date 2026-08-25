@@ -23,11 +23,6 @@ class UserService
             ->setRelation('socials', $this->user->socials->keyBy('provider'));
     }
 
-    public function updateOrCreateByEmail(array $data, string $email): User
-    {
-        return $this->userRepository->updateOrCreate($data, ['email' => $email]);
-    }
-
     public function findAll(string $search): LengthAwarePaginator
     {
         return $this->userRepository->findAll($this->user->id, $search);
