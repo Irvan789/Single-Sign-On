@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
@@ -21,6 +22,8 @@ use Livewire\Component;
 #[Layout('layouts::app', ['title' => '2-Step Factor Authentication'])]
 class UserTwoFactor extends Component
 {
+    public ?User $auth;
+
     public ?User $user;
 
     #[Locked]
@@ -46,7 +49,8 @@ class UserTwoFactor extends Component
 
     public function mount(EnableTwoFactorAuthentication $enableTwoFactorAuthentication, UserService $userService): void
     {
-        $this->user = $userService->profile();
+        $this->auth = Auth::user();
+        $this->user = $userService->profile($this->auth);
 
         $this->canManageTwoFactor = Features::canManageTwoFactorAuthentication();
 

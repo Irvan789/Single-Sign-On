@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\OAuthPassport;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
@@ -15,11 +16,14 @@ class ManageClients extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
+    public ?User $auth;
+
     public ?User $user;
 
     public function mount(UserService $userService): void
     {
-        $this->user = $userService->profile();
+        $this->auth = Auth::user();
+        $this->user = $userService->profile($this->auth);
     }
 
     public function render(): View

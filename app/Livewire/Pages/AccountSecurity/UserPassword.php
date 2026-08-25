@@ -6,6 +6,7 @@ use App\Livewire\Forms\PasswordForm;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Features;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
@@ -14,6 +15,8 @@ use Livewire\Component;
 #[Layout('layouts::app', ['title' => 'Account Security'])]
 class UserPassword extends Component
 {
+    public ?User $auth;
+
     public ?User $user;
 
     public PasswordForm $passwordForm;
@@ -23,7 +26,8 @@ class UserPassword extends Component
 
     public function mount(UserService $userService): void
     {
-        $this->user = $userService->profile();
+        $this->auth = Auth::user();
+        $this->user = $userService->profile($this->auth);
 
         $this->canManageTwoFactor = Features::canManageTwoFactorAuthentication();
     }

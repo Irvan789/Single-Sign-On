@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -19,6 +20,8 @@ class Profile extends Component
 {
     use PasswordValidationRules, ProfileValidationRules;
 
+    public ?User $auth;
+
     public ?User $user;
 
     public ProfileForm $profileForm;
@@ -27,7 +30,8 @@ class Profile extends Component
 
     public function mount(UserService $userService): void
     {
-        $this->user = $userService->profile();
+        $this->auth = Auth::user();
+        $this->user = $userService->profile($this->auth);
 
         $this->profileForm->set($this->user);
     }
@@ -87,6 +91,6 @@ class Profile extends Component
 
         $this->reset('password');
 
-        $userService->delete($logout);
+        $userService->delete($this->auth, $logout);
     }
 }

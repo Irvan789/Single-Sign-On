@@ -6,6 +6,7 @@ use App\Livewire\Forms\PassportClientForm;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Client;
 use Laravel\Passport\Passport;
 use Laravel\Passport\Token;
@@ -15,6 +16,8 @@ use Livewire\Component;
 #[Layout('layouts::app', ['title' => 'Update OAuth Client'])]
 class UpdateClients extends Component
 {
+    public ?User $auth;
+
     public ?User $user;
 
     public ?Client $client;
@@ -23,7 +26,8 @@ class UpdateClients extends Component
 
     public function mount(string $id, UserService $userService): void
     {
-        $this->user = $userService->profile();
+        $this->auth = Auth::user();
+        $this->user = $userService->profile($this->auth);
 
         $this->client = $this->user->oauthApps()->findOrFail($id);
 

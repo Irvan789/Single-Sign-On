@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Features;
 use Livewire\Attributes\Computed;
@@ -20,6 +21,8 @@ use Livewire\Component;
 class UpdateAccounts extends Component
 {
     use PasswordValidationRules, ProfileValidationRules;
+
+    public ?User $auth;
 
     public ?User $user;
 
@@ -35,9 +38,10 @@ class UpdateAccounts extends Component
 
     public function mount(string $id, UserService $userService): void
     {
+        $this->auth = Auth::user();
         $this->user = $userService->findById($id);
 
-        if ($this->user->id == $userService->profile()->id) {
+        if ($this->user->id == $userService->profile($this->auth)->id) {
             $this->redirectRoute('profile', navigate: true);
 
             return;

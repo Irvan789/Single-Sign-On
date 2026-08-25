@@ -6,26 +6,22 @@ use App\Livewire\Actions\Logout;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
     public function __construct(
-        protected ?User $user,
         protected UserRepository $userRepository
-    ) {
-        $this->user = Auth::user();
+    ) {}
+
+    public function profile(User $user): User
+    {
+        return $user->load('socials')
+            ->setRelation('socials', $user->socials->keyBy('provider'));
     }
 
-    public function profile(): User
+    public function findAll(User $user, string $search): LengthAwarePaginator
     {
-        return $this->user->load('socials')
-            ->setRelation('socials', $this->user->socials->keyBy('provider'));
-    }
-
-    public function findAll(string $search): LengthAwarePaginator
-    {
-        return $this->userRepository->findAll($this->user->id, $search);
+        return $this->userRepository->findAll($user->id, $search);
     }
 
     public function findById(string $id): User
@@ -47,10 +43,10 @@ class UserService
         $this->userRepository->updateById($id, $data);
     }
 
-    public function delete(Logout $logout): void
+    public function delete(User $user, Logout $logout): void
     {
         /** @var User $user */
-        $user = tap($this->user, $logout(...));
+        $user = tap($user, $logout(...));
         $this->userRepository->delete($user);
     }
 
