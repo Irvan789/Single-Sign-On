@@ -6,7 +6,7 @@
 </head>
 
 <body
-    class="overflow-hidden bg-[#f4eee2] bg-size-[4rem] bg-fixed bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-no-repeat text-[#544636] antialiased"
+    class="overflow-hidden bg-[#f7f2ea] bg-size-[4rem] bg-fixed bg-position-[calc(100%-0.5rem)_calc(100%-0.5rem)] bg-no-repeat text-[#544636] antialiased"
     style="background-image: url('{{ asset('assets/images/background/perlica-v2.webp') }}')"
 >
     <x-toastify />

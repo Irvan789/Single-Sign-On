@@ -7,7 +7,7 @@
             <div class="flex flex-col items-center gap-2">
                 <img
                     src="{{ $user->avatar }}?size=128&r=g&d=mp"
-                    class="size-28 rounded-full border-4 border-[#c9b896]/25"
+                    class="size-28 rounded-full border-2 border-[#c9b896]/25"
                 />
 
                 <a
