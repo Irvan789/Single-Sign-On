@@ -24,8 +24,10 @@ class SocialiteController extends Controller
     {
         $isFromProfile = $request->header('referer') == route('profile');
 
+        $passportAuthorizations = strtok(session()->get('url.intended'), '?') == route('passport.authorizations.authorize');
+
         session()->put('url.intended',
-            session()->has('url.intended') && session()->get('url.intended') == route('passport.authorizations.authorize')
+            session()->has('url.intended') && $passportAuthorizations
                ? session()->get('url.intended')
                : route($isFromProfile ? 'profile' : 'home')
         );
