@@ -1,6 +1,15 @@
 version: 2
+
+multi-ecosystem-groups:
+    infrastructure:
+        schedule:
+            interval: "friday"
+
 updates:
-  - package-ecosystem: "composer"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+    - package-ecosystem: "composer"
+      directory: "/"
+      multi-ecosystem-group: "infrastructure"
+
+    - package-ecosystem: "bun"
+      directory: "/"
+      multi-ecosystem-group: "infrastructure"
