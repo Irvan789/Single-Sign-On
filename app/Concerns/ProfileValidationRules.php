@@ -26,8 +26,8 @@ trait ProfileValidationRules
     protected function profileRulesErrorMessages(): array
     {
         return [
-            'name.regex' => 'The name field must only contain letters, numbers, underscores, hyphens, and spaces.',
-            'username.regex' => 'The username field must only contain letters, numbers, and underscores.',
+            'name.regex' => 'The name field must only contain letters, numbers, and spaces.',
+            'username.regex' => 'The username field must only contain lowercase letters, numbers, and underscores.',
         ];
     }
 
@@ -36,7 +36,7 @@ trait ProfileValidationRules
      */
     protected function nameRules(): array
     {
-        return ['required', 'string', 'regex:/^[a-zA-Z0-9_\-\s]+$/', 'max:50'];
+        return ['required', 'string', 'regex:/^[\pL\d\s]+$/u', 'max:50'];
     }
 
     /**
@@ -48,7 +48,7 @@ trait ProfileValidationRules
             'required',
             'string',
             'lowercase',
-            'regex:/^[a-z0-9_]+$/',
+            'regex:/^[a-z\d_]+$/',
             'max:50',
             $userId === null
                 ? Rule::unique(User::class)
