@@ -8,8 +8,12 @@ multi-ecosystem-groups:
 updates:
     - package-ecosystem: "composer"
       directory: "/"
+      patterns:
+          - "*"
       multi-ecosystem-group: "infrastructure"
 
     - package-ecosystem: "bun"
       directory: "/"
+      patterns:
+          - "*"
       multi-ecosystem-group: "infrastructure"
