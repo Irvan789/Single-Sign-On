@@ -36,6 +36,7 @@
                     method="POST"
                     action="{{ route('passport.authorizations.deny') }}"
                     class="contents"
+                    onsubmit="disableButtonOnSubmit()"
                 >
                     @csrf
                     @method('DELETE')
@@ -70,6 +71,7 @@
                     method="POST"
                     action="{{ route('passport.authorizations.approve') }}"
                     class="contents"
+                    onsubmit="disableButtonOnSubmit()"
                 >
                     @csrf
 
@@ -124,3 +126,12 @@
         </span>
     </div>
 </x-layouts::auth>
+
+<script lang="js">
+    function disableButtonOnSubmit() {
+        document.querySelectorAll('form').forEach((form) => {
+            const button = form.querySelector('button[type=submit]')
+            button.disabled = true
+        })
+    }
+</script>
