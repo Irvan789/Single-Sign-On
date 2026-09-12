@@ -15,6 +15,7 @@ on:
         branches:
             - main
         paths-ignore:
+            - "workflows/dependabot.yml"
             - ".env.example"
             - ".prettierrc"
             - "README.md"

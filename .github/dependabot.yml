@@ -1,17 +1,12 @@
 version: 2
 
-multi-ecosystem-groups:
-    infrastructure:
-        schedule:
-            interval: "friday"
-
 updates:
     - package-ecosystem: "composer"
       directory: "/"
-      patterns: ["*"]
-      multi-ecosystem-group: "infrastructure"
+      schedule:
+          interval: "friday"
 
     - package-ecosystem: "bun"
       directory: "/"
-      patterns: ["*"]
-      multi-ecosystem-group: "infrastructure"
+      schedule:
+          interval: "friday"
