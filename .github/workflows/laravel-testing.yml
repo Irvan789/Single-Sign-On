@@ -1,8 +1,5 @@
-name: Testing & Deploy Application
+name: Testing Application
 env:
-    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     DB_CONNECTION: pgsql
     DB_HOST: localhost
     DB_PORT: 5432
@@ -14,6 +11,14 @@ on:
     push:
         branches:
             - main
+        paths-ignore:
+            - ".github/dependabot.yml"
+            - ".env.example"
+            - ".prettierrc"
+            - "README.md"
+    pull_request:
+        branches:
+            - development
         paths-ignore:
             - ".github/dependabot.yml"
             - ".env.example"
@@ -81,26 +86,3 @@ jobs:
 
             - name: Test with Pest
               run: php artisan test --ci --parallel
-
-    Deploy-Application:
-        needs: Testing-Application
-
-        name: Deploy Application
-        runs-on: ubuntu-latest
-
-        steps:
-            - uses: actions/checkout@v6
-
-            - name: Setup Bun
-              uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: "latest"
-
-            - name: Install Vercel CLI
-              run: bun add -g vercel@latest
-
-            - name: Pull Vercel Environment Information
-              run: vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
-
-            - name: Deploy Project to Vercel
-              run: vercel deploy --prod --token=${{ env.VERCEL_TOKEN }}
