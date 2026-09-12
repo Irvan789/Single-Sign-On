@@ -7,9 +7,9 @@ updates:
           interval: "weekly"
           day: "friday"
       groups:
-      all-dependencies:
-          patterns:
-              - "*"
+          all-dependencies:
+              patterns:
+                  - "*"
 
     - package-ecosystem: "bun"
       directory: "/"
@@ -17,6 +17,6 @@ updates:
           interval: "weekly"
           day: "friday"
       groups:
-      all-dependencies:
-          patterns:
-              - "*"
+          all-dependencies:
+              patterns:
+                  - "*"
