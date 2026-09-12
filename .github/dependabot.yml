@@ -5,14 +5,16 @@ multi-ecosystem-groups:
         schedule:
             interval: "weekly"
             day: "friday"
-        patterns:
-            - "*"
 
 updates:
     - package-ecosystem: "composer"
       directory: "/"
+      patterns:
+          - "*"
       multi-ecosystem-group: "all-dependencies-group"
 
     - package-ecosystem: "bun"
       directory: "/"
+      patterns:
+          - "*"
       multi-ecosystem-group: "all-dependencies-group"
