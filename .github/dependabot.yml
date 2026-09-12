@@ -2,10 +2,12 @@ version: 2
 
 multi-ecosystem-groups:
     all-dependencies-group:
-        target-branch: "development"
         schedule:
             interval: "weekly"
             day: "friday"
+        target-branch: "development"
+        labels:
+            - "dependencies"
 
 updates:
     - package-ecosystem: "composer"
