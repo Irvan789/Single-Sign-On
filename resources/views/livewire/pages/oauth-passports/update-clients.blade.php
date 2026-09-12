@@ -23,6 +23,7 @@
                             <x-input-text
                                 label="Callback URL's"
                                 type="url"
+                                class="pr-11.5"
                                 x-model="callbacks[i]"
                                 x-on:change="
                                     $wire.passportClientForm.callbacks[i] = $event.target.value
