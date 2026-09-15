@@ -10,7 +10,7 @@ env:
 on:
     pull_request:
         branches:
-            - development
+            - main
         paths-ignore:
             - ".github/dependabot.yml"
             - ".env.example"

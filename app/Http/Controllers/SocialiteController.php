@@ -9,6 +9,7 @@ use App\Services\UserService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class SocialiteController extends Controller
 {
@@ -24,10 +25,10 @@ class SocialiteController extends Controller
     {
         $isFromProfile = $request->header('referer') == route('profile');
 
-        $passportAuthorizations = strtok(session()->get('url.intended'), '?') == route('passport.authorizations.authorize');
+        $passportAuthorizations = strcasecmp(strtok(session()->get('url.intended'), '?'), route('passport.authorizations.authorize'));
 
         session()->put('url.intended',
-            session()->has('url.intended') && $passportAuthorizations
+            session()->has('url.intended') && $passportAuthorizations === 0
                ? session()->get('url.intended')
                : route($isFromProfile ? 'profile' : 'home')
         );
@@ -55,6 +56,8 @@ class SocialiteController extends Controller
     private function redirectBack(): RedirectResponse
     {
         $intended = session()->get('url.intended');
+
+        Log::info('Social Redirect Back: '.session()->get('url.intended'));
 
         if ($intended) {
             session()->flush();
