@@ -9,7 +9,6 @@ use App\Services\UserService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class SocialiteController extends Controller
 {
@@ -56,8 +55,6 @@ class SocialiteController extends Controller
     private function redirectBack(): RedirectResponse
     {
         $intended = session()->get('url.intended');
-
-        Log::info('Social Redirect Back: '.session()->get('url.intended'));
 
         if ($intended) {
             session()->flush();
