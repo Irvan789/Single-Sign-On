@@ -102,7 +102,7 @@
         variant="danger"
         title="Delete Account"
         description="Warning: All your data will be deleted immediately."
-        class="flex flex-col justify-between sm:flex-row sm:items-center"
+        class="justify-between sm:flex-row sm:items-center"
     >
         <x-button
             variant="danger"

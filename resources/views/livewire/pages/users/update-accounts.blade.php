@@ -107,7 +107,7 @@
             variant="danger"
             title="Disable Two-Factor Authentication"
             description="When you disable two-factor authentication, this user will be never prompted again for entering authentication code."
-            class="flex flex-col justify-between sm:flex-row sm:items-center"
+            class="justify-between sm:flex-row sm:items-center"
         >
             <x-button
                 variant="danger"
@@ -125,7 +125,7 @@
         variant="danger"
         title="Delete Account"
         description="Warning: All user data will be deleted immediately."
-        class="flex flex-col justify-between sm:flex-row sm:items-center"
+        class="justify-between sm:flex-row sm:items-center"
     >
         <x-button
             variant="danger"
