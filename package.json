@@ -15,7 +15,7 @@
         "ofetch": "^1.5.1",
         "overlayscrollbars": "^2.16.0",
         "tailwindcss": "^4.3.3",
-        "vite": "^8.2.2"
+        "vite": "^8.3.0"
     },
     "devDependencies": {
         "@iconify-json/heroicons": "^1.2.3",
@@ -23,15 +23,15 @@
         "@iconify-json/tabler": "^1.2.38",
         "@iconify-json/uil": "^1.2.3",
         "@iconify-json/weui": "^1.2.4",
-        "@types/node": "^26.4.1",
+        "@types/node": "^26.6.0",
         "playwright": "^1.63.0",
         "prettier": "^3.9.6",
-        "prettier-plugin-blade": "^3.3.2",
+        "prettier-plugin-blade": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.8.1",
         "typescript": "^7.0.2"
     },
     "optionalDependencies": {
-        "@rollup/rollup-linux-x64-gnu": "4.9.5",
+        "@rollup/rollup-linux-x64-gnu": "4.63.3",
         "@tailwindcss/oxide-linux-x64-gnu": "^4.0.1",
         "lightningcss-linux-x64-gnu": "^1.29.1"
     }
