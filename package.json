@@ -20,18 +20,18 @@
     "devDependencies": {
         "@iconify-json/heroicons": "^1.2.3",
         "@iconify-json/mingcute": "^1.2.8",
-        "@iconify-json/tabler": "^1.2.38",
+        "@iconify-json/tabler": "^1.2.39",
         "@iconify-json/uil": "^1.2.3",
         "@iconify-json/weui": "^1.2.4",
-        "@types/node": "^26.6.0",
+        "@types/node": "^26.6.2",
         "playwright": "^1.63.0",
-        "prettier": "^3.9.6",
+        "prettier": "^3.9.8",
         "prettier-plugin-blade": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.8.1",
         "typescript": "^7.0.2"
     },
     "optionalDependencies": {
-        "@rollup/rollup-linux-x64-gnu": "4.63.3",
+        "@rollup/rollup-linux-x64-gnu": "4.63.4",
         "@tailwindcss/oxide-linux-x64-gnu": "^4.0.1",
         "lightningcss-linux-x64-gnu": "^1.29.1"
     }
